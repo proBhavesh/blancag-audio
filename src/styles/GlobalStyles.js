@@ -21,7 +21,7 @@ export const GlobalStyles = createGlobalStyle`
     font-family: 'DIN Next Light', sans-serif;
     text-align: center;
 
-    padding: 2rem;
+    padding: 2.25rem;
   }
 
   h1,h2,h3 {

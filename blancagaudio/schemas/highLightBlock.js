@@ -21,7 +21,7 @@ const highlightBlock = {
         decorators: [
           {
             title: 'Highlight',
-            value: 'highlight',
+            value: 'highlighted',
             blockEditor: {
               icon: highlightIcon,
               render: highlightRender,

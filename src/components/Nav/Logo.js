@@ -7,7 +7,7 @@ import { urlFor } from '../../helpers/ImageUrlGetter';
 
 const LogoDiv = styled.div`
   width: ${(props) => props.textLogoSizes.desktop}%;
-  margin: 0 auto 1.5rem;
+  margin: 0 auto 1.75rem;
 
   @media (max-width: 768px) {
     width: 75%;
