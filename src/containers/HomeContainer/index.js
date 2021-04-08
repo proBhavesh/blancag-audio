@@ -5,6 +5,7 @@ import { client as sanity } from '../../sanityClient';
 
 import Hero from '../../components/HomePageComponents/Hero/Hero';
 import About from '../../components/HomePageComponents/About/About';
+import Skills from '../../components/HomePageComponents/Skills/Skills';
 
 export const HomePageData = React.createContext({
   hero: {
@@ -33,6 +34,26 @@ export const HomePageData = React.createContext({
         mobile: null,
       },
       paraWidth: null,
+    },
+  },
+  skills: {
+    toolsPics: [],
+    skillsContent: [],
+    sizes: {
+      imageSizes: {
+        desktop: null,
+        mobile: null,
+      },
+      titleSizes: {
+        desktop: null,
+        mobile: null,
+      },
+      contentSizes: {
+        desktop: null,
+        mobile: null,
+        width: null,
+      },
+      gap: null,
     },
   },
 });
@@ -71,6 +92,30 @@ const HomePage = ({ location }) => {
         },
         'paraWidth': aboutSection_size_mobile
       }`),
+      // -- SKILLS
+      sanity.fetch(`*[_type == 'homePagePics'][0].toolsPics`),
+      sanity.fetch(`*[_type == 'skillsSection']{
+        'image': skillImage,
+        'title': title,
+        'text': skillText,
+        _createdAt
+      } | order(_createdAt asc)`),
+      sanity.fetch(`*[_type == 'homePageSizes'][0]{
+        'imageSizes': {
+          'desktop': skillImage_size_desktop,
+          'mobile': skillImage_size_mobile,
+        },
+        'titleSizes': {
+          'desktop': skillTitle_fontSize_desktop,
+          'mobile': skillTitle_fontSize_mobile,
+        },
+        'contentSizes': {
+          'desktop': skillContent_fontSize_desktop,
+          'mobile': skillContent_fontSize_mobile,
+          'width': skillSection_size_mobile
+        },
+        'gap': skillCard_gaps
+      }`),
     ]).then((res) => {
       setData({
         hero: {
@@ -83,6 +128,11 @@ const HomePage = ({ location }) => {
           content: res[4],
           pic: res[5],
           sizes: res[6],
+        },
+        skills: {
+          toolsPics: res[7],
+          skillsContent: res[8],
+          sizes: res[9],
         },
       });
       setIsLoading(false);
@@ -97,6 +147,7 @@ const HomePage = ({ location }) => {
           <HomePageData.Provider value={data}>
             <Hero />
             <About />
+            <Skills />
           </HomePageData.Provider>
         </>
       )}
