@@ -13,7 +13,7 @@ const SkillCardDiv = styled.div`
   @media (min-width: 768px) {
     &:nth-of-type(1),
     &:nth-of-type(3) {
-      margin-top: -2.5rem;
+      margin-top: -2rem;
     }
   }
 `;

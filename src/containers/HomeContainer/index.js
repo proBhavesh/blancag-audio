@@ -6,6 +6,7 @@ import { client as sanity } from '../../sanityClient';
 import Hero from '../../components/HomePageComponents/Hero/Hero';
 import About from '../../components/HomePageComponents/About/About';
 import Skills from '../../components/HomePageComponents/Skills/Skills';
+import Contact from '../../components/HomePageComponents/Contact/Contact';
 
 export const HomePageData = React.createContext({
   hero: {
@@ -148,6 +149,7 @@ const HomePage = ({ location }) => {
             <Hero />
             <About />
             <Skills />
+            <Contact />
           </HomePageData.Provider>
         </>
       )}
