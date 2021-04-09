@@ -24,8 +24,16 @@ const A = styled.a`
   padding-top: ${(props) => (props.extra ? '1px' : '0')};
   transition: background-color 0.3s linear;
 
+  font-size: ${(props) => props.sizes.circleSizes.desktop * 0.65}px;
+
   &:hover {
     background-color: #bada55;
+  }
+
+  @media (max-width: 768px) {
+    width: ${(props) => props.sizes.circleSizes.mobile}px;
+    height: ${(props) => props.sizes.circleSizes.mobile}px;
+    font-size: ${(props) => props.sizes.circleSizes.mobile * 0.65}px;
   }
 `;
 

@@ -1,36 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { motion } from 'framer-motion';
+
 import Navbar from '../../components/Nav/NavBar';
 
-import { client as sanity } from '../../sanityClient';
+import { pageVariant } from '../../styles/motionVariants/pageVariant';
 
 const DemosPage = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [navBarData, setNavBarData] = useState({
-    textLogo: null,
-    textLogoSizes: {
-      desktop: null,
-      mobile: null,
-    },
-    navLinkFontSize: null,
-  });
-
-  useEffect(() => {
-    Promise.all([
-      sanity.fetch(`*[_type == 'navbar'][0]{
-      'textLogo': textLogo,
-      'textLogoSizes': {
-        'desktop': textLogo_size_desktop,
-        'mobile': textLogo_size_mobile
-      },
-      'navLinkFontSize': navLink_fontSize_mobile
-    }`),
-    ]).then((res) => {
-      setNavBarData(res[0]);
-      setIsLoading(false);
-    });
-  }, []);
-
-  return <>{!isLoading && <Navbar data={navBarData} />}</>;
+  return (
+    <motion.div
+      variants={pageVariant}
+      initial='hidden'
+      animate='visible'
+      exit='hidden'
+    >
+      <Navbar />
+      <h1>Demos</h1>
+    </motion.div>
+  );
 };
 
 export default DemosPage;
