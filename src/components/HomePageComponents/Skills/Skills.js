@@ -44,8 +44,8 @@ const Skills = () => {
           <h2>Skills</h2>
           <ToolsSlider />
           <SkillsGrid gap={gap}>
-            {skillsContent.map((skill) => (
-              <SkillCard skill={skill} />
+            {skillsContent.map((skill, i) => (
+              <SkillCard skill={skill} key={i} />
             ))}
           </SkillsGrid>
         </Container>

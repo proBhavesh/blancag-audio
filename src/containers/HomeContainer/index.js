@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+
 import Navbar from '../../components/Nav/NavBar';
+import Footer from '../../components/Footer/Footer';
 
 import { client as sanity } from '../../sanityClient';
 
@@ -142,17 +144,16 @@ const HomePage = ({ location }) => {
 
   return (
     <>
+      <Navbar />
       {!isLoading && (
-        <>
-          <Navbar />
-          <HomePageData.Provider value={data}>
-            <Hero />
-            <About />
-            <Skills />
-            <Contact />
-          </HomePageData.Provider>
-        </>
+        <HomePageData.Provider value={data}>
+          <Hero />
+          <About />
+          <Skills />
+          <Contact />
+        </HomePageData.Provider>
       )}
+      <Footer />
     </>
   );
 };
