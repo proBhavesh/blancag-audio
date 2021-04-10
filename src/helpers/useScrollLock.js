@@ -1,32 +1,33 @@
-import { useRef, useCallback } from 'react';
+import { useRef, useCallback, useEffect } from 'react';
 
 const useScrollLock = () => {
   const top = useRef(0);
 
-  const stopScroll = useCallback(() => {
-    top.current = window.scrollY;
-    document.body.setAttribute(
-      'style',
-      `
-      position: fixed;
-      top: -${top.current}px;
-      left: 0;
-      right: 0;
-    `
-    );
+  const getTop = useCallback((e) => {
+    top.current = e.target.scrollTop;
   }, []);
 
-  const resumeScroll = useCallback(() => {
-    document.body.setAttribute('style', '');
-    window.scrollTo({
-      top: top.current,
-      behavior: 'smooth',
-    });
-  }, []);
+  useEffect(() => {
+    document.querySelector('.content-div').addEventListener('scroll', getTop);
+  }, [getTop]);
+
+  const stopScroll = useCallback(
+    () =>
+      document
+        .querySelector('.content-div')
+        .setAttribute('style', 'overflow-y:hidden'),
+    []
+  );
+
+  const resumeScroll = useCallback(
+    () => document.querySelector('.content-div').setAttribute('style', ''),
+    []
+  );
 
   return {
     stopScroll: stopScroll,
     resumeScroll: resumeScroll,
+    top: top.current,
   };
 };
 

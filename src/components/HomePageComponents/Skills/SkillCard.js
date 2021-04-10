@@ -54,6 +54,8 @@ const SkillContent = styled.div`
     @media (max-width: 768px) {
       font-size: ${(props) => props.sizes.mobile}px;
       width: ${(props) => props.sizes.width}%;
+      margin-left: auto;
+      margin-right: auto;
     }
   }
 `;

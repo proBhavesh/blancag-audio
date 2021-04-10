@@ -11,7 +11,7 @@ export const GlobalStyles = createGlobalStyle`
     font-size: 17px;
     height: 100%;
     width: 100%;
-    overflow-x: hidden;
+    overflow: hidden;
     position: relative;
   }
 
@@ -21,7 +21,15 @@ export const GlobalStyles = createGlobalStyle`
     font-family: 'DIN Next Light', sans-serif;
     text-align: center;
 
-    padding: 2.25rem;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
   }
 
   h1,h2,h3 {
@@ -41,4 +49,31 @@ export const GlobalStyles = createGlobalStyle`
   p {
     line-height: 1.5em;
   }
+
+  /* -- SCROLLBARS */
+  /* html {
+    scrollbar-width: thin;
+    scrollbar-color: transparent #00000040;
+    overflow-y: overlay;
+  }
+
+  ::-webkit-scrollbar {
+    appearance: none;
+    width: 8px;
+
+    @media (max-width: 768px) {
+      width: 4px;
+    }
+  }
+
+  ::-webkit-scrollbar-track{
+    background-color:transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #bada55;
+    border-radius: 2rem;
+    border: 1px solid #a0a0a033;
+    z-index: 10000;
+  } */
 `;

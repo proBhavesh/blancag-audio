@@ -24,6 +24,8 @@ const SkillsGrid = styled.div`
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
     margin: 2rem auto;
+    column-gap: 0;
+    grid-auto-rows: auto;
     row-gap: 2rem;
     width: 100%;
   }

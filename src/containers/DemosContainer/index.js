@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
+import ContentDiv from '../../hoc/ContentDiv';
 import Navbar from '../../components/Nav/NavBar';
 
 import { pageVariant } from '../../styles/motionVariants/pageVariant';
@@ -13,8 +14,9 @@ const DemosPage = () => {
       animate='visible'
       exit='hidden'
     >
-      <Navbar />
-      <h1>Demos</h1>
+      <ContentDiv>
+        <Navbar />
+      </ContentDiv>
     </motion.div>
   );
 };

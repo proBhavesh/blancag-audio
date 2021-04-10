@@ -85,11 +85,11 @@ const MenuButton = styled.button`
 `;
 
 const MenuDiv = styled.div`
-  position: fixed;
+  position: absolute;
   top: 0;
-  left: 0;
+  left: -2rem;
 
-  width: 100%;
+  width: calc(100% + 4rem);
   height: 100vh;
 
   background-color: #000;

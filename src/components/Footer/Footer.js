@@ -30,11 +30,13 @@ const Footer = () => {
   const linksArray = Object.keys(links);
 
   return (
-    <FooterDiv gap={gap}>
-      {linksArray.map((link, i) => (
-        <SocialLink key={i} url={links[link]} type={link} />
-      ))}
-    </FooterDiv>
+    <>
+      <FooterDiv gap={gap}>
+        {linksArray.map((link, i) => (
+          <SocialLink key={i} url={links[link]} type={link} />
+        ))}
+      </FooterDiv>
+    </>
   );
 };
 

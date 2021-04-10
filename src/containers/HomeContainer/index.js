@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
+import ContentDiv from '../../hoc/ContentDiv';
 import Navbar from '../../components/Nav/NavBar';
 import Footer from '../../components/Footer/Footer';
+import BlurDiv from '../../hoc/BlurDiv';
+import BackDrop from '../../components/BackDrop';
 
 import { client as sanity } from '../../sanityClient';
 import { pageVariant } from '../../styles/motionVariants/pageVariant';
@@ -68,6 +71,7 @@ const HomePage = ({ location }) => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     Promise.all([
@@ -152,15 +156,21 @@ const HomePage = ({ location }) => {
         animate='visible'
         exit='hidden'
       >
-        <Navbar />
-        <HomePageData.Provider value={data}>
-          <Hero />
-          <About />
-          <Skills />
-          <Contact />
-        </HomePageData.Provider>
-
-        <Footer />
+        <ContentDiv>
+          <BlurDiv blur={isOpen}>
+            <Navbar />
+            <HomePageData.Provider value={data}>
+              <Hero />
+              <About />
+              <button onClick={() => setIsOpen((prev) => !prev)}>Open</button>
+              <Skills />
+              <Contact />
+            </HomePageData.Provider>
+            <Footer />
+            <button onClick={() => setIsOpen((prev) => !prev)}>Open</button>
+          </BlurDiv>
+          <BackDrop isOpen={isOpen} setIsOpen={setIsOpen} />
+        </ContentDiv>
       </motion.div>
     )
   );
