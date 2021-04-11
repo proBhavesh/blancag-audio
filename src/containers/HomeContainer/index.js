@@ -162,7 +162,6 @@ const HomePage = ({ location }) => {
             <HomePageData.Provider value={data}>
               <Hero />
               <About />
-              <button onClick={() => setIsOpen((prev) => !prev)}>Open</button>
               <Skills />
               <Contact />
             </HomePageData.Provider>

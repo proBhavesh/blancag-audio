@@ -9,6 +9,9 @@ const ContentDiv = styled.div`
   height: 100%;
 
   padding: 2rem;
+  @media (max-width: 768px) {
+    padding: 2rem 1.25rem;
+  }
 
   scrollbar-width: thin;
   scrollbar-color: transparent #bada55bf;

@@ -13,7 +13,9 @@ import {
   faTextWidth,
   faEllipsisH,
   faAtom,
+  faFilm,
 } from '@fortawesome/free-solid-svg-icons';
+import { faVimeo } from '@fortawesome/free-brands-svg-icons';
 
 const HomeIcon = () => <FontAwesomeIcon icon={faHome} />;
 const ContentIcon = () => <FontAwesomeIcon icon={faAlignJustify} />;
@@ -22,10 +24,14 @@ const TextIcon = () => <FontAwesomeIcon icon={faFont} />;
 const VideoIcon = () => <FontAwesomeIcon icon={faVideo} />;
 const ImageIcon = () => <FontAwesomeIcon icon={faImage} />;
 const SkillsIcon = () => <FontAwesomeIcon icon={faTools} />;
+
 const CommonIcon = () => <FontAwesomeIcon icon={faComments} />;
 const NavBarIcon = () => <FontAwesomeIcon icon={faEllipsisH} />;
 const FxIcon = () => <FontAwesomeIcon icon={faAtom} />;
+
 const SocialIcon = () => <FontAwesomeIcon icon={faShareAlt} />;
+const DemosIcon = () => <FontAwesomeIcon icon={faFilm} />;
+const VimeoIcon = () => <FontAwesomeIcon icon={faVimeo} />;
 
 const exportFunc = () =>
   S.list()
@@ -95,6 +101,24 @@ const exportFunc = () =>
             ])
         ),
       S.listItem()
+        .title('Demos Page')
+        .icon(DemosIcon)
+        .child(
+          S.list()
+            .title('Demos Page')
+            .items([
+              S.listItem()
+                .title('Demos Page Video Links')
+                .icon(VimeoIcon)
+                .child(
+                  S.document()
+                    .title('All the links to videos on demos page')
+                    .schemaType('demosPageVidLinks')
+                    .documentId('demosPageVidLinks')
+                ),
+            ])
+        ),
+      S.listItem()
         .title('Common Stuff (across pages)')
         .icon(CommonIcon)
         .child(
@@ -142,6 +166,8 @@ const exportFunc = () =>
             'homePageVid',
             'homePagePics',
             'skillsSection',
+
+            'demosPageVidLinks',
           ].includes(listItem.getId())
       ),
     ]);

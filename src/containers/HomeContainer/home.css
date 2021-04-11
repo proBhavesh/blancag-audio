@@ -1,8 +1,0 @@
-.home-content-enter {
-  opacity: 0;
-}
-
-.home-content-enter-active {
-  opacity: 1;
-  transition: opacity 1s ease;
-}

@@ -14,8 +14,9 @@ import homePageText from './homePage/homePageText';
 import homePageVid from './homePage/homePageVid';
 import homePagePics from './homePage/homePagePics';
 import homePageSizes from './homePage/homePageSizes';
-
 import skillsSection from './homePage/skillsSection';
+
+import demosPageVidLinks from './demosPage/demosPageVidLinks';
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -37,5 +38,7 @@ export default createSchema({
     homePagePics,
     homePageSizes,
     skillsSection,
+
+    demosPageVidLinks,
   ]),
 });
