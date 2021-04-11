@@ -6,7 +6,7 @@ import { HomePageData } from '../../../containers/HomeContainer/index';
 import { urlFor } from '../../../helpers/ImageUrlGetter';
 
 const PicDiv = styled.div`
-  margin: 2rem auto;
+  margin: 2.25rem auto;
   width: ${(props) => props.width.desktop}%;
 
   @media (max-width: 768px) {

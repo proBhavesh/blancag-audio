@@ -1,12 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import emailjs from 'emailjs-com';
+
+import { HomePageData } from '../../../containers/HomeContainer/index';
 
 import HR from '../../HR';
 import { Container } from '../../../hoc/Container';
 
 const ContactDiv = styled.div`
   margin: 2rem auto;
+
+  h2 {
+    font-size: ${(props) => props.sizes.desktop}px;
+
+    @media (max-width: 768px) {
+      font-size: ${(props) => props.sizes.mobile}px;
+    }
+  }
 `;
 
 const Form = styled.form`
@@ -73,6 +83,8 @@ const Button = styled.button`
   grid-area: c;
   margin: 0.5rem 0 0;
   transform: translatex(-10px);
+  font: inherit;
+  font-weight: bold;
 
   @media (max-width: 768px) {
     margin: 0;
@@ -107,6 +119,8 @@ const Contact = () => {
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
 
+  const { titleSizes } = useContext(HomePageData);
+
   const sendEmail = (e) => {
     e.preventDefault();
     const {
@@ -139,7 +153,7 @@ const Contact = () => {
   return (
     <>
       <Container>
-        <ContactDiv>
+        <ContactDiv sizes={titleSizes}>
           <h2>Contact</h2>
           <Form onSubmit={(e) => sendEmail(e)}>
             <InputDiv>

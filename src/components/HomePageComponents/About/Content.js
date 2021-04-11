@@ -5,10 +5,10 @@ import BlockContent from '@sanity/block-content-to-react';
 import { HomePageData } from '../../../containers/HomeContainer/index';
 
 const ContentDiv = styled.div`
-  margin: 1.75rem auto;
+  margin: 1rem auto 2.25rem;
 
   p {
-    margin: 0 auto 1.25em;
+    margin: 0 auto 1em;
     width: 100%;
     max-width: 550px;
 

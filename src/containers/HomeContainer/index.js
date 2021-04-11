@@ -64,6 +64,10 @@ export const HomePageData = React.createContext({
       gap: null,
     },
   },
+  titleSizes: {
+    desktop: null,
+    mobile: null,
+  },
 });
 
 const HomePage = ({ location }) => {
@@ -125,6 +129,11 @@ const HomePage = ({ location }) => {
         },
         'gap': skillCard_gaps
       }`),
+      // -- TITLE SIZES
+      sanity.fetch(`*[_type == 'homePageSizes'][0]{
+        'desktop': sectionTitle_fontSize_desktop,
+        'mobile': sectionTitle_fontSize_mobile
+      }`),
     ]).then((res) => {
       setData({
         hero: {
@@ -143,6 +152,7 @@ const HomePage = ({ location }) => {
           skillsContent: res[8],
           sizes: res[9],
         },
+        titleSizes: res[10],
       });
       setIsLoading(false);
     });

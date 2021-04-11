@@ -10,6 +10,14 @@ import { Container } from '../../../hoc/Container';
 
 const SkillsDiv = styled.div`
   margin: 2rem auto;
+
+  h2 {
+    font-size: ${(props) => props.sizes.desktop}px;
+
+    @media (max-width: 768px) {
+      font-size: ${(props) => props.sizes.mobile}px;
+    }
+  }
 `;
 
 const SkillsGrid = styled.div`
@@ -37,11 +45,12 @@ const Skills = () => {
       skillsContent,
       sizes: { gap },
     },
+    titleSizes,
   } = useContext(HomePageData);
 
   return (
     <>
-      <SkillsDiv>
+      <SkillsDiv sizes={titleSizes}>
         <Container>
           <h2>Skills</h2>
           <ToolsSlider />

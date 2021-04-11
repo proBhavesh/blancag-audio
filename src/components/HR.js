@@ -9,6 +9,10 @@ const HRStyled = styled.hr`
 
   width: 100vw;
   transform: translateX(-2rem);
+
+  @media (max-width: 768px) {
+    transform: translateX(-1.25rem);
+  }
 `;
 
 const HR = () => {
