@@ -3,6 +3,8 @@ import styled from 'styled-components';
 
 import { DemosPageData } from '../../../containers/DemosContainer/index';
 
+import { secondsToMinute } from '../../../helpers/SecondsToMinutes';
+
 const ThumbnailDiv = styled.div`
   position: relative;
   color: #fff;
@@ -76,14 +78,6 @@ const IconDiv = styled.div`
 const VidLight = ({ details }) => {
   const { title, thumbnail_url, duration, video_id } = details;
   const { activeVid_id, setActiveVid_id } = useContext(DemosPageData);
-
-  const secondsToMinute = (seconds) => {
-    const remainder = seconds % 60;
-    const perfectMinutes = Math.floor(seconds / 60);
-    return `${perfectMinutes < 10 ? '0' + perfectMinutes : perfectMinutes}:${
-      remainder < 10 ? '0' + remainder : remainder
-    }`;
-  };
 
   return (
     <ThumbnailDiv>

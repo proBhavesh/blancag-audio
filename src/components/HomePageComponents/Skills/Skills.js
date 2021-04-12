@@ -52,7 +52,7 @@ const Skills = () => {
     <>
       <SkillsDiv sizes={titleSizes}>
         <Container>
-          <h2>Skills</h2>
+          <h2>Skills + Tools</h2>
           <ToolsSlider />
           <SkillsGrid gap={gap}>
             {skillsContent.map((skill, i) => (
