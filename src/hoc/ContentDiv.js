@@ -32,9 +32,9 @@ const ContentDiv = styled.div`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: #bada55bf;
+    background-color: #00000080;
     border-radius: 2rem;
-    /* border: 1px solid #a0a0a033; */
+    border: 1px solid #a0a0a080;
     z-index: 10000;
   }
 `;

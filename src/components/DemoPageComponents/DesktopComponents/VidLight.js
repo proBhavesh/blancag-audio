@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 
-import { DemosPageData } from '../../containers/DemosContainer/index';
+import { DemosPageData } from '../../../containers/DemosContainer/index';
 
 const ThumbnailDiv = styled.div`
   position: relative;

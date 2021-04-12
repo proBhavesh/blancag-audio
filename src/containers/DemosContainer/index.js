@@ -5,13 +5,21 @@ import Slider from 'react-slick';
 import '../../../node_modules/slick-carousel/slick/slick.css';
 import '../../../node_modules/slick-carousel/slick/slick-theme.css';
 
+import {
+  SampleNextArrow,
+  SamplePrevArrow,
+} from '../../components/DemoPageComponents/SliderArrow';
+
 import ContentDiv from '../../hoc/ContentDiv';
 import Navbar from '../../components/Nav/NavBar';
+import HR from '../../components/HR';
+import Footer from '../../components/Footer/Footer';
 
 import { client as sanity } from '../../sanityClient';
 import { pageVariant } from '../../styles/motionVariants/pageVariant';
 
-import VidLight from '../../components/DemoPageComponents/VidLight';
+import VidPlayer from '../../components/DemoPageComponents/DesktopComponents/VidPlayer';
+import VidLight from '../../components/DemoPageComponents/DesktopComponents/VidLight';
 
 export const DemosPageData = React.createContext({
   videos: [],
@@ -22,84 +30,10 @@ export const DemosPageData = React.createContext({
 const ContainerDiv = styled.div`
   width: 100%;
   max-width: 800px;
-  margin: 0 auto;
+  margin: 3rem auto;
 
   font-family: 'Open Sans', sans-serif;
 `;
-
-const IconDiv = styled.div`
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-
-  cursor: pointer;
-
-  width: 2rem;
-  height: 2rem;
-
-  &:first-of-type {
-    left: -2.5rem;
-  }
-
-  &:last-of-type {
-    right: -2.5rem;
-  }
-
-  svg {
-    fill: #a6a6a6;
-    height: 100%;
-    transition: fill 0.3s linear;
-  }
-
-  &:hover {
-    svg {
-      fill: #bada55;
-    }
-  }
-`;
-
-function SamplePrevArrow({ currentSlide, onClick }) {
-  return (
-    <IconDiv
-      className='iconDiv'
-      style={
-        currentSlide === 0
-          ? { opacity: 0, pointerEvents: 'none' }
-          : {
-              opacity: 1,
-              pointerEvents: 'initial',
-              transition: 'opacity 0.5 ease',
-            }
-      }
-      onClick={() => onClick()}
-    >
-      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 53.16 87.96'>
-        <polygon points='43.94 87.96 0 43.97 43.97 0 53.16 9.19 18.38 43.98 53.14 78.77 43.94 87.96' />
-      </svg>
-    </IconDiv>
-  );
-}
-function SampleNextArrow({ currentSlide, onClick, slideCount }) {
-  return (
-    <IconDiv
-      className='iconDiv'
-      style={
-        currentSlide + 3 >= slideCount - 1
-          ? { opacity: 0, pointerEvents: 'none' }
-          : {
-              opacity: 1,
-              pointerEvents: 'initial',
-              transition: 'opacity 0.5 ease',
-            }
-      }
-      onClick={() => onClick()}
-    >
-      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 53.16 87.96'>
-        <polygon points='9.22 0 53.16 43.99 9.19 87.96 0 78.77 34.78 43.98 0.02 9.19 9.22 0' />
-      </svg>
-    </IconDiv>
-  );
-}
 
 const DemosPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -163,6 +97,7 @@ const DemosPage = () => {
                 setActiveVid_id: setActiveVid,
               }}
             >
+              <VidPlayer activeVid={activeVid} />
               <div id='vid_slider'>
                 <Slider {...carouselSettings}>
                   {data.map((d, i) => (
@@ -173,6 +108,8 @@ const DemosPage = () => {
               {/* {console.log(sliderRef.current)} */}
             </DemosPageData.Provider>
           </ContainerDiv>
+          <HR />
+          <Footer />
         </ContentDiv>
       </motion.div>
     )
