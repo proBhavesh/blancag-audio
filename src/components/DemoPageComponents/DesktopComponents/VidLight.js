@@ -35,7 +35,7 @@ const OverlayDiv = styled.div`
   right: 0;
   bottom: 0;
 
-  padding: 0.75rem;
+  padding: 0.5rem 0.75rem;
   font-size: 0.75rem;
 
   background-color: #11111180;
@@ -49,7 +49,7 @@ const OverlayDiv = styled.div`
     &:nth-of-type(2) {
       position: absolute;
       left: 0.75rem;
-      bottom: 0.75rem;
+      bottom: 0.5rem;
     }
   }
 `;

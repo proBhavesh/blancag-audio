@@ -22,7 +22,7 @@ const SkillsDiv = styled.div`
 
 const SkillsGrid = styled.div`
   width: 90%;
-  margin: 2rem auto;
+  margin: 2rem auto 2.5rem;
 
   display: grid;
   grid-template-columns: repeat(3, 1fr);

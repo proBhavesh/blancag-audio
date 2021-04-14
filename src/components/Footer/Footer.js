@@ -12,14 +12,11 @@ const FooterDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
-  gap: ${(props) => props.gap * 2}px;
 `;
 
 const Footer = () => {
   const {
     links: { linkedIn, vimeo, youtube, soundCloud },
-    sizes: { gap },
   } = useContext(FooterContext);
   const links = {
     linkedIn,
@@ -31,7 +28,7 @@ const Footer = () => {
 
   return (
     <>
-      <FooterDiv gap={gap}>
+      <FooterDiv>
         {linksArray.map((link, i) => (
           <SocialLink key={i} url={links[link]} type={link} />
         ))}

@@ -7,10 +7,11 @@ const HRStyled = styled.hr`
   border-width: 0;
   border-top-width: 2px;
 
-  width: 100vw;
-  transform: translateX(-2rem);
+  width: calc(100% + 2rem);
+  transform: translateX(-1rem);
 
   @media (max-width: 768px) {
+    width: 100vw;
     transform: translateX(-1.25rem);
   }
 `;

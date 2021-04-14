@@ -13,6 +13,7 @@ import { FooterContext } from '../../context/FooterContext';
 const A = styled.a`
   width: ${(props) => props.sizes.circleSizes.desktop}px;
   height: ${(props) => props.sizes.circleSizes.desktop}px;
+  margin: 0 ${(props) => props.sizes.gap}px;
 
   background-color: #fff;
   color: #000;
@@ -26,8 +27,10 @@ const A = styled.a`
 
   font-size: ${(props) => props.sizes.circleSizes.desktop * 0.65}px;
 
-  &:hover {
-    background-color: #bada55;
+  @media (min-width: 768px) {
+    &:hover {
+      background-color: #bada55;
+    }
   }
 
   @media (max-width: 768px) {

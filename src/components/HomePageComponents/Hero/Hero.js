@@ -31,6 +31,10 @@ const Overlay = styled.div`
 
   background-color: ${(props) => props.theme.textColor}0d;
   mix-blend-mode: difference;
+
+  @media (max-width: 768px) {
+    left: -1.25rem;
+  }
 `;
 
 const Video = styled.video`

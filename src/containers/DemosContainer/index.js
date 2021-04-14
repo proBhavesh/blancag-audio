@@ -93,6 +93,7 @@ const DemosPage = () => {
   const carouselSettingsMobile = {
     ...carouselSettingsDesktop,
     vertical: true,
+    verticalSwiping: true,
     afterChange: (index) => setCurrentSlide(index),
     nextArrow: <NoArrow />,
     prevArrow: <NoArrow />,
@@ -107,15 +108,15 @@ const DemosPage = () => {
   };
 
   return (
-    !isLoading && (
-      <motion.div
-        variants={pageVariant}
-        initial='hidden'
-        animate='visible'
-        exit='hidden'
-      >
-        <ContentDiv>
-          {window.innerWidth > 768 ? <Navbar /> : <BackHomeButton />}
+    <ContentDiv>
+      {window.innerWidth > 768 ? <Navbar /> : <BackHomeButton />}
+      {!isLoading && (
+        <motion.div
+          variants={pageVariant}
+          initial='hidden'
+          animate='visible'
+          exit='hidden'
+        >
           <ContainerDiv>
             <DemosPageData.Provider
               value={{
@@ -158,9 +159,9 @@ const DemosPage = () => {
               <Footer />
             </>
           )}
-        </ContentDiv>
-      </motion.div>
-    )
+        </motion.div>
+      )}
+    </ContentDiv>
   );
 };
 

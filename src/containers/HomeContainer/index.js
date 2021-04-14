@@ -159,16 +159,16 @@ const HomePage = ({ location }) => {
   }, []);
 
   return (
-    !isLoading && (
-      <motion.div
-        variants={pageVariant}
-        initial='hidden'
-        animate='visible'
-        exit='hidden'
-      >
-        <ContentDiv>
-          <BlurDiv blur={isOpen}>
-            <Navbar />
+    <ContentDiv>
+      <BlurDiv blur={isOpen}>
+        <Navbar />
+        {!isLoading && (
+          <motion.div
+            variants={pageVariant}
+            initial='hidden'
+            animate='visible'
+            exit='hidden'
+          >
             <HomePageData.Provider value={data}>
               <Hero />
               <About />
@@ -177,11 +177,11 @@ const HomePage = ({ location }) => {
             </HomePageData.Provider>
             <Footer />
             <button onClick={() => setIsOpen((prev) => !prev)}>Open</button>
-          </BlurDiv>
-          <BackDrop isOpen={isOpen} setIsOpen={setIsOpen} />
-        </ContentDiv>
-      </motion.div>
-    )
+          </motion.div>
+        )}
+      </BlurDiv>
+      <BackDrop isOpen={isOpen} setIsOpen={setIsOpen} />
+    </ContentDiv>
   );
 };
 

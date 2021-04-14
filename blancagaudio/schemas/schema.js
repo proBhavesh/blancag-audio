@@ -18,6 +18,9 @@ import skillsSection from './homePage/skillsSection';
 
 import demosPageVidLinks from './demosPage/demosPageVidLinks';
 
+import musicFile from './musicPage/musicFile';
+import musicFiles from './musicPage/musicFiles';
+
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
   // We name our schema
@@ -40,5 +43,8 @@ export default createSchema({
     skillsSection,
 
     demosPageVidLinks,
+
+    musicFile,
+    musicFiles,
   ]),
 });

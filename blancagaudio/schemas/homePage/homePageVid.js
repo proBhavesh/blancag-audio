@@ -9,8 +9,10 @@ const homePageVid = {
       type: 'file',
       title: 'Video',
       description: 'This is the video shown on homepage',
-      accept: 'video/*',
       validation: (Rule) => Rule.required(),
+      options: {
+        accept: 'video/*',
+      },
     },
   ],
 };

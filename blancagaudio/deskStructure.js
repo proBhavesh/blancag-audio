@@ -14,6 +14,8 @@ import {
   faEllipsisH,
   faAtom,
   faFilm,
+  faMusic,
+  faCompactDisc,
 } from '@fortawesome/free-solid-svg-icons';
 import { faVimeo } from '@fortawesome/free-brands-svg-icons';
 
@@ -28,10 +30,13 @@ const SkillsIcon = () => <FontAwesomeIcon icon={faTools} />;
 const CommonIcon = () => <FontAwesomeIcon icon={faComments} />;
 const NavBarIcon = () => <FontAwesomeIcon icon={faEllipsisH} />;
 const FxIcon = () => <FontAwesomeIcon icon={faAtom} />;
-
 const SocialIcon = () => <FontAwesomeIcon icon={faShareAlt} />;
+
 const DemosIcon = () => <FontAwesomeIcon icon={faFilm} />;
 const VimeoIcon = () => <FontAwesomeIcon icon={faVimeo} />;
+
+const MusicIcon = () => <FontAwesomeIcon icon={faMusic} />;
+const MusicFileIcon = () => <FontAwesomeIcon icon={faCompactDisc} />;
 
 const exportFunc = () =>
   S.list()
@@ -119,6 +124,24 @@ const exportFunc = () =>
             ])
         ),
       S.listItem()
+        .title('Music Page')
+        .icon(MusicIcon)
+        .child(
+          S.list()
+            .title('Music Page')
+            .items([
+              S.listItem()
+                .title('Music Page Files')
+                .icon(MusicFileIcon)
+                .child(
+                  S.document()
+                    .title('Music Files for Music Page')
+                    .schemaType('musicFiles')
+                    .documentId('musicFiles')
+                ),
+            ])
+        ),
+      S.listItem()
         .title('Common Stuff (across pages)')
         .icon(CommonIcon)
         .child(
@@ -168,6 +191,9 @@ const exportFunc = () =>
             'skillsSection',
 
             'demosPageVidLinks',
+
+            'musicFile',
+            'musicFiles',
           ].includes(listItem.getId())
       ),
     ]);
