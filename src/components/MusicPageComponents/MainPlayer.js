@@ -62,6 +62,81 @@ const ControlsDiv = styled.div`
   align-content: start;
 `;
 
+const VolumeDiv = styled.div`
+  justify-self: flex-end;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    .bar {
+      display: initial;
+    }
+  }
+`;
+
+const VolumeBar = styled.input`
+  appearance: none;
+  display: none;
+
+  position: relative;
+  height: 0.2rem;
+  width: 100%;
+  border-radius: 1rem;
+
+  border: none;
+  outline: none;
+
+  margin-left: 1rem;
+  background-color: #a6a6a680;
+  z-index: 2;
+  cursor: pointer;
+
+  &::-webkit-slider-thumb {
+    appearance: none;
+
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    background-color: #a6a6a6;
+
+    z-index: 5;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #fff;
+    }
+  }
+
+  &::-moz-range-thumb {
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    background-color: #a6a6a6;
+
+    z-index: 5;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #fff;
+    }
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: ${(props) => props.value * 100}%;
+    height: 100%;
+
+    border-radius: 1rem;
+
+    background-color: #bada55;
+    z-index: -1;
+  }
+`;
+
 const IconDiv = styled.div`
   cursor: pointer;
   height: 1rem;
@@ -117,15 +192,47 @@ const ProgressDiv = styled.div`
   font-size: 0.75rem;
 `;
 
-const ProgressBar = styled.div`
+const ProgressBar = styled.input`
+  appearance: none;
   background-color: #a0a0a080;
-  overflow: hidden;
   height: 0.2rem;
 
   border-radius: 0.2rem;
   width: 100%;
 
+  border: none;
+  outline: none;
+
   position: relative;
+  z-index: 3;
+  cursor: pointer;
+
+  &:hover {
+    &::-webkit-slider-thumb {
+      opacity: 1;
+    }
+
+    &:before {
+      transition: none;
+    }
+  }
+
+  &::-webkit-slider-thumb {
+    appearance: none;
+    opacity: 0;
+
+    width: 1rem;
+    height: 1rem;
+    background-color: #a6a6a6;
+
+    border-radius: 50%;
+    z-index: 5;
+    /* transform: translatex(50%); */
+
+    &:hover {
+      background-color: #fff;
+    }
+  }
 
   &:before {
     content: '';
@@ -133,12 +240,14 @@ const ProgressBar = styled.div`
     top: 0;
     left: 0;
 
-    width: ${(props) => Math.round(props.progress * 100)}%;
+    width: ${(props) => Math.round((props.value / props.duration) * 100)}%;
     height: 100%;
 
     background-color: #bada55;
     transition: width 1s linear;
     border-radius: 1rem;
+
+    z-index: -1;
   }
 `;
 
@@ -149,6 +258,7 @@ const MainPlayer = () => {
   const [playing, setPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [volume, setVolume] = useState(1);
   const audioRef = useRef(null);
   const timer = useRef(null);
 
@@ -188,6 +298,10 @@ const MainPlayer = () => {
       clearTimeout(timer.current);
     };
   }, [getCurrentTime, duration]);
+
+  useEffect(() => {
+    audioRef.current.volume = volume;
+  }, [volume]);
 
   return (
     <MainPlayerDiv>
@@ -253,15 +367,44 @@ const MainPlayer = () => {
             </svg>
           </IconDiv>
         </div>
-        <IconDiv id='volume'>
-          <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 77.71'>
-            <path d='M53.13.25a2.83,2.83,0,0,0-3,.43L25.66,21.85H2.83A2.83,2.83,0,0,0,0,24.65V52.74a2.83,2.83,0,0,0,2.83,2.83H25.3L50.1,77a2.83,2.83,0,0,0,4.68-2.17v-72A2.83,2.83,0,0,0,53.13.25Zm10,20.5a2.83,2.83,0,0,0-.87,3.91h0a26.72,26.72,0,0,1,.11,28.55,2.83,2.83,0,1,0,4.8,3A32.38,32.38,0,0,0,67,21.64a2.83,2.83,0,0,0-3.87-.89ZM86.85,1.41a2.83,2.83,0,1,0-4.43,3.53h0a54.69,54.69,0,0,1,.14,68,2.83,2.83,0,1,0,4.21,3.79l.23-.3A60.35,60.35,0,0,0,86.85,1.41Zm-9.54,9.68a2.83,2.83,0,1,0-4.55,3.37,41.26,41.26,0,0,1,.13,48.92,2.83,2.83,0,0,0,4.48,3.46l.08-.11A46.93,46.93,0,0,0,77.31,11.09Z' />
-          </svg>
-        </IconDiv>
+        <VolumeDiv>
+          <IconDiv id='volume'>
+            {!(volume === 0) ? (
+              <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 77.71'>
+                <path d='M53.13.25a2.83,2.83,0,0,0-3,.43L25.66,21.85H2.83A2.83,2.83,0,0,0,0,24.65V52.74a2.83,2.83,0,0,0,2.83,2.83H25.3L50.1,77a2.83,2.83,0,0,0,4.68-2.17v-72A2.83,2.83,0,0,0,53.13.25Zm10,20.5a2.83,2.83,0,0,0-.87,3.91h0a26.72,26.72,0,0,1,.11,28.55,2.83,2.83,0,1,0,4.8,3A32.38,32.38,0,0,0,67,21.64a2.83,2.83,0,0,0-3.87-.89ZM86.85,1.41a2.83,2.83,0,1,0-4.43,3.53h0a54.69,54.69,0,0,1,.14,68,2.83,2.83,0,1,0,4.21,3.79l.23-.3A60.35,60.35,0,0,0,86.85,1.41Zm-9.54,9.68a2.83,2.83,0,1,0-4.55,3.37,41.26,41.26,0,0,1,.13,48.92,2.83,2.83,0,0,0,4.48,3.46l.08-.11A46.93,46.93,0,0,0,77.31,11.09Z' />
+              </svg>
+            ) : (
+              <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 90.57 77.71'>
+                <path d='M53.13.25a2.83,2.83,0,0,0-3,.43L25.66,21.85H2.83A2.83,2.83,0,0,0,0,24.65V52.74a2.83,2.83,0,0,0,2.83,2.83H25.3L50.1,77a2.83,2.83,0,0,0,4.68-2.17v-72A2.83,2.83,0,0,0,53.13.25Z' />
+                <path d='M89.66,25.32a2.91,2.91,0,0,0-4.11.12L77,34.51,68.89,25a2.91,2.91,0,1,0-4.42,3.78L73,38.76l-9,9.52a2.91,2.91,0,1,0,4.23,4l8.55-9.07,8.11,9.47a2.9,2.9,0,0,0,4.41-3.78L80.8,39l9-9.52A2.91,2.91,0,0,0,89.66,25.32Z' />
+              </svg>
+            )}
+          </IconDiv>
+          <VolumeBar
+            type='range'
+            min='0'
+            max='1'
+            step='0.05'
+            value={volume}
+            onChange={(e) => setVolume(+e.target.value)}
+            className='bar'
+          />
+        </VolumeDiv>
       </ControlsDiv>
       <ProgressDiv>
         <p>{secondsToMinute(Math.round(currentTime))}</p>
-        <ProgressBar progress={currentTime / duration} />
+        <ProgressBar
+          type='range'
+          min='0'
+          max={`${duration}`}
+          step='0.0001'
+          value={currentTime}
+          duration={duration}
+          onChange={(e) => {
+            setCurrentTime(+e.target.value);
+            audioRef.current.currentTime = +e.target.value;
+          }}
+        />
         <p>{secondsToMinute(Math.round(duration))}</p>
       </ProgressDiv>
     </MainPlayerDiv>
