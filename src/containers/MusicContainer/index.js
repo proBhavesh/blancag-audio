@@ -7,6 +7,7 @@ import { Container } from '../../hoc/Container';
 import HR from '../../components/HR';
 import Navbar from '../../components/Nav/NavBar';
 import Footer from '../../components/Footer/Footer';
+import BackHomeButton from '../../components/BackHomeButton';
 
 import MainPlayer from '../../components/MusicPageComponents/MainPlayer';
 
@@ -25,12 +26,17 @@ const MusicPlayerDiv = styled.div`
   margin: 2rem auto;
   font-family: 'Open Sans', sans-serif;
   color: #fff;
+
+  @media (max-width: 768px) {
+    margin-bottom: 0;
+  }
 `;
 
 const MusicPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(null);
   const [activeFileIndexState, setActiveFileIndexState] = useState(null);
+  const [volume, setVolume] = useState(1);
 
   useEffect(() => {
     Promise.all([
@@ -42,14 +48,14 @@ const MusicPage = () => {
       }`),
     ]).then((res) => {
       setData(res[0]);
-      setActiveFileIndexState(5);
+      setActiveFileIndexState(0);
       setIsLoading(false);
     });
   }, []);
 
   return (
     <ContentDiv>
-      <Navbar />
+      {window.innerWidth > 768 ? <Navbar /> : <BackHomeButton />}
       <motion.div
         variants={pageVariant}
         initial='hidden'
@@ -64,18 +70,24 @@ const MusicPage = () => {
                   files: data,
                   activeFileIndex: activeFileIndexState,
                   setActiveFileIndex: setActiveFileIndexState,
+                  volume: volume,
+                  setVolume: setVolume,
                 }}
               >
                 <MusicPlayerDiv>
                   <MainPlayer />
-                  {data.map((d, i) => (
+                  {/* {data.map((d, i) => (
                     <h1 key={i}>{d.id}</h1>
-                  ))}
+                  ))} */}
                 </MusicPlayerDiv>
               </MusicPageData.Provider>
             </Container>
-            <HR />
-            <Footer />
+            {window.innerWidth > 768 && (
+              <>
+                <HR />
+                <Footer />
+              </>
+            )}
           </>
         )}
       </motion.div>
