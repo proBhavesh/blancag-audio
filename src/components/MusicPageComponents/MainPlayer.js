@@ -118,11 +118,28 @@ const ProgressDiv = styled.div`
 `;
 
 const ProgressBar = styled.div`
-  background-color: #ffffff;
+  background-color: #a0a0a080;
+  overflow: hidden;
   height: 0.2rem;
 
   border-radius: 0.2rem;
   width: 100%;
+
+  position: relative;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: ${(props) => Math.round(props.progress * 100)}%;
+    height: 100%;
+
+    background-color: #bada55;
+    transition: width 1s linear;
+    border-radius: 1rem;
+  }
 `;
 
 const MainPlayer = () => {
@@ -133,6 +150,7 @@ const MainPlayer = () => {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const audioRef = useRef(null);
+  const timer = useRef(null);
 
   const playAudio = () => {
     setPlaying(true);
@@ -145,7 +163,8 @@ const MainPlayer = () => {
   };
 
   const getCurrentTime = useCallback((e) => {
-    setCurrentTime(e.target.currentTime);
+    const currentTime = Math.round(e.target.currentTime);
+    setCurrentTime((prev) => (prev !== currentTime ? currentTime : prev));
   }, []);
 
   useEffect(() => {
@@ -157,13 +176,18 @@ const MainPlayer = () => {
     audioEl.addEventListener('timeupdate', getCurrentTime);
 
     audioEl.addEventListener('ended', () => {
-      setPlaying(false);
-      setCurrentTime(0);
+      setCurrentTime(duration);
+      timer.current = setTimeout(() => {
+        setPlaying(false);
+        setCurrentTime(0);
+      }, 1500);
     });
+
     return () => {
       audioEl.removeEventListener('timeupdate', getCurrentTime);
+      clearTimeout(timer.current);
     };
-  }, [getCurrentTime]);
+  }, [getCurrentTime, duration]);
 
   return (
     <MainPlayerDiv>
@@ -237,7 +261,7 @@ const MainPlayer = () => {
       </ControlsDiv>
       <ProgressDiv>
         <p>{secondsToMinute(Math.round(currentTime))}</p>
-        <ProgressBar />
+        <ProgressBar progress={currentTime / duration} />
         <p>{secondsToMinute(Math.round(duration))}</p>
       </ProgressDiv>
     </MainPlayerDiv>

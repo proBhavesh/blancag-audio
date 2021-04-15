@@ -42,7 +42,7 @@ const MusicPage = () => {
       }`),
     ]).then((res) => {
       setData(res[0]);
-      setActiveFileIndexState(0);
+      setActiveFileIndexState(5);
       setIsLoading(false);
     });
   }, []);
