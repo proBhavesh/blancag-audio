@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { IconDiv } from './IconDiv';
 
-import { MusicPageData } from '../../containers/MusicContainer/index';
+import { MusicPageData } from '../../../containers/MusicContainer/index';
 
 const VolumeDiv = styled.div`
   justify-self: flex-end;

@@ -7,9 +7,9 @@ import React, {
 } from 'react';
 import styled from 'styled-components';
 
-import { MusicPageData } from '../../containers/MusicContainer/index';
+import { MusicPageData } from '../../../containers/MusicContainer/index';
 
-import { urlFor } from '../../helpers/ImageUrlGetter';
+import { urlFor } from '../../../helpers/ImageUrlGetter';
 import { IconDiv } from './IconDiv';
 
 import PlayControls from './PlayControls';
@@ -134,6 +134,11 @@ const MainPlayer = () => {
       clearTimeout(timer.current);
     };
   }, [duration]);
+
+  // -- handle song change
+  useEffect(() => {
+    setPlaying(false);
+  }, [activeFileIndex]);
 
   return (
     <MainPlayerDiv>

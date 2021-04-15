@@ -9,7 +9,8 @@ import Navbar from '../../components/Nav/NavBar';
 import Footer from '../../components/Footer/Footer';
 import BackHomeButton from '../../components/BackHomeButton';
 
-import MainPlayer from '../../components/MusicPageComponents/MainPlayer';
+import MainPlayer from '../../components/MusicPageComponents/Music/MainPlayer';
+import MainPlaylist from '../../components/MusicPageComponents/Playlist/MainPlaylist';
 
 import { pageVariant } from '../../styles/motionVariants/pageVariant';
 
@@ -76,9 +77,7 @@ const MusicPage = () => {
               >
                 <MusicPlayerDiv>
                   <MainPlayer />
-                  {/* {data.map((d, i) => (
-                    <h1 key={i}>{d.id}</h1>
-                  ))} */}
+                  <MainPlaylist />
                 </MusicPlayerDiv>
               </MusicPageData.Provider>
             </Container>

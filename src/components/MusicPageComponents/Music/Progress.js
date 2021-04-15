@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { secondsToMinute } from '../../helpers/SecondsToMinutes';
+import { secondsToMinute } from '../../../helpers/SecondsToMinutes';
 
 const ProgressDiv = styled.div`
   grid-area: progress;
+  align-self: end;
   width: 100%;
 
   display: flex;
