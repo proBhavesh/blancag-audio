@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
 import ContentDiv from '../../hoc/ContentDiv';
-import { Container } from '../../hoc/Container';
 import HR from '../../components/HR';
 import Navbar from '../../components/Nav/NavBar';
 import Footer from '../../components/Footer/Footer';
@@ -22,14 +21,20 @@ export const MusicPageData = React.createContext({
   setActiveFileIndex: null,
 });
 
+const ContainerDiv = styled.div`
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+`;
+
 const MusicPlayerDiv = styled.div`
   width: 100%;
-  margin: 2rem auto;
+  margin: 3rem auto;
   font-family: 'Open Sans', sans-serif;
   color: #fff;
 
   @media (max-width: 768px) {
-    margin-bottom: 0;
+    margin: 1rem auto 2rem;
   }
 `;
 
@@ -65,7 +70,7 @@ const MusicPage = () => {
       >
         {!isLoading && (
           <>
-            <Container>
+            <ContainerDiv>
               <MusicPageData.Provider
                 value={{
                   files: data,
@@ -80,7 +85,7 @@ const MusicPage = () => {
                   <MainPlaylist />
                 </MusicPlayerDiv>
               </MusicPageData.Provider>
-            </Container>
+            </ContainerDiv>
             {window.innerWidth > 768 && (
               <>
                 <HR />

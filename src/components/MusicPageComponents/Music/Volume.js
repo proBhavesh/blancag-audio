@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
 import { IconDiv } from './IconDiv';
@@ -6,36 +6,18 @@ import { IconDiv } from './IconDiv';
 import { MusicPageData } from '../../../containers/MusicContainer/index';
 
 const VolumeDiv = styled.div`
+  grid-column: span 2;
   justify-self: flex-end;
+
+  width: 70%;
+
   display: flex;
   align-items: center;
-
-  @media (min-width: 768px) {
-    &:hover {
-      .bar {
-        display: initial;
-      }
-    }
-  }
-
-  @media (max-width: 768px) {
-    grid-area: volume;
-
-    position: relative;
-
-    &.active {
-      align-self: flex-end;
-
-      .bar {
-        display: initial;
-      }
-    }
-  }
 `;
 
 const VolumeBar = styled.input`
   appearance: none;
-  display: none;
+  pointer-events: none;
 
   position: relative;
   height: 0.2rem;
@@ -48,10 +30,11 @@ const VolumeBar = styled.input`
   margin-left: 1rem;
   background-color: #a6a6a680;
   z-index: 2;
-  cursor: pointer;
 
   &::-webkit-slider-thumb {
     appearance: none;
+    cursor: pointer;
+    pointer-events: auto;
 
     width: 0.75rem;
     height: 0.75rem;
@@ -67,6 +50,8 @@ const VolumeBar = styled.input`
   }
 
   &::-moz-range-thumb {
+    pointer-events: auto;
+
     width: 0.75rem;
     height: 0.75rem;
     border-radius: 50%;
@@ -94,49 +79,85 @@ const VolumeBar = styled.input`
     background-color: #bada55;
     z-index: -1;
   }
-
-  @media (max-width: 768px) {
-    position: absolute;
-    top: -2rem;
-    left: 50%;
-    margin-left: 0;
-    width: 200%;
-
-    transform-origin: center;
-    transform: translatex(-50%) rotate(-90deg);
-
-    &::-webkit-slider-thumb {
-      width: 0.5rem;
-      height: 0.5rem;
-    }
-
-    &::-moz-range-thumb {
-      width: 0.5rem;
-      height: 0.5rem;
-    }
-  }
 `;
 
 const Volume = ({ audioRef }) => {
   const { volume, setVolume } = useContext(MusicPageData);
   const volumeDivRef = useRef(null);
+  const volumeRef = useRef(volume);
+
+  useEffect(() => {
+    volume !== 0 && (() => (volumeRef.current = volume))();
+    audioRef && (() => (audioRef.volume = volume))();
+  }, [volume, audioRef]);
+
+  let volumeSVG;
+  if (volume >= 0.75) {
+    volumeSVG = (
+      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 77.69'>
+        <path
+          d='M53.13.25a2.83,2.83,0,0,0-3,.43L25.66,21.85H2.83A2.83,2.83,0,0,0,0,24.65V52.74a2.83,2.83,0,0,0,2.83,2.83H25.3L50.1,77a2.83,2.83,0,0,0,4.68-2.17v-72A2.83,2.83,0,0,0,53.13.25Zm10,20.5a2.83,2.83,0,0,0-.87,3.91h0a26.72,26.72,0,0,1,.11,28.55,2.83,2.83,0,1,0,4.8,3A32.38,32.38,0,0,0,67,21.64,2.83,2.83,0,0,0,63.13,20.75ZM86.85,1.41a2.83,2.83,0,1,0-4.43,3.53h0a54.69,54.69,0,0,1,.14,68,2.83,2.83,0,1,0,4.21,3.79l.23-.3A60.35,60.35,0,0,0,86.85,1.41Zm-9.54,9.68a2.83,2.83,0,1,0-4.55,3.37,41.26,41.26,0,0,1,.13,48.92,2.83,2.83,0,0,0,4.48,3.46l.08-.11A46.93,46.93,0,0,0,77.31,11.09Z'
+          transform='translate(0 0)'
+        />
+      </svg>
+    );
+  } else if (volume >= 0.25 && volume < 0.75) {
+    volumeSVG = (
+      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 77.69'>
+        <path
+          d='M53.13.25a2.83,2.83,0,0,0-3,.43L25.66,21.85H2.83A2.83,2.83,0,0,0,0,24.65V52.74a2.83,2.83,0,0,0,2.83,2.83H25.3L50.1,77a2.83,2.83,0,0,0,4.68-2.17v-72A2.83,2.83,0,0,0,53.13.25Z'
+          transform='translate(0 0)'
+        />
+        <path
+          d='M63.13,20.75a2.83,2.83,0,0,0-.87,3.91h0a26.72,26.72,0,0,1,.11,28.55,2.83,2.83,0,1,0,4.8,3A32.38,32.38,0,0,0,67,21.64,2.83,2.83,0,0,0,63.13,20.75Z'
+          transform='translate(0 0)'
+        />
+        <path
+          d='M77.31,11.09a2.83,2.83,0,1,0-4.55,3.37,41.26,41.26,0,0,1,.13,48.92,2.83,2.83,0,0,0,4.48,3.46l.08-.11A46.93,46.93,0,0,0,77.31,11.09Z'
+          transform='translate(0 0)'
+        />
+      </svg>
+    );
+  } else if (volume > 0 && volume < 0.25) {
+    volumeSVG = (
+      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 77.69'>
+        <path
+          d='M53.13.25a2.83,2.83,0,0,0-3,.43L25.66,21.85H2.83A2.83,2.83,0,0,0,0,24.65V52.74a2.83,2.83,0,0,0,2.83,2.83H25.3L50.1,77a2.83,2.83,0,0,0,4.68-2.17v-72A2.83,2.83,0,0,0,53.13.25Z'
+          transform='translate(0 0)'
+        />
+        <path
+          d='M63.13,20.75a2.83,2.83,0,0,0-.87,3.91h0a26.72,26.72,0,0,1,.11,28.55,2.83,2.83,0,1,0,4.8,3A32.38,32.38,0,0,0,67,21.64,2.83,2.83,0,0,0,63.13,20.75Z'
+          transform='translate(0 0)'
+        />
+      </svg>
+    );
+  } else if (volume === 0) {
+    volumeSVG = (
+      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 77.69'>
+        <path
+          d='M53.13.25a2.83,2.83,0,0,0-3,.43L25.66,21.85H2.83A2.83,2.83,0,0,0,0,24.65V52.74a2.83,2.83,0,0,0,2.83,2.83H25.3L50.1,77a2.83,2.83,0,0,0,4.68-2.17v-72A2.83,2.83,0,0,0,53.13.25Z'
+          transform='translate(0 0)'
+        />
+        <path
+          class='a'
+          d='M94.5,20.26a4,4,0,0,0-5.64.17L77.14,32.84,66,19.8a4,4,0,0,0-6.23,5L60,25,71.66,38.67l-12.34,13a4,4,0,1,0,5.8,5.48L76.84,44.75,88,57.75a4,4,0,1,0,6.26-4.94L94,52.57h0L82.35,39,94.69,26a4,4,0,0,0-.12-5.64h0Z'
+          transform='translate(0 0)'
+        />
+      </svg>
+    );
+  }
 
   return (
     <VolumeDiv
       ref={volumeDivRef}
       onClick={(e) => volumeDivRef.current.classList.toggle('active')}
     >
-      <IconDiv id='volume'>
-        {!(volume === 0) ? (
-          <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 77.71'>
-            <path d='M53.13.25a2.83,2.83,0,0,0-3,.43L25.66,21.85H2.83A2.83,2.83,0,0,0,0,24.65V52.74a2.83,2.83,0,0,0,2.83,2.83H25.3L50.1,77a2.83,2.83,0,0,0,4.68-2.17v-72A2.83,2.83,0,0,0,53.13.25Zm10,20.5a2.83,2.83,0,0,0-.87,3.91h0a26.72,26.72,0,0,1,.11,28.55,2.83,2.83,0,1,0,4.8,3A32.38,32.38,0,0,0,67,21.64a2.83,2.83,0,0,0-3.87-.89ZM86.85,1.41a2.83,2.83,0,1,0-4.43,3.53h0a54.69,54.69,0,0,1,.14,68,2.83,2.83,0,1,0,4.21,3.79l.23-.3A60.35,60.35,0,0,0,86.85,1.41Zm-9.54,9.68a2.83,2.83,0,1,0-4.55,3.37,41.26,41.26,0,0,1,.13,48.92,2.83,2.83,0,0,0,4.48,3.46l.08-.11A46.93,46.93,0,0,0,77.31,11.09Z' />
-          </svg>
-        ) : (
-          <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 90.57 77.71'>
-            <path d='M53.13.25a2.83,2.83,0,0,0-3,.43L25.66,21.85H2.83A2.83,2.83,0,0,0,0,24.65V52.74a2.83,2.83,0,0,0,2.83,2.83H25.3L50.1,77a2.83,2.83,0,0,0,4.68-2.17v-72A2.83,2.83,0,0,0,53.13.25Z' />
-            <path d='M89.66,25.32a2.91,2.91,0,0,0-4.11.12L77,34.51,68.89,25a2.91,2.91,0,1,0-4.42,3.78L73,38.76l-9,9.52a2.91,2.91,0,1,0,4.23,4l8.55-9.07,8.11,9.47a2.9,2.9,0,0,0,4.41-3.78L80.8,39l9-9.52A2.91,2.91,0,0,0,89.66,25.32Z' />
-          </svg>
-        )}
+      <IconDiv
+        onClick={() =>
+          setVolume((prev) => (prev === 0 ? volumeRef.current : 0))
+        }
+      >
+        {volumeSVG}
       </IconDiv>
       <VolumeBar
         type='range'
@@ -144,11 +165,7 @@ const Volume = ({ audioRef }) => {
         max='1'
         step='0.05'
         value={volume}
-        onChange={(e) => {
-          setVolume(+e.target.value);
-          audioRef.volume = +e.target.value;
-        }}
-        className='bar'
+        onChange={(e) => setVolume(+e.target.value)}
       />
     </VolumeDiv>
   );
