@@ -10,7 +10,7 @@ const ProgressDiv = styled.div`
 
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 2rem;
 
   font-size: 0.75rem;
 
@@ -22,7 +22,20 @@ const ProgressDiv = styled.div`
   }
 `;
 
+const ProgressBarContainer = styled.div`
+  position: relative;
+  height: 0.2rem;
+  width: 100%;
+  @media (max-width: 768px) {
+    grid-area: bar;
+  }
+`;
+
 const ProgressBar = styled.input`
+  position: absolute;
+  top: 0;
+  left: 0;
+
   appearance: none;
   background-color: #a0a0a080;
   height: 0.2rem;
@@ -33,7 +46,6 @@ const ProgressBar = styled.input`
   border: none;
   outline: none;
 
-  position: relative;
   z-index: 3;
   cursor: pointer;
 
@@ -41,50 +53,50 @@ const ProgressBar = styled.input`
     &::-webkit-slider-thumb {
       opacity: 1;
     }
-
-    &:before {
-      transition: none;
-    }
   }
 
   &::-webkit-slider-thumb {
     appearance: none;
     opacity: 0;
 
-    width: 1rem;
-    height: 1rem;
+    @media (max-width: 768px) {
+      transition: transform 0.25s linear;
+      opacity: 1;
+    }
+
+    width: 0.75rem;
+    height: 0.75rem;
     background-color: #a6a6a6;
 
     border-radius: 50%;
     z-index: 5;
 
-    &:hover {
+    &:hover,
+    &:active {
       background-color: #fff;
+      @media (max-width: 768px) {
+        transform: scale(1.2);
+      }
     }
-  }
-
-  &:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    width: ${(props) => Math.round((props.value / props.duration) * 100)}%;
-    height: 100%;
-
-    background-color: #bada55;
-    transition: width 1s linear;
-    border-radius: 1rem;
-
-    z-index: -1;
-  }
-
-  @media (max-width: 768px) {
-    grid-area: bar;
   }
 `;
 
+const GreenProgress = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  height: 0.2rem;
+
+  background-color: #bada55;
+  border-radius: 1rem;
+
+  z-index: 4;
+`;
+
 const CurrentTime = styled.p`
+  user-select: none;
+  letter-spacing: 0.1em;
   @media (max-width: 768px) {
     grid-area: currentTime;
     justify-self: flex-start;
@@ -92,6 +104,8 @@ const CurrentTime = styled.p`
 `;
 
 const Duration = styled.p`
+  user-select: none;
+  letter-spacing: 0.1em;
   @media (max-width: 768px) {
     grid-area: duration;
     justify-self: flex-end;
@@ -102,18 +116,23 @@ const Progress = ({ currentTime, setCurrentTime, duration, audioRef }) => {
   return (
     <ProgressDiv>
       <CurrentTime>{secondsToMinute(Math.round(currentTime))}</CurrentTime>
-      <ProgressBar
-        type='range'
-        min='0'
-        max={`${duration}`}
-        step='0.0001'
-        value={currentTime}
-        duration={duration}
-        onChange={(e) => {
-          setCurrentTime(+e.target.value);
-          audioRef.currentTime = +e.target.value;
-        }}
-      />
+      <ProgressBarContainer>
+        <ProgressBar
+          type='range'
+          min='0'
+          max={`${duration}`}
+          step='any'
+          value={currentTime}
+          duration={duration}
+          onChange={(e) => {
+            setCurrentTime(+e.target.value);
+            audioRef.currentTime = +e.target.value;
+          }}
+        />
+        <GreenProgress
+          style={{ width: `${(currentTime / duration) * 100}%` }}
+        />
+      </ProgressBarContainer>
       <Duration>{secondsToMinute(Math.round(duration))}</Duration>
     </ProgressDiv>
   );
