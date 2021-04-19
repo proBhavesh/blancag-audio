@@ -42,7 +42,10 @@ const NavLinks = () => {
       <NavLinkStyled size={navLinkFontSize} to={{ pathname: '/demos' }}>
         Demos
       </NavLinkStyled>
-      <NavLinkStyled size={navLinkFontSize} to={{ pathname: '/music' }}>
+      <NavLinkStyled
+        size={navLinkFontSize}
+        to={{ pathname: '/music', state: { redirect: false } }}
+      >
         Music
       </NavLinkStyled>
     </>

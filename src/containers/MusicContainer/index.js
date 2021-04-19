@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import { Switch, Route, useRouteMatch, useLocation } from 'react-router-dom';
 
 import ContentDiv from '../../hoc/ContentDiv';
 import HR from '../../components/HR';
@@ -9,7 +10,7 @@ import Footer from '../../components/Footer/Footer';
 import BackHomeButton from '../../components/BackHomeButton';
 
 import MainPlayer from '../../components/MusicPageComponents/Music/MainPlayer';
-import MainPlaylist from '../../components/MusicPageComponents/Playlist/MainPlaylist';
+// import MainPlaylist from '../../components/MusicPageComponents/Playlist/MainPlaylist';
 
 import { pageVariant } from '../../styles/motionVariants/pageVariant';
 
@@ -18,7 +19,6 @@ import { client as sanity } from '../../sanityClient';
 export const MusicPageData = React.createContext({
   files: [],
   activeFileIndex: null,
-  setActiveFileIndex: null,
 });
 
 const ContainerDiv = styled.div`
@@ -39,9 +39,17 @@ const MusicPlayerDiv = styled.div`
 `;
 
 const MusicPage = () => {
+  const match = useRouteMatch({
+    path: '/music/:id',
+    exact: true,
+  });
+  const { state } = useLocation();
+
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(null);
-  const [activeFileIndexState, setActiveFileIndexState] = useState(null);
+
+  const [shuffle, setShuffle] = useState(false);
+  const [repeat, setRepeat] = useState(false);
   const [volume, setVolume] = useState(1);
 
   useEffect(() => {
@@ -50,51 +58,65 @@ const MusicPage = () => {
         'title': track_title,
         'cover': track_cover,
         'file': track_file.asset->.url,
-        'id':_key
       }`),
     ]).then((res) => {
       setData(res[0]);
-      setActiveFileIndexState(0);
       setIsLoading(false);
     });
   }, []);
 
+  const mainContentJSX = (
+    <>
+      {window.innerWidth < 768 && <BackHomeButton />}
+      {!isLoading && (
+        <>
+          <ContainerDiv>
+            <MusicPageData.Provider
+              value={{
+                files: data,
+                volume: volume,
+                setVolume: setVolume,
+                shuffle: shuffle,
+                setShuffle: setShuffle,
+                repeat: repeat,
+                setRepeat: setRepeat,
+              }}
+            >
+              <MusicPlayerDiv>
+                {match ? (
+                  <MainPlayer id={+match.params.id} />
+                ) : (
+                  <MainPlayer id={0} />
+                )}
+              </MusicPlayerDiv>
+            </MusicPageData.Provider>
+          </ContainerDiv>
+          {window.innerWidth > 768 && (
+            <>
+              <HR />
+              <Footer />
+            </>
+          )}
+        </>
+      )}
+    </>
+  );
+
   return (
     <ContentDiv>
-      {window.innerWidth > 768 ? <Navbar /> : <BackHomeButton />}
-      <motion.div
-        variants={pageVariant}
-        initial='hidden'
-        animate='visible'
-        exit='hidden'
-      >
-        {!isLoading && (
-          <>
-            <ContainerDiv>
-              <MusicPageData.Provider
-                value={{
-                  files: data,
-                  activeFileIndex: activeFileIndexState,
-                  setActiveFileIndex: setActiveFileIndexState,
-                  volume: volume,
-                  setVolume: setVolume,
-                }}
-              >
-                <MusicPlayerDiv>
-                  <MainPlayer />
-                  <MainPlaylist />
-                </MusicPlayerDiv>
-              </MusicPageData.Provider>
-            </ContainerDiv>
-            {window.innerWidth > 768 && (
-              <>
-                <HR />
-                <Footer />
-              </>
-            )}
-          </>
-        )}
-      </motion.div>
+      {window.innerWidth > 768 && <Navbar />}
+      {!state || !state.redirect ? (
+        <motion.div
+          variants={pageVariant}
+          initial='hidden'
+          animate='visible'
+          exit='hidden'
+        >
+          {mainContentJSX}
+        </motion.div>
+      ) : (
+        mainContentJSX
+      )}
     </ContentDiv>
   );
 };

@@ -1,10 +1,5 @@
-import React, {
-  useState,
-  useContext,
-  useEffect,
-  useCallback,
-  useRef,
-} from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
+import { useHistory, useLocation, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { MusicPageData } from '../../../containers/MusicContainer/index';
@@ -102,98 +97,71 @@ const RepeatControl = styled(IconDiv)`
   }
 `;
 
-const MainPlayer = () => {
-  const { files, activeFileIndex, setActiveFileIndex } = useContext(
+const MainPlayer = ({ id }) => {
+  const history = useHistory();
+  const { state } = useLocation();
+
+  const { files, shuffle, setShuffle, repeat, setRepeat, volume } = useContext(
     MusicPageData
   );
-  const activeFileData = files[activeFileIndex];
+  const activeFileData = files[id];
 
-  const [shuffle, setShuffle] = useState(false);
-  const [repeat, setRepeat] = useState(false);
-
-  const [playing, setPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const audioRef = useRef(null);
-  const timer = useRef(null);
 
+  const audioRef = useRef(null);
   const shuffleRef = useRef(null);
   const repeatRef = useRef(null);
-
   const rAF = useRef(null);
+  const timer = useRef(null);
 
-  const playAudio = () => {
-    setPlaying(true);
-    audioRef.current.play();
-  };
-
-  const pauseAudio = () => {
-    setPlaying(false);
-    audioRef.current.pause();
-    cancelAnimationFrame(rAF.current);
-  };
-
-  const changeSong = useCallback(
-    (next = true) => {
-      const length = files.length;
-      if (!shuffle) {
-        const newIndex = next
-          ? activeFileIndex + 1 === length
-            ? 0
-            : activeFileIndex + 1
-          : activeFileIndex - 1 < 0
-          ? length - 1
-          : activeFileIndex - 1;
-        setActiveFileIndex(newIndex);
-      } else {
-        let newIndex = activeFileIndex;
-
-        while (newIndex === activeFileIndex) {
-          newIndex = Math.floor(Math.random() * length);
-        }
-
-        setActiveFileIndex(newIndex);
-      }
-    },
-    [activeFileIndex, setActiveFileIndex, files, shuffle]
-  );
-
-  // -- get current time of the audio while playing
-  const getCurrentTime = useCallback(() => {
-    setCurrentTime(audioRef.current.currentTime);
-    rAF.current = requestAnimationFrame(getCurrentTime);
-  }, []);
-
-  // -- handle audio ended
   useEffect(() => {
-    audioRef.current.addEventListener('ended', () => {
-      setCurrentTime(duration);
-      cancelAnimationFrame(rAF.current);
-      timer.current = setTimeout(() => {
-        setCurrentTime(0);
-        !repeat ? changeSong() : playAudio();
-      }, 1500);
-    });
+    isPlaying ? playAudio() : pauseAudio();
+  }, [isPlaying]);
+
+  useEffect(() => {
+    audioRef.current && (() => (audioRef.current.volume = volume))();
+  }, [volume]);
+
+  useEffect(() => {
     return () => {
       clearTimeout(timer.current);
+      cancelAnimationFrame(rAF.current);
     };
-  }, [duration, repeat, changeSong]);
+  }, []);
 
-  // -- handle song change
-  useEffect(() => {
-    cancelAnimationFrame(rAF.current);
-    activeFileIndex !== 0 && playAudio();
-  }, [activeFileIndex]);
-
-  return (
+  return id > files.length - 1 ? (
+    <Redirect to='/music/0' />
+  ) : (
     <MainPlayerDiv>
       <audio
         src={activeFileData.file}
-        preload='metadata'
+        preload='auto'
         ref={audioRef}
-        onLoadedMetadata={(e) => setDuration(e.target.duration)}
-        onPlaying={() => (rAF.current = requestAnimationFrame(getCurrentTime))}
-        onPause={() => cancelAnimationFrame(rAF.current)}
+        onDurationChange={(e) => {
+          setDuration(e.target.duration);
+          setIsPlaying(false);
+        }}
+        onLoadedData={() =>
+          state && state.redirect && state.playState && setIsPlaying(true)
+        }
+        onTimeUpdate={() =>
+          (rAF.current = requestAnimationFrame(getCurrentTime))
+        }
+        onEnded={() => {
+          if (!repeat) {
+            timer.current = setTimeout(() => {
+              goToNewSong();
+            }, 1000);
+          } else {
+            setIsPlaying(false);
+            timer.current = setTimeout(() => {
+              setCurrentTime(0);
+              setIsPlaying(true);
+            }, 1000);
+          }
+        }}
       ></audio>
       <CoverDiv>
         <img
@@ -235,21 +203,80 @@ const MainPlayer = () => {
           </svg>
         </RepeatControl>
         <PlayControls
-          playing={playing}
-          pauseAudio={pauseAudio}
-          playAudio={playAudio}
-          changeSong={changeSong}
+          isPlaying={isPlaying}
+          setIsPlaying={setIsPlaying}
+          goToNewSong={goToNewSong}
         />
-        {window.innerWidth > 768 && <Volume audioRef={audioRef.current} />}
+        {window.innerWidth > 768 && <Volume />}
       </ControlsDiv>
       <Progress
-        currentTime={currentTime}
         duration={duration}
-        setCurrentTime={setCurrentTime}
-        audioRef={audioRef.current}
+        currentTime={currentTime}
+        setCurrentTimeFn={setCurrentTimeFn}
       />
     </MainPlayerDiv>
   );
+
+  function playAudio() {
+    audioRef.current.play().catch((err) => setIsPlaying(false));
+  }
+
+  function pauseAudio() {
+    audioRef.current.pause();
+    cancelAnimationFrame(rAF.current);
+  }
+
+  function getCurrentTime() {
+    audioRef.current && setCurrentTime(audioRef.current.currentTime);
+    rAF.current = requestAnimationFrame(getCurrentTime);
+  }
+
+  function setCurrentTimeFn(time) {
+    setCurrentTime(time);
+    audioRef.current.currentTime = time;
+  }
+
+  function getNewIndex(next = true) {
+    let newIndex;
+    const length = files.length;
+
+    if (!shuffle) {
+      if (next) {
+        newIndex = id + 1 >= length ? 0 : id + 1;
+      } else {
+        newIndex = id - 1 < 0 ? length - 1 : id - 1;
+      }
+    } else {
+      newIndex = getRandomIndex();
+    }
+
+    return newIndex;
+  }
+
+  function getRandomIndex() {
+    const length = files.length;
+    let randomIndex = Math.floor(Math.random() * length);
+
+    if (
+      randomIndex === id ||
+      randomIndex === (id + 1 === length ? 0 : id + 1) ||
+      randomIndex === (id - 1 < 0 ? length - 1 : id - 1)
+    ) {
+      randomIndex = getRandomIndex();
+    }
+
+    return randomIndex;
+  }
+
+  function goToNewSong(next = true) {
+    history.push({
+      pathname: `/music/${getNewIndex(next)}`,
+      state: {
+        redirect: true,
+        playState: isPlaying,
+      },
+    });
+  }
 };
 
 export default MainPlayer;

@@ -81,15 +81,13 @@ const VolumeBar = styled.input`
   }
 `;
 
-const Volume = ({ audioRef }) => {
+const Volume = () => {
   const { volume, setVolume } = useContext(MusicPageData);
-  const volumeDivRef = useRef(null);
   const volumeRef = useRef(volume);
 
   useEffect(() => {
     volume !== 0 && (() => (volumeRef.current = volume))();
-    audioRef && (() => (audioRef.volume = volume))();
-  }, [volume, audioRef]);
+  }, [volume]);
 
   let volumeSVG;
   if (volume >= 0.75) {
@@ -139,7 +137,6 @@ const Volume = ({ audioRef }) => {
           transform='translate(0 0)'
         />
         <path
-          class='a'
           d='M94.5,20.26a4,4,0,0,0-5.64.17L77.14,32.84,66,19.8a4,4,0,0,0-6.23,5L60,25,71.66,38.67l-12.34,13a4,4,0,1,0,5.8,5.48L76.84,44.75,88,57.75a4,4,0,1,0,6.26-4.94L94,52.57h0L82.35,39,94.69,26a4,4,0,0,0-.12-5.64h0Z'
           transform='translate(0 0)'
         />
@@ -148,10 +145,7 @@ const Volume = ({ audioRef }) => {
   }
 
   return (
-    <VolumeDiv
-      ref={volumeDivRef}
-      onClick={(e) => volumeDivRef.current.classList.toggle('active')}
-    >
+    <VolumeDiv>
       <IconDiv
         onClick={() =>
           setVolume((prev) => (prev === 0 ? volumeRef.current : 0))

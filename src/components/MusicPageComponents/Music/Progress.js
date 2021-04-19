@@ -37,7 +37,7 @@ const ProgressBar = styled.input`
   left: 0;
 
   appearance: none;
-  background-color: #a0a0a080;
+  background-color: transparent;
   height: 0.2rem;
 
   border-radius: 0.2rem;
@@ -46,7 +46,6 @@ const ProgressBar = styled.input`
   border: none;
   outline: none;
 
-  z-index: 3;
   cursor: pointer;
 
   &:hover {
@@ -69,7 +68,6 @@ const ProgressBar = styled.input`
     background-color: #a6a6a6;
 
     border-radius: 50%;
-    z-index: 5;
 
     &:hover,
     &:active {
@@ -90,8 +88,16 @@ const GreenProgress = styled.div`
 
   background-color: #bada55;
   border-radius: 1rem;
+`;
 
-  z-index: 4;
+const GreyProgress = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #a6a6a680;
+  height: 0.2rem;
+  border-radius: 0.2rem;
+  width: 100%;
 `;
 
 const CurrentTime = styled.p`
@@ -112,11 +118,15 @@ const Duration = styled.p`
   }
 `;
 
-const Progress = ({ currentTime, setCurrentTime, duration, audioRef }) => {
+const Progress = ({ currentTime, setCurrentTimeFn, duration }) => {
   return (
     <ProgressDiv>
-      <CurrentTime>{secondsToMinute(Math.round(currentTime))}</CurrentTime>
+      <CurrentTime>{secondsToMinute(Math.floor(currentTime))}</CurrentTime>
       <ProgressBarContainer>
+        <GreyProgress />
+        <GreenProgress
+          style={{ width: `${(currentTime / duration) * 100}%` }}
+        />
         <ProgressBar
           type='range'
           min='0'
@@ -124,16 +134,10 @@ const Progress = ({ currentTime, setCurrentTime, duration, audioRef }) => {
           step='any'
           value={currentTime}
           duration={duration}
-          onChange={(e) => {
-            setCurrentTime(+e.target.value);
-            audioRef.currentTime = +e.target.value;
-          }}
-        />
-        <GreenProgress
-          style={{ width: `${(currentTime / duration) * 100}%` }}
+          onChange={(e) => setCurrentTimeFn(+e.target.value)}
         />
       </ProgressBarContainer>
-      <Duration>{secondsToMinute(Math.round(duration))}</Duration>
+      <Duration>{secondsToMinute(Math.floor(duration))}</Duration>
     </ProgressDiv>
   );
 };

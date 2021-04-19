@@ -14,11 +14,19 @@ const App = () => {
       <FooterContextComponent>
         <AnimatePresence exitBeforeEnter>
           <Switch location={location} key={location.key}>
-            <Route path='/' exact component={HomePage} />
-            <Route path='/demos' component={DemosPage} />
-            <Route path='/music' component={MusicPage} />
+            <Route path='/' exact>
+              <HomePage />
+            </Route>
+            <Route path='/demos'>
+              <DemosPage />
+            </Route>
           </Switch>
         </AnimatePresence>
+        <Switch>
+          <Route path='/music'>
+            <MusicPage />
+          </Route>
+        </Switch>
       </FooterContextComponent>
     </NavBarContextComponent>
   );
