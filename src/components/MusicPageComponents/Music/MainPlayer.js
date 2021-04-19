@@ -182,8 +182,8 @@ const MainPlayer = ({ id }) => {
       <ControlsDiv>
         <ShuffleControl
           ref={shuffleRef}
+          className={shuffle ? 'active' : ''}
           onClick={() => {
-            shuffleRef.current.classList.toggle('active');
             setShuffle((prev) => !prev);
           }}
         >
