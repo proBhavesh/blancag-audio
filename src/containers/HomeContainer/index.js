@@ -161,7 +161,6 @@ const HomePage = ({ location }) => {
   return (
     <ContentDiv>
       <BlurDiv blur={isOpen}>
-        <Navbar />
         {!isLoading && (
           <motion.div
             variants={pageVariant}
@@ -169,6 +168,7 @@ const HomePage = ({ location }) => {
             animate='visible'
             exit='hidden'
           >
+            <Navbar />
             <HomePageData.Provider value={data}>
               <Hero />
               <About />
