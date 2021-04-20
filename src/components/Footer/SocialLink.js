@@ -14,7 +14,6 @@ const A = styled.a`
   svg,
   .soundCloud-circle {
     fill: ${(props) => props.theme.textWhite};
-    transition: fill 0.3s linear;
   }
 
   @media (min-width: 768px) {

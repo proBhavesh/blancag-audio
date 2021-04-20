@@ -28,7 +28,6 @@ const Button = styled.button`
     width: 100%;
 
     fill: #a0a0a0;
-    transition: fill 0.3s;
   }
 `;
 
