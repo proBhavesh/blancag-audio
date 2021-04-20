@@ -14,8 +14,6 @@ const HeroDiv = styled.div`
 
   position: relative;
 
-  /* background-color: #ffffff80; */
-
   @media (max-width: 768px) {
     height: 10rem;
   }
@@ -29,7 +27,7 @@ const Overlay = styled.div`
   width: 100vw;
   height: 100%;
 
-  background-color: ${(props) => props.theme.textColor}0d;
+  background-color: ${(props) => props.theme.textGrey}0d;
   mix-blend-mode: difference;
 
   @media (max-width: 768px) {

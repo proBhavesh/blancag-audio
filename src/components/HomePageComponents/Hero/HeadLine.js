@@ -15,7 +15,7 @@ const HeadLineDiv = styled.div`
 
   h1 {
     font-weight: normal;
-    text-shadow: 0 4px 5px rgba(0, 0, 0, 0.4);
+    text-shadow: 0 4px 5px ${(props) => props.theme.bgBlack}66;
     font-size: ${(props) => props.sizes.desktop}px;
     font-family: 'Arial', 'Helvetica', sans-serif;
     letter-spacing: 0.25em;

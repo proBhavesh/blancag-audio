@@ -31,7 +31,7 @@ const MenuButton = styled.button`
     width: 100%;
     height: 2px;
 
-    background-color: #fff;
+    background-color: ${(props) => props.theme.textWhite};
     border-radius: 2px;
 
     transform-origin: center;
@@ -92,7 +92,7 @@ const MenuDiv = styled.div`
   width: calc(100% + 4rem);
   height: 100vh;
 
-  background-color: #000;
+  background-color: ${(props) => props.theme.bgBlack};
   z-index: 990;
 
   display: grid;

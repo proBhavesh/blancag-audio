@@ -1,7 +1,7 @@
 export const theme = {
-  bgColor: '#000000',
-  textColor: '#a0a0a0',
-  mainColor: '#bada55',
-  titleColor: '#ffffff',
-  commonMargin: '2rem',
+  bgBlack: '#000',
+  textWhite: '#f5f5f5',
+  mainGreen: '#bada55',
+  textGrey: '#a6a6a6',
+  lighterGrey: '#a0a0a0',
 };

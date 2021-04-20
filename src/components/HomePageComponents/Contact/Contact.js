@@ -41,15 +41,15 @@ const Form = styled.form`
 
   input,
   textarea {
-    color: #000;
+    color: ${(props) => props.theme.bgBlack};
     font-family: inherit;
     font-size: 1rem;
     font-weight: bold;
 
     padding: 0.5em;
 
-    border: 3px solid #000;
-    background-color: #fff;
+    border: 3px solid ${(props) => props.theme.bgBlack};
+    background-color: ${(props) => props.theme.textWhite};
     outline: none;
 
     @media (max-width: 768px) {
@@ -60,7 +60,7 @@ const Form = styled.form`
 
   input::placeholder,
   textarea::placeholder {
-    color: #a6a6a6;
+    color: ${(props) => props.theme.textGrey};
     opacity: 1;
     font-weight: bold;
   }
@@ -90,7 +90,7 @@ const Button = styled.button`
     margin: 0;
   }
 
-  color: #000;
+  color: ${(props) => props.theme.bgBlack};
   background-color: #cccccc;
   box-shadow: 1px 1px #505050, 2px 2px #505050, 3px 3px #505050, 4px 4px #505050,
     5px 5px #505050, 6px 6px #505050, 7px 7px #505050, 8px 8px #505050;
@@ -107,8 +107,8 @@ const Button = styled.button`
   transition: 0.12s ease;
 
   &:hover {
-    background-color: #bada55;
-    box-shadow: 0 0 #000;
+    background-color: ${(props) => props.theme.mainGreen};
+    box-shadow: 0 0 ${(props) => props.theme.bgBlack};
     transform: translate(-3px, 10px);
   }
 `;

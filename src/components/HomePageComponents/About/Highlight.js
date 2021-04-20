@@ -16,7 +16,7 @@ const HighlightDiv = styled.div`
   text-shadow: 0 0 0.5em rgba(255, 255, 255, 0.75),
     0 0 0.25em rgba(255, 255, 255, 0.5);
   .highlight {
-    color: ${(props) => props.theme.mainColor};
+    color: ${(props) => props.theme.mainGreen};
     font-size: ${(props) => props.sizes.desktop * 1.1}px;
   }
 
