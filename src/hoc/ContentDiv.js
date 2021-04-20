@@ -18,6 +18,8 @@ const ContentDiv = styled.div`
   overflow-x: hidden;
   overflow-y: overlay;
 
+  -webkit-overflow-scrolling: touch;
+
   &::-webkit-scrollbar {
     appearance: none;
     width: 8px;

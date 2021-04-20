@@ -9,7 +9,6 @@ export const GlobalStyles = createGlobalStyle`
 
   html {
     font-size: 17px;
-    height: 100%;
     width: 100%;
     overflow: hidden;
     position: relative;
@@ -22,7 +21,7 @@ export const GlobalStyles = createGlobalStyle`
     text-align: center;
 
     width: 100%;
-    height: 100%;
+    height: 100vh;
     overflow: hidden;
 
     position: absolute;
