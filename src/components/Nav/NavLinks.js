@@ -15,8 +15,10 @@ const NavLinkStyled = styled(NavLink)`
     font-size: ${(props) => props.size}px;
   }
 
-  &:hover {
-    color: ${(props) => props.theme.textGrey};
+  @media (min-width: 768px) {
+    &:hover {
+      color: ${(props) => props.theme.textGrey};
+    }
   }
 
   &.active {
