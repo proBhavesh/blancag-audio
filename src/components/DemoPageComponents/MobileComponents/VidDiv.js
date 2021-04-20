@@ -35,6 +35,7 @@ const OverlayDiv = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
+  font-size: ${(props) => props.size}px;
 
   padding: 0.5rem 0.75rem;
 
@@ -54,8 +55,8 @@ const OverlayDiv = styled.div`
 
 const IconDiv = styled.div`
   cursor: pointer;
-  width: 3rem;
-  height: 3rem;
+  width: ${(props) => props.size}px;
+  height: ${(props) => props.size}px;
 
   position: absolute;
   top: 50%;
@@ -81,7 +82,14 @@ const PlayingDiv = styled.div`
 
 const VidDiv = ({ details, index }) => {
   const [play, setPlay] = useState(false);
-  const { activeVid_id, setActiveVid_id } = useContext(DemosPageData);
+  const {
+    activeVid_id,
+    setActiveVid_id,
+    sizes: {
+      titles: { mobile },
+      icons: { mobile: mobileIcon },
+    },
+  } = useContext(DemosPageData);
   const vidPlayerDivRef = useRef(null);
   const playerRef = useRef(null);
 
@@ -102,11 +110,12 @@ const VidDiv = ({ details, index }) => {
       {!play ? (
         <NotPlayingDiv>
           <img src={details.thumbnail_url} alt={`thumbnail-${details.title}`} />
-          <OverlayDiv>
+          <OverlayDiv size={mobile}>
             <p>
               <strong>{details.title}</strong>
             </p>
             <IconDiv
+              size={mobileIcon}
               onClick={() => {
                 setActiveVid_id(details.video_id);
                 setPlay(true);

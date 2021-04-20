@@ -17,6 +17,7 @@ import homePageSizes from './homePage/homePageSizes';
 import skillsSection from './homePage/skillsSection';
 
 import demosPageVidLinks from './demosPage/demosPageVidLinks';
+import demosPageSizes from './demosPage/demosPageSizes';
 
 import musicFile from './musicPage/musicFile';
 import musicFiles from './musicPage/musicFiles';
@@ -43,6 +44,7 @@ export default createSchema({
     skillsSection,
 
     demosPageVidLinks,
+    demosPageSizes,
 
     musicFile,
     musicFiles,
