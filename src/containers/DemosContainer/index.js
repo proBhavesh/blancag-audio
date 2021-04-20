@@ -109,7 +109,6 @@ const DemosPage = () => {
 
   return (
     <ContentDiv>
-      {window.innerWidth > 768 ? <Navbar /> : <BackHomeButton />}
       {!isLoading && (
         <motion.div
           variants={pageVariant}
@@ -117,6 +116,7 @@ const DemosPage = () => {
           animate='visible'
           exit='hidden'
         >
+          {window.innerWidth > 768 ? <Navbar /> : <BackHomeButton />}
           <ContainerDiv>
             <DemosPageData.Provider
               value={{
