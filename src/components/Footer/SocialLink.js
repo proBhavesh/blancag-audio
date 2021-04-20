@@ -15,8 +15,8 @@ const A = styled.a`
   height: ${(props) => props.sizes.circleSizes.desktop}px;
   margin: 0 ${(props) => props.sizes.gap}px;
 
-  background-color: #fff;
-  color: #000;
+  background-color: ${(props) => props.theme.textWhite};
+  color: ${(props) => props.theme.bgBlack};
   border-radius: 50%;
 
   display: grid;
@@ -29,7 +29,7 @@ const A = styled.a`
 
   @media (min-width: 768px) {
     &:hover {
-      background-color: #bada55;
+      background-color: ${(props) => props.theme.mainGreen};
     }
   }
 

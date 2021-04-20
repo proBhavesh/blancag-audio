@@ -9,18 +9,18 @@ const NavLinkStyled = styled(NavLink)`
   font-family: 'Play', monospace;
   text-decoration: none;
   font-size: 1rem;
-  color: #fff;
+  color: ${(props) => props.theme.textWhite};
 
   @media (max-width: 768px) {
     font-size: ${(props) => props.size}px;
   }
 
   &:hover {
-    color: #a6a6a6;
+    color: ${(props) => props.theme.textGrey};
   }
 
   &.active {
-    color: #bada55;
+    color: ${(props) => props.theme.mainGreen};
   }
 `;
 

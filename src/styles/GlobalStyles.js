@@ -16,8 +16,8 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   body {
-    background-color: ${(props) => props.theme.bgColor};
-    color: ${(props) => props.theme.textColor};
+    background-color: ${(props) => props.theme.bgBlack};
+    color: ${(props) => props.theme.textGrey};
     font-family: 'DIN Next Light', sans-serif;
     text-align: center;
 
@@ -33,7 +33,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   h1,h2,h3 {
-    color: ${(props) => props.theme.titleColor};
+    color: ${(props) => props.theme.textWhite};
   }
 
   h2,h3 {
@@ -49,31 +49,4 @@ export const GlobalStyles = createGlobalStyle`
   p {
     line-height: 1.5em;
   }
-
-  /* -- SCROLLBARS */
-  /* html {
-    scrollbar-width: thin;
-    scrollbar-color: transparent #00000040;
-    overflow-y: overlay;
-  }
-
-  ::-webkit-scrollbar {
-    appearance: none;
-    width: 8px;
-
-    @media (max-width: 768px) {
-      width: 4px;
-    }
-  }
-
-  ::-webkit-scrollbar-track{
-    background-color:transparent;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background-color: #bada55;
-    border-radius: 2rem;
-    border: 1px solid #a0a0a033;
-    z-index: 10000;
-  } */
 `;
