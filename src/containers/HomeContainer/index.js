@@ -159,7 +159,7 @@ const HomePage = ({ location }) => {
   }, []);
 
   return (
-    <ContentDiv>
+    <ContentDiv hideScroll={false}>
       <BlurDiv blur={isOpen}>
         {!isLoading && (
           <motion.div
