@@ -148,7 +148,7 @@ const DemosPage = () => {
   };
 
   return (
-    <ContentDiv>
+    <ContentDiv hideScroll={true}>
       {!isLoading && (
         <motion.div
           variants={pageVariant}
