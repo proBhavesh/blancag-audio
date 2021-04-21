@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+
+import { DemosPageData } from '../../../containers/DemosContainer/index';
 
 const IconDiv = styled.div`
   position: absolute;
@@ -8,8 +10,8 @@ const IconDiv = styled.div`
 
   cursor: pointer;
 
-  width: 2rem;
-  height: 2rem;
+  width: ${(props) => props.size}px;
+  height: ${(props) => props.size}px;
 
   &:first-of-type {
     left: -2.5rem;
@@ -33,8 +35,16 @@ const IconDiv = styled.div`
 `;
 
 export function SamplePrevArrow({ currentSlide, onClick }) {
+  const {
+    sizes: {
+      icons: {
+        desktop: { vidSlider_arrow },
+      },
+    },
+  } = useContext(DemosPageData);
   return (
     <IconDiv
+      size={vidSlider_arrow}
       className='iconDiv'
       style={
         currentSlide === 0
@@ -54,8 +64,16 @@ export function SamplePrevArrow({ currentSlide, onClick }) {
   );
 }
 export function SampleNextArrow({ currentSlide, onClick, slideCount }) {
+  const {
+    sizes: {
+      icons: {
+        desktop: { vidSlider_arrow },
+      },
+    },
+  } = useContext(DemosPageData);
   return (
     <IconDiv
+      size={vidSlider_arrow}
       className='iconDiv'
       style={
         currentSlide + 3 >= slideCount - 1

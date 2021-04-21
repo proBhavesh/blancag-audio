@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import Slider from 'react-slick';
@@ -9,7 +9,6 @@ import {
   SampleNextArrow,
   SamplePrevArrow,
 } from '../../components/DemoPageComponents/DesktopComponents/SliderArrow';
-import ButtonGroup from '../../components/DemoPageComponents/MobileComponents/Arrows';
 
 import ContentDiv from '../../hoc/ContentDiv';
 import Navbar from '../../components/Nav/NavBar';
@@ -20,6 +19,7 @@ import Footer from '../../components/Footer/Footer';
 import { client as sanity } from '../../sanityClient';
 import { pageVariant } from '../../styles/motionVariants/pageVariant';
 
+import BackToTopButton from '../../components/DemoPageComponents/MobileComponents/BackToTopButton';
 import VidPlayer from '../../components/DemoPageComponents/DesktopComponents/VidPlayer';
 import VidLight from '../../components/DemoPageComponents/DesktopComponents/VidLight';
 import VidDiv from '../../components/DemoPageComponents/MobileComponents/VidDiv';
@@ -28,6 +28,25 @@ export const DemosPageData = React.createContext({
   videos: [],
   activeVid_id: null,
   setActiveVid_id: null,
+  sizes: {
+    titles: {
+      desktop: {
+        mainPlayer: null,
+        vidLight: null,
+      },
+      mobile: null,
+    },
+    icons: {
+      desktop: {
+        mainPlayer_playIcon: null,
+        vidLight_playIcon: null,
+        vidSlider_arrow: null,
+      },
+      mobile: {
+        playIcon: null,
+      },
+    },
+  },
 });
 
 const ContainerDiv = styled.div`
@@ -35,25 +54,41 @@ const ContainerDiv = styled.div`
   max-width: 800px;
   margin: 3rem auto;
   @media (max-width: 768px) {
-    margin: 1rem auto 2rem;
+    margin: 2rem auto 0;
   }
 
   font-family: 'Open Sans', sans-serif;
 `;
 
-const NoArrow = () => {
-  return <div style={{ display: 'none' }} />;
-};
-
 const DemosPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(null);
+  const [sizesData, setSizesData] = useState(null);
   const [activeVid, setActiveVid] = useState(null);
-  const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
-    Promise.all([sanity.fetch(`*[_type == 'demosPageVidLinks'][0].vidLinks`)])
+    Promise.all([
+      sanity.fetch(`*[_type == 'demosPageVidLinks'][0].vidLinks`),
+      sanity.fetch(`*[_type == 'demosPageSizes'][0]{
+        'titles': {
+          'desktop': {
+            'mainPlayer': mainPlayer_title_fontSize_desktop,
+            'vidLight': vidLight_title_fontSize_desktop,
+          },
+          'mobile': vid_title_fontSize_mobile,
+        },
+        'icons': {
+          'desktop': {
+            'mainPlayer_playIcon': mainPlayer_playIcon_size_desktop,
+            'vidLight_playIcon': vidLight_playIcon_size_desktop,
+            'vidSlider_arrow': vidSlider_arrow_size_desktop,
+          },
+          'mobile': vid_playIcon_size_mobile,
+        },
+      }`),
+    ])
       .then((res) => {
+        setSizesData(res[1]);
         return Promise.all(
           res[0].map((link) =>
             fetch(`https://noembed.com/embed?url=${encodeURIComponent(link)}`)
@@ -90,26 +125,8 @@ const DemosPage = () => {
     prevArrow: <SamplePrevArrow />,
   };
 
-  const carouselSettingsMobile = {
-    ...carouselSettingsDesktop,
-    vertical: true,
-    verticalSwiping: true,
-    afterChange: (index) => setCurrentSlide(index),
-    nextArrow: <NoArrow />,
-    prevArrow: <NoArrow />,
-  };
-
-  const sliderRef = useRef(null);
-  const next = () => {
-    sliderRef.current.slickNext();
-  };
-  const goTo = (index) => {
-    sliderRef.current.slickGoTo(index);
-  };
-
   return (
-    <ContentDiv>
-      {window.innerWidth > 768 ? <Navbar /> : <BackHomeButton />}
+    <ContentDiv hideScroll={true}>
       {!isLoading && (
         <motion.div
           variants={pageVariant}
@@ -117,12 +134,18 @@ const DemosPage = () => {
           animate='visible'
           exit='hidden'
         >
+          {window.innerWidth > 768 ? (
+            <Navbar />
+          ) : (
+            <BackHomeButton fixed={true} />
+          )}
           <ContainerDiv>
             <DemosPageData.Provider
               value={{
                 videos: data,
                 activeVid_id: activeVid,
                 setActiveVid_id: setActiveVid,
+                sizes: sizesData,
               }}
             >
               {window.innerWidth > 768 ? (
@@ -137,19 +160,12 @@ const DemosPage = () => {
                   </div>
                 </>
               ) : (
-                <div id='vid_slider_mobile' style={{ position: 'relative' }}>
-                  <Slider {...carouselSettingsMobile} ref={sliderRef}>
-                    {data.map((d, i) => (
-                      <VidDiv key={i} details={d} index={i + 1} />
-                    ))}
-                  </Slider>
-                  <ButtonGroup
-                    nextFn={next}
-                    goTo={goTo}
-                    currentSlide={currentSlide}
-                    count={data.length}
-                  />
-                </div>
+                <>
+                  {data.map((d, i) => (
+                    <VidDiv key={i} details={d} index={i + 1} />
+                  ))}
+                  <BackToTopButton />
+                </>
               )}
             </DemosPageData.Provider>
           </ContainerDiv>
