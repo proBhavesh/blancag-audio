@@ -58,7 +58,7 @@ const PlayPauseBtn = styled(IconDiv)`
   }
 
   &.pause-btn {
-    padding-top: 2px;
+    padding-top: 1px;
   }
 
   &.play-btn {
