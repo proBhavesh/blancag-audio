@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import Slider from 'react-slick';
@@ -9,7 +9,6 @@ import {
   SampleNextArrow,
   SamplePrevArrow,
 } from '../../components/DemoPageComponents/DesktopComponents/SliderArrow';
-import ButtonGroup from '../../components/DemoPageComponents/MobileComponents/Arrows';
 
 import ContentDiv from '../../hoc/ContentDiv';
 import Navbar from '../../components/Nav/NavBar';
@@ -20,6 +19,7 @@ import Footer from '../../components/Footer/Footer';
 import { client as sanity } from '../../sanityClient';
 import { pageVariant } from '../../styles/motionVariants/pageVariant';
 
+import BackToTopButton from '../../components/DemoPageComponents/MobileComponents/BackToTopButton';
 import VidPlayer from '../../components/DemoPageComponents/DesktopComponents/VidPlayer';
 import VidLight from '../../components/DemoPageComponents/DesktopComponents/VidLight';
 import VidDiv from '../../components/DemoPageComponents/MobileComponents/VidDiv';
@@ -54,22 +54,17 @@ const ContainerDiv = styled.div`
   max-width: 800px;
   margin: 3rem auto;
   @media (max-width: 768px) {
-    margin: 2rem auto;
+    margin: 2rem auto 0;
   }
 
   font-family: 'Open Sans', sans-serif;
 `;
-
-const NoArrow = () => {
-  return <div style={{ display: 'none' }} />;
-};
 
 const DemosPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(null);
   const [sizesData, setSizesData] = useState(null);
   const [activeVid, setActiveVid] = useState(null);
-  const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
     Promise.all([
@@ -130,23 +125,6 @@ const DemosPage = () => {
     prevArrow: <SamplePrevArrow />,
   };
 
-  const carouselSettingsMobile = {
-    ...carouselSettingsDesktop,
-    vertical: true,
-    verticalSwiping: true,
-    afterChange: (index) => setCurrentSlide(index),
-    nextArrow: <NoArrow />,
-    prevArrow: <NoArrow />,
-  };
-
-  const sliderRef = useRef(null);
-  const next = () => {
-    sliderRef.current.slickNext();
-  };
-  const goTo = (index) => {
-    sliderRef.current.slickGoTo(index);
-  };
-
   return (
     <ContentDiv hideScroll={true}>
       {!isLoading && (
@@ -182,19 +160,12 @@ const DemosPage = () => {
                   </div>
                 </>
               ) : (
-                <div id='vid_slider_mobile' style={{ position: 'relative' }}>
-                  <Slider {...carouselSettingsMobile} ref={sliderRef}>
-                    {data.map((d, i) => (
-                      <VidDiv key={i} details={d} index={i + 1} />
-                    ))}
-                  </Slider>
-                  <ButtonGroup
-                    nextFn={next}
-                    goTo={goTo}
-                    currentSlide={currentSlide}
-                    count={data.length}
-                  />
-                </div>
+                <>
+                  {data.map((d, i) => (
+                    <VidDiv key={i} details={d} index={i + 1} />
+                  ))}
+                  <BackToTopButton />
+                </>
               )}
             </DemosPageData.Provider>
           </ContainerDiv>

@@ -7,16 +7,9 @@ const IconDiv = styled.div`
   height: 2rem;
   cursor: pointer;
 
-  &:hover {
-    svg {
-      fill: #bada55;
-    }
-  }
-
   svg {
     width: 100%;
     fill: #fff;
-    transition: fill 0.25s linear;
   }
 
   ${(props) =>
