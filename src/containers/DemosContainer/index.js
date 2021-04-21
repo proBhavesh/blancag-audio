@@ -54,7 +54,7 @@ const ContainerDiv = styled.div`
   max-width: 800px;
   margin: 3rem auto;
   @media (max-width: 768px) {
-    margin: 1rem auto 2rem;
+    margin: 2rem auto;
   }
 
   font-family: 'Open Sans', sans-serif;
@@ -156,7 +156,11 @@ const DemosPage = () => {
           animate='visible'
           exit='hidden'
         >
-          {window.innerWidth > 768 ? <Navbar /> : <BackHomeButton />}
+          {window.innerWidth > 768 ? (
+            <Navbar />
+          ) : (
+            <BackHomeButton fixed={true} />
+          )}
           <ContainerDiv>
             <DemosPageData.Provider
               value={{
