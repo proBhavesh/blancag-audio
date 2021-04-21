@@ -45,19 +45,17 @@ const PlaylistDiv = styled.ol`
     padding: 3rem 0;
 
     transition: all 0.5s linear;
-    z-index: 5000;
+    position: fixed;
 
     ${(props) =>
       !props.isOpen
         ? `
-      position: fixed;
-      opacity:0;
-      transform: translateY(100%);
-      pointer-events: none;
+    opacity:0;
+    transform: translateY(100%);
+    pointer-events: none;
       `
         : `
-      position: absolute;
-      opacity: 1;
+    opacity: 1;
     transform: translateY(0);
     pointer-events: initial;
   `}

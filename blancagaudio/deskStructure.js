@@ -148,6 +148,15 @@ const exportFunc = () =>
                     .schemaType('musicFiles')
                     .documentId('musicFiles')
                 ),
+              S.listItem()
+                .title('Music Page Sizes')
+                .icon(SizesIcon)
+                .child(
+                  S.document()
+                    .title('Music Page Sizes')
+                    .documentId('musicPageSizes')
+                    .schemaType('musicPageSizes')
+                ),
             ])
         ),
       S.listItem()
@@ -204,6 +213,7 @@ const exportFunc = () =>
 
             'musicFile',
             'musicFiles',
+            'musicPageSizes',
           ].includes(listItem.getId())
       ),
     ]);

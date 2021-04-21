@@ -81,8 +81,23 @@ const VolumeBar = styled.input`
   }
 `;
 
+const VolumeIcon = styled(IconDiv)`
+  height: ${(props) => props.sizes.desktopIcon}px;
+  @media (max-width: 768px) {
+    height: ${(props) => props.sizes.mobileIcon}px;
+  }
+`;
+
 const Volume = () => {
-  const { volume, setVolume } = useContext(MusicPageData);
+  const {
+    volume,
+    setVolume,
+    sizes: {
+      mainPlayer: {
+        icons: { desktop: desktopIcon, mobile: mobileIcon },
+      },
+    },
+  } = useContext(MusicPageData);
   const volumeRef = useRef(volume);
 
   useEffect(() => {
@@ -146,13 +161,14 @@ const Volume = () => {
 
   return (
     <VolumeDiv>
-      <IconDiv
+      <VolumeIcon
         onClick={() =>
           setVolume((prev) => (prev === 0 ? volumeRef.current : 0))
         }
+        sizes={{ desktopIcon, mobileIcon }}
       >
         {volumeSVG}
-      </IconDiv>
+      </VolumeIcon>
       <VolumeBar
         type='range'
         min='0'

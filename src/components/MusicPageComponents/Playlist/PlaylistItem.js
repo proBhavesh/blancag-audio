@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
@@ -10,6 +10,8 @@ import {
 } from 'react-share';
 
 import { secondsToMinute } from '../../../helpers/SecondsToMinutes';
+
+import { MusicPageData } from '../../../containers/MusicContainer/index';
 
 const ListItem = styled.li`
   width: 100%;
@@ -61,7 +63,10 @@ const LinkStyled = styled(Link)`
   justify-items: start;
   column-gap: 0;
 
+  font-size: ${(props) => props.sizes.desktopTitle}px;
+
   @media (max-width: 768px) {
+    font-size: ${(props) => props.sizes.mobileTitle}px;
     grid-template-columns: minmax(max-content, 50%) auto;
     grid-template-areas: 'title share' 'duration share';
     row-gap: 0.5rem;
@@ -74,7 +79,7 @@ const LinkStyled = styled(Link)`
       grid-area: duration;
       @media (max-width: 768px) {
         justify-self: flex-start;
-        font-size: 0.85rem;
+        font-size: ${(props) => props.sizes.durationMobile}px;
       }
     }
   }
@@ -85,16 +90,19 @@ const LinkStyled = styled(Link)`
 `;
 
 const IconDiv = styled.div`
-  height: 1.5rem;
-  ${(props) => props.arrow && `padding: 0.35rem 0;`}
+  height: ${(props) => props.sizes.desktopTitle * 1.5}px;
+  ${(props) =>
+    props.arrow && `padding: ${props.sizes.desktopTitle * 0.35}px 0;`}
 
   display: grid;
   place-items: center;
 
   @media (max-width: 768px) {
+    height: ${(props) => props.sizes.mobileTitle * 1.5}px;
     ${(props) =>
       props.arrow &&
       `
+      padding: ${props.sizes.mobileTitle * 0.35}px 0;
       grid-area: arrow;
       justify-self: flex-end;
     `}
@@ -135,16 +143,24 @@ const InnerShareIconsDiv = styled.div`
 `;
 
 const ShareIconDiv = styled(IconDiv)`
-  height: 1.5rem;
+  height: ${(props) => props.sizes.desktopTitle * 1.5}px;
+  @media (max-width: 768px) {
+    height: ${(props) => props.sizes.mobileTitle * 1.5}px;
+  }
 
   ${(props) =>
     props.link &&
     `
-    width: 1.5rem;
+    width: ${props.sizes.desktopTitle * 1.5}px;
     background-color: #f5f5f5;
     border-radius: 50%;
-    padding: 0.35rem 0;
+    padding: ${props.sizes.desktopTitle * 0.35}px 0;
     transform: rotate(90deg);
+
+    @media (max-width: 768px) {
+      width: ${props.sizes.mobileTitle * 1.5}px;
+      padding: ${props.sizes.mobileTitle * 0.35}px 0;
+    }
 
     svg {
       fill: #000;
@@ -155,6 +171,15 @@ const ShareIconDiv = styled(IconDiv)`
 const PlaylistItem = ({ file, index, active, setCopied }) => {
   const [duration, setDuration] = useState(0);
   const [showShareIcons, setShowShareIcons] = useState(false);
+
+  const {
+    sizes: {
+      playlist: {
+        title: { desktop: desktopTitle, mobile: mobileTitle },
+        durationMobile,
+      },
+    },
+  } = useContext(MusicPageData);
 
   const url = window.location.href;
 
@@ -171,6 +196,7 @@ const PlaylistItem = ({ file, index, active, setCopied }) => {
             pathname: `/music/${index - 1}`,
             state: { redirect: true },
           }}
+          sizes={{ desktopTitle, mobileTitle, durationMobile }}
         >
           {window.innerWidth > 768 && <p>{index}</p>}
           <h4>{file.title}</h4>
@@ -183,11 +209,8 @@ const PlaylistItem = ({ file, index, active, setCopied }) => {
               }}
             >
               <InnerShareIconsDiv>
-                <FacebookShareButton
-                  url={url}
-                  onShareWindowClose={() => setShowShareIcons(false)}
-                >
-                  <ShareIconDiv>
+                <FacebookShareButton url={url}>
+                  <ShareIconDiv sizes={{ desktopTitle, mobileTitle }}>
                     <svg
                       viewBox='0 0 512 512'
                       xmlns='http://www.w3.org/2000/svg'
@@ -202,11 +225,8 @@ const PlaylistItem = ({ file, index, active, setCopied }) => {
                     </svg>
                   </ShareIconDiv>
                 </FacebookShareButton>
-                <TwitterShareButton
-                  url={url}
-                  onShareWindowClose={() => setShowShareIcons(false)}
-                >
-                  <ShareIconDiv>
+                <TwitterShareButton url={url}>
+                  <ShareIconDiv sizes={{ desktopTitle, mobileTitle }}>
                     <svg
                       viewBox='0 0 512 512'
                       xmlns='http://www.w3.org/2000/svg'
@@ -224,11 +244,8 @@ const PlaylistItem = ({ file, index, active, setCopied }) => {
                     </svg>
                   </ShareIconDiv>
                 </TwitterShareButton>
-                <LinkedinShareButton
-                  url={url}
-                  onShareWindowClose={() => setShowShareIcons(false)}
-                >
-                  <ShareIconDiv>
+                <LinkedinShareButton url={url}>
+                  <ShareIconDiv sizes={{ desktopTitle, mobileTitle }}>
                     <svg
                       viewBox='0 0 512 512'
                       xmlns='http://www.w3.org/2000/svg'
@@ -243,11 +260,8 @@ const PlaylistItem = ({ file, index, active, setCopied }) => {
                     </svg>
                   </ShareIconDiv>
                 </LinkedinShareButton>
-                <WhatsappShareButton
-                  url={url}
-                  onShareWindowClose={() => setShowShareIcons(false)}
-                >
-                  <ShareIconDiv>
+                <WhatsappShareButton url={url}>
+                  <ShareIconDiv sizes={{ desktopTitle, mobileTitle }}>
                     <svg
                       viewBox='2619 506 120 120'
                       xmlns='http://www.w3.org/2000/svg'
@@ -338,6 +352,7 @@ const PlaylistItem = ({ file, index, active, setCopied }) => {
                   </ShareIconDiv>
                 </WhatsappShareButton>
                 <ShareIconDiv
+                  sizes={{ desktopTitle, mobileTitle }}
                   link
                   onClick={() =>
                     navigator.clipboard
@@ -360,6 +375,7 @@ const PlaylistItem = ({ file, index, active, setCopied }) => {
                 e.preventDefault();
                 setShowShareIcons((prev) => !prev);
               }}
+              sizes={{ desktopTitle, mobileTitle }}
             >
               <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28.01'>
                 <path d='M28,10a1,1,0,0,1-.33.74l-10,9a1,1,0,0,1-1.08.17A1,1,0,0,1,16,19V15.19A18.61,18.61,0,0,0,2.19,27.34a1,1,0,0,1-.94.67H1.16a1,1,0,0,1-.9-.83A19.22,19.22,0,0,1,0,24.06,19,19,0,0,1,16,5.31V1A1,1,0,0,1,17.67.26l10,9A1,1,0,0,1,28,10Z' />

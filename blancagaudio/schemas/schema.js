@@ -21,6 +21,7 @@ import demosPageSizes from './demosPage/demosPageSizes';
 
 import musicFile from './musicPage/musicFile';
 import musicFiles from './musicPage/musicFiles';
+import musicPageSizes from './musicPage/musicPageSizes';
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -48,5 +49,6 @@ export default createSchema({
 
     musicFile,
     musicFiles,
+    musicPageSizes,
   ]),
 });

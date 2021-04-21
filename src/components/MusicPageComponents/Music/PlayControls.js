@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 
 import { IconDiv } from './IconDiv';
+
+import { MusicPageData } from '../../../containers/MusicContainer/index';
 
 const PlayControlsDiv = styled.div`
   grid-column: span 2;
@@ -18,21 +20,31 @@ const PlayControlsDiv = styled.div`
 
 const PrevBtn = styled(IconDiv)`
   margin-right: 2.25rem;
+  height: ${(props) => props.sizes.desktopIcon}px;
+
+  @media (max-width: 768px) {
+    height: ${(props) => props.sizes.mobileIcon}px;
+  }
 `;
 
 const PlayPauseBtn = styled(IconDiv)`
   margin-right: 2.25rem;
 
   &.play-ctrl-btn {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: ${(props) => props.sizes.desktopIcon * 2.5}px;
+    height: ${(props) => props.sizes.desktopIcon * 2.5}px;
+    @media (max-width: 768px) {
+      width: ${(props) => props.sizes.mobileIcon * 2.5}px;
+      height: ${(props) => props.sizes.mobileIcon * 2.5}px;
+    }
+
     background-color: #fff;
     border-radius: 50%;
     display: grid;
     place-items: center;
 
     svg {
-      height: 1rem;
+      height: ${(props) => props.sizes.desktopIcon}px;
       fill: #000;
     }
 
@@ -55,12 +67,29 @@ const PlayPauseBtn = styled(IconDiv)`
   }
 `;
 
-const NextBtn = styled(IconDiv)``;
+const NextBtn = styled(IconDiv)`
+  height: ${(props) => props.sizes.desktopIcon}px;
+
+  @media (max-width: 768px) {
+    height: ${(props) => props.sizes.mobileIcon}px;
+  }
+`;
 
 const PlayControls = ({ isPlaying, setIsPlaying, goToNewSong }) => {
+  const {
+    sizes: {
+      mainPlayer: {
+        icons: { desktop: desktopIcon, mobile: mobileIcon },
+      },
+    },
+  } = useContext(MusicPageData);
+
   return (
     <PlayControlsDiv>
-      <PrevBtn onClick={() => goToNewSong(false)}>
+      <PrevBtn
+        onClick={() => goToNewSong(false)}
+        sizes={{ desktopIcon, mobileIcon }}
+      >
         <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36.09 35.92'>
           <path d='M36.09,34.14V1.78a1,1,0,0,0-1-1,1,1,0,0,0-.53.15L8.07,17.1a1,1,0,0,0,0,1.71L34.57,35a1,1,0,0,0,1.37-.33A1,1,0,0,0,36.09,34.14Z' />
           <rect width='7.67' height='35.92' rx='1' />
@@ -69,6 +98,7 @@ const PlayControls = ({ isPlaying, setIsPlaying, goToNewSong }) => {
       <PlayPauseBtn
         className={'play-ctrl-btn ' + (!isPlaying ? 'play-btn' : 'pause-btn')}
         onClick={() => setIsPlaying((prev) => !prev)}
+        sizes={{ desktopIcon, mobileIcon }}
       >
         {!isPlaying ? (
           <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 536 606'>
@@ -81,7 +111,10 @@ const PlayControls = ({ isPlaying, setIsPlaying, goToNewSong }) => {
           </svg>
         )}
       </PlayPauseBtn>
-      <NextBtn onClick={() => goToNewSong()}>
+      <NextBtn
+        onClick={() => goToNewSong()}
+        sizes={{ desktopIcon, mobileIcon }}
+      >
         <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36.09 35.92'>
           <path d='M0,1.78V34.14a1,1,0,0,0,1,1A1,1,0,0,0,1.52,35L28,18.82a1,1,0,0,0,0-1.71L1.52.93a1,1,0,0,0-1.37.33A1,1,0,0,0,0,1.78Z' />
           <rect x='28.42' width='7.67' height='35.92' rx='1' />
