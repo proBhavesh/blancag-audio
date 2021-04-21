@@ -8,7 +8,7 @@ const VidPlayerDiv = styled.div`
   width: calc(100% - 20px);
   margin: 0 auto 20px;
 
-  padding-top: 54.85%;
+  aspect-ratio: 1.7778;
   position: relative;
 
   font-family: 'Open Sans', sans-serif;
@@ -23,6 +23,7 @@ const NotPlayingDiv = styled.div`
   height: 100%;
 
   img {
+    height: 100%;
     width: 100%;
   }
 `;

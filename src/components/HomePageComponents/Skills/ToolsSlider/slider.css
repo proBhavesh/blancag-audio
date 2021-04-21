@@ -5,7 +5,3 @@
 #vid_slider .slick-slide > div {
   padding: 0 0.5rem;
 }
-
-#vid_slider_mobile .slick-slide > div {
-  padding: 0.5rem 0;
-}

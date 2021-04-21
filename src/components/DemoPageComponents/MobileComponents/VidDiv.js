@@ -9,6 +9,7 @@ import { secondsToMinute } from '../../../helpers/SecondsToMinutes';
 const VidPlayerDiv = styled.div`
   color: #fff;
   width: 100%;
+  margin-bottom: 1rem;
 
   padding-top: 56.25%;
   position: relative;
