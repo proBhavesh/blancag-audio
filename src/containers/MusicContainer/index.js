@@ -148,7 +148,7 @@ const MusicPage = () => {
   );
 
   return (
-    <ContentDiv>
+    <ContentDiv hideScroll={true}>
       {!state || !state.redirect ? (
         <motion.div
           variants={pageVariant}
