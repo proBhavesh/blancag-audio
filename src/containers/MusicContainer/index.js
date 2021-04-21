@@ -91,27 +91,29 @@ const MusicPage = () => {
 
   const mainContentJSX = (
     <>
-      {window.innerWidth < 768 && (
-        <MobileNavDiv>
-          <BackHomeButton />
-          <PlaylistIconDiv onClick={() => setPlayListOpen((prev) => !prev)}>
-            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'>
-              <defs>
-                <style>
-                  .a{'{'}fill-rule:evenodd;{'}'}
-                </style>
-              </defs>
-              <title>playlist</title>
-              <path
-                className='a'
-                d='M0,0V6.19l5-3.1ZM0,20H20V18H0Zm0-8.12H20v-2H0ZM7,3.75H20v-2H7Z'
-              />
-            </svg>
-          </PlaylistIconDiv>
-        </MobileNavDiv>
-      )}
       {!isLoading && (
         <>
+          {window.innerWidth < 768 ? (
+            <MobileNavDiv>
+              <BackHomeButton />
+              <PlaylistIconDiv onClick={() => setPlayListOpen((prev) => !prev)}>
+                <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'>
+                  <defs>
+                    <style>
+                      .a{'{'}fill-rule:evenodd;{'}'}
+                    </style>
+                  </defs>
+                  <title>playlist</title>
+                  <path
+                    className='a'
+                    d='M0,0V6.19l5-3.1ZM0,20H20V18H0Zm0-8.12H20v-2H0ZM7,3.75H20v-2H7Z'
+                  />
+                </svg>
+              </PlaylistIconDiv>
+            </MobileNavDiv>
+          ) : (
+            <Navbar />
+          )}
           <ContainerDiv>
             <MusicPageData.Provider
               value={{
@@ -147,7 +149,6 @@ const MusicPage = () => {
 
   return (
     <ContentDiv>
-      {window.innerWidth > 768 && <Navbar />}
       {!state || !state.redirect ? (
         <motion.div
           variants={pageVariant}
