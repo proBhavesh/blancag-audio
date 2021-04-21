@@ -28,6 +28,25 @@ export const DemosPageData = React.createContext({
   videos: [],
   activeVid_id: null,
   setActiveVid_id: null,
+  sizes: {
+    titles: {
+      desktop: {
+        mainPlayer: null,
+        vidLight: null,
+      },
+      mobile: null,
+    },
+    icons: {
+      desktop: {
+        mainPlayer_playIcon: null,
+        vidLight_playIcon: null,
+        vidSlider_arrow: null,
+      },
+      mobile: {
+        playIcon: null,
+      },
+    },
+  },
 });
 
 const ContainerDiv = styled.div`
@@ -48,12 +67,33 @@ const NoArrow = () => {
 const DemosPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(null);
+  const [sizesData, setSizesData] = useState(null);
   const [activeVid, setActiveVid] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
-    Promise.all([sanity.fetch(`*[_type == 'demosPageVidLinks'][0].vidLinks`)])
+    Promise.all([
+      sanity.fetch(`*[_type == 'demosPageVidLinks'][0].vidLinks`),
+      sanity.fetch(`*[_type == 'demosPageSizes'][0]{
+        'titles': {
+          'desktop': {
+            'mainPlayer': mainPlayer_title_fontSize_desktop,
+            'vidLight': vidLight_title_fontSize_desktop,
+          },
+          'mobile': vid_title_fontSize_mobile,
+        },
+        'icons': {
+          'desktop': {
+            'mainPlayer_playIcon': mainPlayer_playIcon_size_desktop,
+            'vidLight_playIcon': vidLight_playIcon_size_desktop,
+            'vidSlider_arrow': vidSlider_arrow_size_desktop,
+          },
+          'mobile': vid_playIcon_size_mobile,
+        },
+      }`),
+    ])
       .then((res) => {
+        setSizesData(res[1]);
         return Promise.all(
           res[0].map((link) =>
             fetch(`https://noembed.com/embed?url=${encodeURIComponent(link)}`)
@@ -109,7 +149,6 @@ const DemosPage = () => {
 
   return (
     <ContentDiv>
-      {window.innerWidth > 768 ? <Navbar /> : <BackHomeButton />}
       {!isLoading && (
         <motion.div
           variants={pageVariant}
@@ -117,12 +156,14 @@ const DemosPage = () => {
           animate='visible'
           exit='hidden'
         >
+          {window.innerWidth > 768 ? <Navbar /> : <BackHomeButton />}
           <ContainerDiv>
             <DemosPageData.Provider
               value={{
                 videos: data,
                 activeVid_id: activeVid,
                 setActiveVid_id: setActiveVid,
+                sizes: sizesData,
               }}
             >
               {window.innerWidth > 768 ? (

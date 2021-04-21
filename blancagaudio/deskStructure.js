@@ -121,6 +121,15 @@ const exportFunc = () =>
                     .schemaType('demosPageVidLinks')
                     .documentId('demosPageVidLinks')
                 ),
+              S.listItem()
+                .title('Sizes')
+                .icon(SizesIcon)
+                .child(
+                  S.document()
+                    .title('Demos Page Sizes')
+                    .schemaType('demosPageSizes')
+                    .documentId('demosPageSizes')
+                ),
             ])
         ),
       S.listItem()
@@ -191,6 +200,7 @@ const exportFunc = () =>
             'skillsSection',
 
             'demosPageVidLinks',
+            'demosPageSizes',
 
             'musicFile',
             'musicFiles',
