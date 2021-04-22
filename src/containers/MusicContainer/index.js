@@ -18,7 +18,33 @@ import { client as sanity } from '../../sanityClient';
 
 export const MusicPageData = React.createContext({
   files: [],
-  activeFileIndex: null,
+  sizes: {
+    mainPlayer: {
+      title: {
+        desktop: null,
+        mobile: null,
+      },
+      byLine: {
+        desktop: null,
+        mobile: null,
+      },
+      duration: {
+        desktop: null,
+        mobile: null,
+      },
+      icons: {
+        desktop: null,
+        mobile: null,
+      },
+    },
+    playlist: {
+      title: {
+        desktop: null,
+        mobile: null,
+      },
+      durationMobile: null,
+    },
+  },
 });
 
 const ContainerDiv = styled.div`
@@ -69,6 +95,7 @@ const MusicPage = () => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(null);
+  const [sizesData, setSizesData] = useState(null);
 
   const [shuffle, setShuffle] = useState(false);
   const [repeat, setRepeat] = useState(false);
@@ -83,35 +110,65 @@ const MusicPage = () => {
         'cover': track_cover,
         'file': track_file.asset->.url,
       }`),
+      sanity.fetch(`*[_type == 'musicPageSizes'][0]{
+          'mainPlayer': {
+            'title': {
+              'desktop': mainPlayer_title_fontSize_desktop,
+              'mobile': mainPlayer_title_fontSize_mobile
+            },
+            'byLine': {
+              'desktop': mainPlayer_byLine_fontSize_desktop,
+              'mobile': mainPlayer_byLine_fontSize_mobile,
+            },
+            'duration': {
+              'desktop': mainPlayer_duration_fontSize_desktop,
+              'mobile': mainPlayer_duration_fontSize_mobile
+            },
+            'icons': {
+              'desktop': mainPlayer_icons_size_desktop,
+              'mobile': mainPlayer_icons_size_mobile
+            }
+          },
+          'playlist': {
+            'title': {
+              'desktop': playlist_fontSize_desktop,
+              'mobile': playlist_title_fontSize_mobile,
+            },
+            'durationMobile': playlist_duration_fontSize_mobile
+          }
+      }`),
     ]).then((res) => {
       setData(res[0]);
+      setSizesData(res[1]);
       setIsLoading(false);
     });
   }, []);
 
   const mainContentJSX = (
     <>
-      {window.innerWidth < 768 && (
-        <MobileNavDiv>
-          <BackHomeButton />
-          <PlaylistIconDiv onClick={() => setPlayListOpen((prev) => !prev)}>
-            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'>
-              <defs>
-                <style>
-                  .a{'{'}fill-rule:evenodd;{'}'}
-                </style>
-              </defs>
-              <title>playlist</title>
-              <path
-                className='a'
-                d='M0,0V6.19l5-3.1ZM0,20H20V18H0Zm0-8.12H20v-2H0ZM7,3.75H20v-2H7Z'
-              />
-            </svg>
-          </PlaylistIconDiv>
-        </MobileNavDiv>
-      )}
       {!isLoading && (
         <>
+          {window.innerWidth < 768 ? (
+            <MobileNavDiv>
+              <BackHomeButton />
+              <PlaylistIconDiv onClick={() => setPlayListOpen((prev) => !prev)}>
+                <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'>
+                  <defs>
+                    <style>
+                      .a{'{'}fill-rule:evenodd;{'}'}
+                    </style>
+                  </defs>
+                  <title>playlist</title>
+                  <path
+                    className='a'
+                    d='M0,0V6.19l5-3.1ZM0,20H20V18H0Zm0-8.12H20v-2H0ZM7,3.75H20v-2H7Z'
+                  />
+                </svg>
+              </PlaylistIconDiv>
+            </MobileNavDiv>
+          ) : (
+            <Navbar />
+          )}
           <ContainerDiv>
             <MusicPageData.Provider
               value={{
@@ -122,6 +179,7 @@ const MusicPage = () => {
                 setShuffle: setShuffle,
                 repeat: repeat,
                 setRepeat: setRepeat,
+                sizes: sizesData,
               }}
             >
               <MusicPlayerDiv>
@@ -146,8 +204,7 @@ const MusicPage = () => {
   );
 
   return (
-    <ContentDiv>
-      {window.innerWidth > 768 && <Navbar />}
+    <ContentDiv hideScroll={true}>
       {!state || !state.redirect ? (
         <motion.div
           variants={pageVariant}

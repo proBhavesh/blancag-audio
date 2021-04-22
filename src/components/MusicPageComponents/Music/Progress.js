@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 
 import { secondsToMinute } from '../../../helpers/SecondsToMinutes';
+
+import { MusicPageData } from '../../../containers/MusicContainer/index';
 
 const ProgressDiv = styled.div`
   grid-area: progress;
@@ -100,28 +102,42 @@ const GreyProgress = styled.div`
   width: 100%;
 `;
 
-const CurrentTime = styled.p`
+const Time = styled.p`
   user-select: none;
   letter-spacing: 0.1em;
+`;
+
+const CurrentTime = styled(Time)`
+  font-size: ${(props) => props.sizes.desktopDuration}px;
   @media (max-width: 768px) {
+    font-size: ${(props) => props.sizes.mobileDuration}px;
     grid-area: currentTime;
     justify-self: flex-start;
   }
 `;
 
-const Duration = styled.p`
-  user-select: none;
-  letter-spacing: 0.1em;
+const Duration = styled(Time)`
+  font-size: ${(props) => props.sizes.desktopDuration}px;
   @media (max-width: 768px) {
+    font-size: ${(props) => props.sizes.mobileDuration}px;
     grid-area: duration;
     justify-self: flex-end;
   }
 `;
 
 const Progress = ({ currentTime, setCurrentTimeFn, duration }) => {
+  const {
+    sizes: {
+      mainPlayer: {
+        duration: { desktop: desktopDuration, mobile: mobileDuration },
+      },
+    },
+  } = useContext(MusicPageData);
   return (
     <ProgressDiv>
-      <CurrentTime>{secondsToMinute(Math.floor(currentTime))}</CurrentTime>
+      <CurrentTime sizes={{ desktopDuration, mobileDuration }}>
+        {secondsToMinute(Math.floor(currentTime))}
+      </CurrentTime>
       <ProgressBarContainer>
         <GreyProgress />
         <GreenProgress
@@ -137,7 +153,9 @@ const Progress = ({ currentTime, setCurrentTimeFn, duration }) => {
           onChange={(e) => setCurrentTimeFn(+e.target.value)}
         />
       </ProgressBarContainer>
-      <Duration>{secondsToMinute(Math.floor(duration))}</Duration>
+      <Duration sizes={{ desktopDuration, mobileDuration }}>
+        {secondsToMinute(Math.floor(duration))}
+      </Duration>
     </ProgressDiv>
   );
 };

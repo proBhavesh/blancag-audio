@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
@@ -10,6 +10,8 @@ import {
 } from 'react-share';
 
 import { secondsToMinute } from '../../../helpers/SecondsToMinutes';
+
+import { MusicPageData } from '../../../containers/MusicContainer/index';
 
 const ListItem = styled.li`
   width: 100%;
@@ -61,7 +63,10 @@ const LinkStyled = styled(Link)`
   justify-items: start;
   column-gap: 0;
 
+  font-size: ${(props) => props.sizes.desktopTitle}px;
+
   @media (max-width: 768px) {
+    font-size: ${(props) => props.sizes.mobileTitle}px;
     grid-template-columns: minmax(max-content, 50%) auto;
     grid-template-areas: 'title share' 'duration share';
     row-gap: 0.5rem;
@@ -74,7 +79,7 @@ const LinkStyled = styled(Link)`
       grid-area: duration;
       @media (max-width: 768px) {
         justify-self: flex-start;
-        font-size: 0.85rem;
+        font-size: ${(props) => props.sizes.durationMobile}px;
       }
     }
   }
@@ -85,16 +90,19 @@ const LinkStyled = styled(Link)`
 `;
 
 const IconDiv = styled.div`
-  height: 1.5rem;
-  ${(props) => props.arrow && `padding: 0.35rem 0;`}
+  height: ${(props) => props.sizes.desktopTitle * 1.5}px;
+  ${(props) =>
+    props.arrow && `padding: ${props.sizes.desktopTitle * 0.35}px 0;`}
 
   display: grid;
   place-items: center;
 
   @media (max-width: 768px) {
+    height: ${(props) => props.sizes.mobileTitle * 1.5}px;
     ${(props) =>
       props.arrow &&
       `
+      padding: ${props.sizes.mobileTitle * 0.35}px 0;
       grid-area: arrow;
       justify-self: flex-end;
     `}
@@ -135,28 +143,87 @@ const InnerShareIconsDiv = styled.div`
 `;
 
 const ShareIconDiv = styled(IconDiv)`
-  height: 1.5rem;
-
-  ${(props) =>
-    props.link &&
-    `
-    width: 1.5rem;
-    background-color: #f5f5f5;
-    border-radius: 50%;
-    padding: 0.35rem 0;
-    transform: rotate(90deg);
-
-    svg {
-      fill: #000;
-    }
-  `}
+  height: ${(props) => props.sizes.desktopTitle * 1.5}px;
+  @media (max-width: 768px) {
+    height: ${(props) => props.sizes.mobileTitle * 1.5}px;
+  }
 `;
 
-const PlaylistItem = ({ file, index, active, setCopied }) => {
+const LinkIconDiv = styled(ShareIconDiv)`
+  width: ${(props) => props.sizes.desktopTitle * 1.5}px;
+  background-color: #f5f5f5;
+  border-radius: 50%;
+  padding: ${(props) => props.sizes.desktopTitle * 0.35}px 0;
+
+  @media (max-width: 768px) {
+    width: ${(props) => props.sizes.mobileTitle * 1.5}px;
+    padding: ${(props) => props.sizes.mobileTitle * 0.35}px 0;
+  }
+
+  position: relative;
+
+  svg {
+    fill: #000;
+  }
+`;
+
+const CopiedMessage = styled.div`
+  position: absolute;
+  top: calc(100% + 0.5rem);
+
+  font-size: 0.75rem;
+  color: ${(props) => props.theme.bgBlack};
+  padding: 0.5em;
+
+  background-color: ${(props) => props.theme.textWhite};
+
+  transition: opacity 0.25s linear;
+  opacity: ${(props) => (props.showMessage ? 1 : 0)};
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+
+    background-color: ${(props) => props.theme.textWhite};
+    font-size: 0.75rem;
+
+    width: 0.75rem;
+    height: 0.75rem;
+
+    transform: translatex(-50%) translateY(-40%) rotate(45deg);
+  }
+`;
+
+const PlaylistItem = ({ file, index, active }) => {
   const [duration, setDuration] = useState(0);
   const [showShareIcons, setShowShareIcons] = useState(false);
+  const [copied, setCopied] = useState(false);
 
-  const url = window.location.href;
+  const {
+    sizes: {
+      playlist: {
+        title: { desktop: desktopTitle, mobile: mobileTitle },
+        durationMobile,
+      },
+    },
+  } = useContext(MusicPageData);
+
+  const url = `${window.location.origin}/music/${index - 1}`;
+
+  useEffect(() => {
+    let timer;
+
+    copied &&
+      (() => {
+        timer = setTimeout(() => setCopied(false), 1500);
+      })();
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [copied]);
 
   return (
     <>
@@ -171,6 +238,7 @@ const PlaylistItem = ({ file, index, active, setCopied }) => {
             pathname: `/music/${index - 1}`,
             state: { redirect: true },
           }}
+          sizes={{ desktopTitle, mobileTitle, durationMobile }}
         >
           {window.innerWidth > 768 && <p>{index}</p>}
           <h4>{file.title}</h4>
@@ -183,11 +251,8 @@ const PlaylistItem = ({ file, index, active, setCopied }) => {
               }}
             >
               <InnerShareIconsDiv>
-                <FacebookShareButton
-                  url={url}
-                  onShareWindowClose={() => setShowShareIcons(false)}
-                >
-                  <ShareIconDiv>
+                <FacebookShareButton url={url}>
+                  <ShareIconDiv sizes={{ desktopTitle, mobileTitle }}>
                     <svg
                       viewBox='0 0 512 512'
                       xmlns='http://www.w3.org/2000/svg'
@@ -202,11 +267,8 @@ const PlaylistItem = ({ file, index, active, setCopied }) => {
                     </svg>
                   </ShareIconDiv>
                 </FacebookShareButton>
-                <TwitterShareButton
-                  url={url}
-                  onShareWindowClose={() => setShowShareIcons(false)}
-                >
-                  <ShareIconDiv>
+                <TwitterShareButton url={url}>
+                  <ShareIconDiv sizes={{ desktopTitle, mobileTitle }}>
                     <svg
                       viewBox='0 0 512 512'
                       xmlns='http://www.w3.org/2000/svg'
@@ -224,11 +286,8 @@ const PlaylistItem = ({ file, index, active, setCopied }) => {
                     </svg>
                   </ShareIconDiv>
                 </TwitterShareButton>
-                <LinkedinShareButton
-                  url={url}
-                  onShareWindowClose={() => setShowShareIcons(false)}
-                >
-                  <ShareIconDiv>
+                <LinkedinShareButton url={url}>
+                  <ShareIconDiv sizes={{ desktopTitle, mobileTitle }}>
                     <svg
                       viewBox='0 0 512 512'
                       xmlns='http://www.w3.org/2000/svg'
@@ -243,11 +302,8 @@ const PlaylistItem = ({ file, index, active, setCopied }) => {
                     </svg>
                   </ShareIconDiv>
                 </LinkedinShareButton>
-                <WhatsappShareButton
-                  url={url}
-                  onShareWindowClose={() => setShowShareIcons(false)}
-                >
-                  <ShareIconDiv>
+                <WhatsappShareButton url={url}>
+                  <ShareIconDiv sizes={{ desktopTitle, mobileTitle }}>
                     <svg
                       viewBox='2619 506 120 120'
                       xmlns='http://www.w3.org/2000/svg'
@@ -337,21 +393,23 @@ const PlaylistItem = ({ file, index, active, setCopied }) => {
                     </svg>
                   </ShareIconDiv>
                 </WhatsappShareButton>
-                <ShareIconDiv
-                  link
+                <LinkIconDiv
+                  sizes={{ desktopTitle, mobileTitle }}
                   onClick={() =>
                     navigator.clipboard
                       .writeText(url)
                       .then((_) => setCopied(true))
                   }
                 >
+                  <CopiedMessage showMessage={copied}>Copied!</CopiedMessage>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     viewBox='0 0 12.57 12.57'
+                    transform='rotate(90)'
                   >
                     <path d='M12.43,9.15,8.89,5.61a.51.51,0,0,0-.71,0l-.93.93-.61-.61L6,5.32,7,4.39a.5.5,0,0,0,0-.71L3.43.15A.49.49,0,0,0,3.07,0a.47.47,0,0,0-.35.15L.15,2.72A.47.47,0,0,0,0,3.07a.51.51,0,0,0,.15.36L3.68,7A.51.51,0,0,0,4,7.11.5.5,0,0,0,4.39,7L5.32,6l.61.61.61.61-.93.93a.51.51,0,0,0,0,.71l3.54,3.53a.48.48,0,0,0,.7,0l2.58-2.57a.51.51,0,0,0,0-.7ZM4,5.9,1.21,3.07,3.07,1.21,5.9,4l-.58.58-.93-.94-.71.71.93.93ZM9.5,11.37,6.67,8.54,7.25,8l.93.93.71-.71L8,7.25l.58-.58L11.37,9.5Z' />
                   </svg>
-                </ShareIconDiv>
+                </LinkIconDiv>
               </InnerShareIconsDiv>
             </motion.div>
             <IconDiv
@@ -360,6 +418,7 @@ const PlaylistItem = ({ file, index, active, setCopied }) => {
                 e.preventDefault();
                 setShowShareIcons((prev) => !prev);
               }}
+              sizes={{ desktopTitle, mobileTitle }}
             >
               <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28.01'>
                 <path d='M28,10a1,1,0,0,1-.33.74l-10,9a1,1,0,0,1-1.08.17A1,1,0,0,1,16,19V15.19A18.61,18.61,0,0,0,2.19,27.34a1,1,0,0,1-.94.67H1.16a1,1,0,0,1-.9-.83A19.22,19.22,0,0,1,0,24.06,19,19,0,0,1,16,5.31V1A1,1,0,0,1,17.67.26l10,9A1,1,0,0,1,28,10Z' />

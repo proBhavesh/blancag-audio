@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useEffect, useContext } from 'react';
 import styled from 'styled-components';
 
 import { MusicPageData } from '../../../containers/MusicContainer/index';
@@ -45,58 +44,31 @@ const PlaylistDiv = styled.ol`
     padding: 3rem 0;
 
     transition: all 0.5s linear;
-    z-index: 5000;
+    position: fixed;
 
     ${(props) =>
       !props.isOpen
         ? `
-      position: fixed;
-      opacity:0;
-      transform: translateY(100%);
-      pointer-events: none;
+    opacity:0;
+    transform: translateY(100%);
+    pointer-events: none;
       `
         : `
-      position: absolute;
-      opacity: 1;
+    opacity: 1;
     transform: translateY(0);
     pointer-events: initial;
   `}
   }
 `;
 
-const CopiedMessage = styled.div`
-  color: #000;
-  padding: 1em 2em;
-
-  background-color: #bada55;
-
-  @media (max-width: 768px) {
-    font-size: 0.75rem;
-  }
-`;
-
 const MainPlaylist = ({ id, playListOpen }) => {
   const { files } = useContext(MusicPageData);
-  const [copied, setCopied] = useState(false);
 
   const { stopScroll, resumeScroll } = useScrollLock();
 
   useEffect(() => {
     playListOpen ? stopScroll() : resumeScroll();
   }, [playListOpen, stopScroll, resumeScroll]);
-
-  useEffect(() => {
-    let timer;
-
-    copied &&
-      (() => {
-        timer = setTimeout(() => setCopied(false), 1500);
-      })();
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [copied]);
 
   return (
     <>
@@ -107,37 +79,9 @@ const MainPlaylist = ({ id, playListOpen }) => {
             file={file}
             index={index + 1}
             active={index === id}
-            setCopied={setCopied}
           />
         ))}
       </PlaylistDiv>
-      <AnimatePresence>
-        {copied && (
-          <motion.div
-            initial={{
-              opacity: 0,
-              y: '-2rem',
-            }}
-            animate={{
-              opacity: 1,
-              y: '0rem',
-            }}
-            exit={{
-              opacity: 0,
-              y: '-2rem',
-            }}
-            transition={{ duration: 0.5 }}
-            style={{
-              position: 'fixed',
-              top: '2rem',
-              left: '50%',
-              x: '-50%',
-            }}
-          >
-            <CopiedMessage>Link copied to clipboard</CopiedMessage>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </>
   );
 };
