@@ -11,6 +11,21 @@ export const IconDiv = styled.div`
   }
 
   &.active {
+    position: relative;
+
+    &:before {
+      content: '';
+      position: absolute;
+      bottom: -1rem;
+      left: 50%;
+      transform: translatex(-50%);
+
+      height: 5px;
+      width: 5px;
+      border-radius: 50%;
+
+      background-color: ${(props) => props.theme.mainGreen};
+    }
     svg {
       fill: #bada55;
     }
