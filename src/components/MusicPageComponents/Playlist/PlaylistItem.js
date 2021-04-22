@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
@@ -147,30 +147,59 @@ const ShareIconDiv = styled(IconDiv)`
   @media (max-width: 768px) {
     height: ${(props) => props.sizes.mobileTitle * 1.5}px;
   }
-
-  ${(props) =>
-    props.link &&
-    `
-    width: ${props.sizes.desktopTitle * 1.5}px;
-    background-color: #f5f5f5;
-    border-radius: 50%;
-    padding: ${props.sizes.desktopTitle * 0.35}px 0;
-    transform: rotate(90deg);
-
-    @media (max-width: 768px) {
-      width: ${props.sizes.mobileTitle * 1.5}px;
-      padding: ${props.sizes.mobileTitle * 0.35}px 0;
-    }
-
-    svg {
-      fill: #000;
-    }
-  `}
 `;
 
-const PlaylistItem = ({ file, index, active, setCopied }) => {
+const LinkIconDiv = styled(ShareIconDiv)`
+  width: ${(props) => props.sizes.desktopTitle * 1.5}px;
+  background-color: #f5f5f5;
+  border-radius: 50%;
+  padding: ${(props) => props.sizes.desktopTitle * 0.35}px 0;
+
+  @media (max-width: 768px) {
+    width: ${(props) => props.sizes.mobileTitle * 1.5}px;
+    padding: ${(props) => props.sizes.mobileTitle * 0.35}px 0;
+  }
+
+  position: relative;
+
+  svg {
+    fill: #000;
+  }
+`;
+
+const CopiedMessage = styled.div`
+  position: absolute;
+  top: calc(100% + 0.5rem);
+
+  font-size: 0.75rem;
+  color: ${(props) => props.theme.bgBlack};
+  padding: 0.5em;
+
+  background-color: ${(props) => props.theme.textWhite};
+
+  transition: opacity 0.25s linear;
+  opacity: ${(props) => (props.showMessage ? 1 : 0)};
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+
+    background-color: ${(props) => props.theme.textWhite};
+    font-size: 0.75rem;
+
+    width: 0.75rem;
+    height: 0.75rem;
+
+    transform: translatex(-50%) translateY(-40%) rotate(45deg);
+  }
+`;
+
+const PlaylistItem = ({ file, index, active }) => {
   const [duration, setDuration] = useState(0);
   const [showShareIcons, setShowShareIcons] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   const {
     sizes: {
@@ -181,7 +210,20 @@ const PlaylistItem = ({ file, index, active, setCopied }) => {
     },
   } = useContext(MusicPageData);
 
-  const url = window.location.href;
+  const url = `${window.location.origin}/music/${index - 1}`;
+
+  useEffect(() => {
+    let timer;
+
+    copied &&
+      (() => {
+        timer = setTimeout(() => setCopied(false), 1500);
+      })();
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [copied]);
 
   return (
     <>
@@ -351,22 +393,23 @@ const PlaylistItem = ({ file, index, active, setCopied }) => {
                     </svg>
                   </ShareIconDiv>
                 </WhatsappShareButton>
-                <ShareIconDiv
+                <LinkIconDiv
                   sizes={{ desktopTitle, mobileTitle }}
-                  link
                   onClick={() =>
                     navigator.clipboard
                       .writeText(url)
                       .then((_) => setCopied(true))
                   }
                 >
+                  <CopiedMessage showMessage={copied}>Copied!</CopiedMessage>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     viewBox='0 0 12.57 12.57'
+                    transform='rotate(90)'
                   >
                     <path d='M12.43,9.15,8.89,5.61a.51.51,0,0,0-.71,0l-.93.93-.61-.61L6,5.32,7,4.39a.5.5,0,0,0,0-.71L3.43.15A.49.49,0,0,0,3.07,0a.47.47,0,0,0-.35.15L.15,2.72A.47.47,0,0,0,0,3.07a.51.51,0,0,0,.15.36L3.68,7A.51.51,0,0,0,4,7.11.5.5,0,0,0,4.39,7L5.32,6l.61.61.61.61-.93.93a.51.51,0,0,0,0,.71l3.54,3.53a.48.48,0,0,0,.7,0l2.58-2.57a.51.51,0,0,0,0-.7ZM4,5.9,1.21,3.07,3.07,1.21,5.9,4l-.58.58-.93-.94-.71.71.93.93ZM9.5,11.37,6.67,8.54,7.25,8l.93.93.71-.71L8,7.25l.58-.58L11.37,9.5Z' />
                   </svg>
-                </ShareIconDiv>
+                </LinkIconDiv>
               </InnerShareIconsDiv>
             </motion.div>
             <IconDiv
