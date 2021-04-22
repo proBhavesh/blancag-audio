@@ -267,6 +267,7 @@ const MainPlayer = ({ id }) => {
   );
 
   function playAudio() {
+    audioCtx.current.resume();
     audioRef.current.play().catch((err) => setIsPlaying(false));
     // fade in on play
     let currentValue = 0.001;
