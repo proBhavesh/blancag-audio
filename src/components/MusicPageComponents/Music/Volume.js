@@ -15,6 +15,20 @@ const VolumeDiv = styled.div`
   align-items: center;
 `;
 
+const VolumeBarDiv = styled.div`
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    input::-webkit-slider-thumb {
+      opacity: 1;
+    }
+    input::-moz-range-thumb {
+      opacity: 1;
+    }
+  }
+`;
+
 const VolumeBar = styled.input`
   appearance: none;
   pointer-events: none;
@@ -27,12 +41,13 @@ const VolumeBar = styled.input`
   border: none;
   outline: none;
 
-  margin-left: 1rem;
+  margin-left: 0.75rem;
   background-color: #a6a6a680;
   z-index: 2;
 
   &::-webkit-slider-thumb {
     appearance: none;
+    opacity: 0;
     cursor: pointer;
     pointer-events: auto;
 
@@ -51,6 +66,7 @@ const VolumeBar = styled.input`
 
   &::-moz-range-thumb {
     pointer-events: auto;
+    opacity: 0;
 
     width: 0.75rem;
     height: 0.75rem;
@@ -169,14 +185,16 @@ const Volume = () => {
       >
         {volumeSVG}
       </VolumeIcon>
-      <VolumeBar
-        type='range'
-        min='0'
-        max='1'
-        step='0.05'
-        value={volume}
-        onChange={(e) => setVolume(+e.target.value)}
-      />
+      <VolumeBarDiv>
+        <VolumeBar
+          type='range'
+          min='0'
+          max='1'
+          step='0.05'
+          value={volume}
+          onChange={(e) => setVolume(+e.target.value)}
+        />
+      </VolumeBarDiv>
     </VolumeDiv>
   );
 };
