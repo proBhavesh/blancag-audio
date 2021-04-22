@@ -84,7 +84,13 @@ const LinkStyled = styled(Link)`
   }
 `;
 
-const PlaylistItem = ({ file, index, active }) => {
+const PlaylistItem = ({
+  file,
+  index,
+  active,
+  showIconsItemIndex,
+  setShowIconsItemIndex,
+}) => {
   const [duration, setDuration] = useState(0);
 
   const {
@@ -113,7 +119,11 @@ const PlaylistItem = ({ file, index, active }) => {
         >
           {window.innerWidth > 768 && <p>{index}</p>}
           <h4>{file.title}</h4>
-          <ShareIcons index={index} />
+          <ShareIcons
+            index={index}
+            showIconsItemIndex={showIconsItemIndex}
+            setShowIconsItemIndex={setShowIconsItemIndex}
+          />
           <p>{secondsToMinute(Math.round(duration))}</p>
         </LinkStyled>
       </ListItem>

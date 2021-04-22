@@ -119,7 +119,7 @@ const CopiedMessage = styled.div`
   }
 `;
 
-const ShareIcons = ({ index }) => {
+const ShareIcons = ({ index, showIconsItemIndex, setShowIconsItemIndex }) => {
   const [showShareIcons, setShowShareIcons] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -148,6 +148,10 @@ const ShareIcons = ({ index }) => {
     };
   }, [copied]);
 
+  useEffect(() => {
+    showIconsItemIndex !== index - 1 && setShowShareIcons(false);
+  }, [index, showIconsItemIndex]);
+
   return (
     <ShareIconsDiv>
       <motion.div
@@ -156,6 +160,7 @@ const ShareIcons = ({ index }) => {
           opacity: 0,
           pointerEvents: showShareIcons ? 'initial' : 'none',
         }}
+        transition={{ duration: 0.25 }}
       >
         <InnerShareIconsDiv>
           <FacebookShareButton url={url}>
@@ -309,6 +314,7 @@ const ShareIcons = ({ index }) => {
         arrow
         onClick={(e) => {
           e.preventDefault();
+          setShowIconsItemIndex(index - 1);
           setShowShareIcons((prev) => !prev);
         }}
         sizes={{ desktopTitle, mobileTitle }}

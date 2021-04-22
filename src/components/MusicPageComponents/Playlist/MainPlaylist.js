@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 
 import { MusicPageData } from '../../../containers/MusicContainer/index';
@@ -65,6 +65,8 @@ const MainPlaylist = ({ id, playListOpen }) => {
   const { files } = useContext(MusicPageData);
 
   const { stopScroll, resumeScroll } = useScrollLock();
+  // index of the item showing share icons
+  const [showIconsItemIndex, setShowIconsItemIndex] = useState(0);
 
   useEffect(() => {
     playListOpen ? stopScroll() : resumeScroll();
@@ -79,6 +81,8 @@ const MainPlaylist = ({ id, playListOpen }) => {
             file={file}
             index={index + 1}
             active={index === id}
+            showIconsItemIndex={showIconsItemIndex}
+            setShowIconsItemIndex={setShowIconsItemIndex}
           />
         ))}
       </PlaylistDiv>
