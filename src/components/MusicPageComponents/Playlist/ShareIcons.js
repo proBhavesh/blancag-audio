@@ -16,9 +16,10 @@ import LinkedInIcon from '../../../assets/LinkedIn.svg';
 import WhatsappIcon from '../../../assets/Whatsapp.svg';
 
 const IconDiv = styled.div`
-  height: ${(props) => props.sizes.desktopTitle * 1.5}px;
+  height: ${(props) => Math.round(props.sizes.desktopTitle * 1.5)}px;
   ${(props) =>
-    props.arrow && `padding: ${props.sizes.desktopTitle * 0.35}px 0;`}
+    props.arrow &&
+    `padding: ${Math.round(props.sizes.desktopTitle * 0.35)}px 0;`}
 
   display: grid;
   place-items: center;
@@ -28,14 +29,10 @@ const IconDiv = styled.div`
     ${(props) =>
       props.arrow &&
       `
-      padding: ${props.sizes.mobileTitle * 0.35}px 0;
+      padding: ${Math.round(props.sizes.mobileTitle * 0.35)}px 0;
       grid-area: arrow;
       justify-self: flex-end;
     `}
-  }
-
-  img {
-    height: 100%;
   }
 
   svg {
@@ -63,30 +60,39 @@ const ShareIconsDiv = styled.div`
 `;
 
 const InnerShareIconsDiv = styled.div`
+  margin-right: 1rem;
   display: flex;
 
   @media (max-width: 768px) {
     grid-area: shareIcons;
+    margin-right: 0;
   }
 `;
 
 const ShareIconDiv = styled(IconDiv)`
-  margin-right: 1rem;
-  height: ${(props) => props.sizes.desktopTitle * 1.5}px;
+  height: ${(props) => Math.round(props.sizes.desktopTitle * 1.5)}px;
+  margin-right: 0.25rem;
+
+  img {
+    height: 100%;
+    width: auto;
+  }
+
   @media (max-width: 768px) {
-    height: ${(props) => props.sizes.mobileTitle * 1.5}px;
+    height: ${(props) => Math.round(props.sizes.mobileTitle * 1.5)}px;
   }
 `;
 
 const LinkIconDiv = styled(ShareIconDiv)`
-  width: ${(props) => props.sizes.desktopTitle * 1.5}px;
+  width: ${(props) => Math.round(props.sizes.desktopTitle * 1.5)}px;
   background-color: #f5f5f5;
   border-radius: 50%;
-  padding: ${(props) => props.sizes.desktopTitle * 0.35}px 0;
+  padding: ${(props) => Math.round(props.sizes.desktopTitle * 0.35)}px 0;
+  margin-right: 0;
 
   @media (max-width: 768px) {
-    width: ${(props) => props.sizes.mobileTitle * 1.5}px;
-    padding: ${(props) => props.sizes.mobileTitle * 0.35}px 0;
+    width: ${(props) => Math.round(props.sizes.mobileTitle * 1.5)}px;
+    padding: ${(props) => Math.round(props.sizes.mobileTitle * 0.35)}px 0;
   }
 
   position: relative;
