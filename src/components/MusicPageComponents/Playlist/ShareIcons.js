@@ -95,10 +95,15 @@ const CopiedMessage = styled.div`
   top: calc(100% + 0.5rem);
 
   font-size: 0.75rem;
+  font-family: 'DIN Next Light', sans-serif;
+  font-weight: bold;
   color: ${(props) => props.theme.bgBlack};
   padding: 0.5em;
 
-  background-color: ${(props) => props.theme.textWhite};
+  box-shadow: 1px 1px #505050, 2px 2px #505050, 3px 3px #505050, 4px 4px #505050,
+    5px 5px #505050;
+
+  background-color: #cccccc;
 
   transition: opacity 0.25s linear;
   opacity: ${(props) => (props.showMessage ? 1 : 0)};
@@ -109,7 +114,7 @@ const CopiedMessage = styled.div`
     top: 0;
     left: 50%;
 
-    background-color: ${(props) => props.theme.textWhite};
+    background-color: #cccccc;
     font-size: 0.75rem;
 
     width: 0.75rem;
