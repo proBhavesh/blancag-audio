@@ -35,6 +35,10 @@ const IconDiv = styled.div`
     `}
   }
 
+  img {
+    height: 100%;
+  }
+
   svg {
     fill: #fff;
     height: 100%;
