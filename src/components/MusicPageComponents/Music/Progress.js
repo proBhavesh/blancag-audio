@@ -12,7 +12,6 @@ const ProgressDiv = styled.div`
 
   display: flex;
   align-items: center;
-  gap: 2rem;
 
   font-size: 0.75rem;
 
@@ -108,6 +107,7 @@ const Time = styled.p`
 `;
 
 const CurrentTime = styled(Time)`
+  margin-right: 1.5em;
   font-size: ${(props) => props.sizes.desktopDuration}px;
   @media (max-width: 768px) {
     font-size: ${(props) => props.sizes.mobileDuration}px;
@@ -117,6 +117,7 @@ const CurrentTime = styled(Time)`
 `;
 
 const Duration = styled(Time)`
+  margin-left: 1.5em;
   font-size: ${(props) => props.sizes.desktopDuration}px;
   @media (max-width: 768px) {
     font-size: ${(props) => props.sizes.mobileDuration}px;
