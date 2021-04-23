@@ -41,7 +41,6 @@ const ShareIconsDiv = styled.div`
 
   display: flex;
   align-items: center;
-  gap: 1rem;
 
   margin-right: 1rem;
 
@@ -56,7 +55,6 @@ const ShareIconsDiv = styled.div`
 
 const InnerShareIconsDiv = styled.div`
   display: flex;
-  gap: 1rem;
 
   @media (max-width: 768px) {
     grid-area: shareIcons;
@@ -64,6 +62,7 @@ const InnerShareIconsDiv = styled.div`
 `;
 
 const ShareIconDiv = styled(IconDiv)`
+  margin-right: 1rem;
   height: ${(props) => props.sizes.desktopTitle * 1.5}px;
   @media (max-width: 768px) {
     height: ${(props) => props.sizes.mobileTitle * 1.5}px;
