@@ -21,7 +21,10 @@ export const GlobalStyles = createGlobalStyle`
     text-align: center;
 
     overflow-x: hidden;
-    overflow-y: ${(props) => (props.safariMobile ? 'visible' : 'hidden')};
+    overflow-y: hidden;
+    @media (max-width: 768px) {
+      overflow-y: ${(props) => (props.safariMobile ? 'visible' : 'hidden')};
+    }
   }
 
   h1,h2,h3 {
