@@ -160,27 +160,29 @@ const HomePage = ({ location }) => {
 
   return (
     <ContentDiv hideScroll={false}>
-      <BlurDiv blur={isOpen}>
-        {!isLoading && (
-          <motion.div
-            variants={pageVariant}
-            initial='hidden'
-            animate='visible'
-            exit='hidden'
-          >
-            <Navbar />
-            <HomePageData.Provider value={data}>
-              <Hero />
-              <About />
-              <Skills />
-              <Contact />
-            </HomePageData.Provider>
-            <Footer />
-            <button onClick={() => setIsOpen((prev) => !prev)}>Open</button>
-          </motion.div>
-        )}
-      </BlurDiv>
-      <BackDrop isOpen={isOpen} setIsOpen={setIsOpen} />
+      <>
+        <BlurDiv blur={isOpen}>
+          {!isLoading && (
+            <motion.div
+              variants={pageVariant}
+              initial='hidden'
+              animate='visible'
+              exit='hidden'
+            >
+              <Navbar />
+              <HomePageData.Provider value={data}>
+                <Hero />
+                <About />
+                <Skills />
+                <Contact />
+              </HomePageData.Provider>
+              <Footer />
+              <button onClick={() => setIsOpen((prev) => !prev)}>Open</button>
+            </motion.div>
+          )}
+        </BlurDiv>
+        <BackDrop isOpen={isOpen} setIsOpen={setIsOpen} />
+      </>
     </ContentDiv>
   );
 };
