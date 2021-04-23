@@ -1,4 +1,5 @@
 import React from 'react';
+import { isMobile, isSafari } from 'react-device-detect';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
@@ -11,7 +12,7 @@ import App from './App';
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <GlobalStyles />
+      <GlobalStyles safariMobile={isMobile && isSafari} />
       <BrowserRouter>
         <App />
       </BrowserRouter>

@@ -1,16 +1,23 @@
 import React from 'react';
+import { isMobile, isSafari } from 'react-device-detect';
 import styled from 'styled-components';
 
 const ContentDiv = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100%;
+  height: 100vh;
 
   padding: 2rem;
+
+  overflow-x: hidden;
+  overflow-y: overlay;
+
+  -webkit-overflow-scrolling: touch;
+
   @media (max-width: 768px) {
     padding: 2rem 1.25rem;
+    ${(props) => props.safariMobile && `height: auto; width: 100%`};
 
     scrollbar-width: thin;
     scrollbar-color: transparent #bada55bf;
@@ -18,6 +25,10 @@ const ContentDiv = styled.div`
     &::-webkit-scrollbar {
       appearance: none;
       width: 4px;
+
+      &::-webkit-scrollbar:horizontal {
+        display: none;
+      }
     }
 
     &::-webkit-scrollbar-track {
@@ -64,16 +75,15 @@ const ContentDiv = styled.div`
     }
   `}
   }
-
-  overflow-x: hidden;
-  overflow-y: overlay;
-
-  -webkit-overflow-scrolling: touch;
 `;
 
 const Content = ({ hideScroll, children }) => {
   return (
-    <ContentDiv hideScroll={hideScroll} className='content-div'>
+    <ContentDiv
+      hideScroll={hideScroll}
+      className='content-div'
+      safariMobile={isMobile && isSafari}
+    >
       {children}
     </ContentDiv>
   );
