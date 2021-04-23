@@ -116,6 +116,7 @@ const PlaylistItem = ({
             state: { redirect: true },
           }}
           sizes={{ desktopTitle, mobileTitle, durationMobile }}
+          onClick={() => setShowIconsItemIndex(index - 1)}
         >
           {window.innerWidth > 768 && <p>{index}</p>}
           <h4>{file.title}</h4>
