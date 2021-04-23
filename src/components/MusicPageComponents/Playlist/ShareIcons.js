@@ -31,7 +31,6 @@ const IconDiv = styled.div`
       `
       padding: ${Math.round(props.sizes.mobileTitle * 0.35)}px 0;
       grid-area: arrow;
-      justify-self: flex-end;
     `}
   }
 
@@ -57,9 +56,10 @@ const ShareIconsDiv = styled.div`
   @media (max-width: 768px) {
     margin: 0;
     display: grid;
-    grid-template-rows: reepeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     grid-template-areas: 'arrow' 'shareIcons';
     gap: 0;
+    justify-items: flex-end;
   }
 `;
 
