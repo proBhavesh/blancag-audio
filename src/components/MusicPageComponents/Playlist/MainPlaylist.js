@@ -43,7 +43,7 @@ const PlaylistDiv = styled.ol`
     height: 100%;
     padding: 3rem 0;
 
-    transition: all 0.5s linear;
+    transition: all 0.5s ease-in;
     position: fixed;
 
     ${(props) =>

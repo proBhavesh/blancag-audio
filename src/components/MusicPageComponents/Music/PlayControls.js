@@ -48,11 +48,13 @@ const PlayPauseBtn = styled(IconDiv)`
       fill: #000;
     }
 
-    &:hover {
-      background-color: #bada55;
+    @media (min-width: 768px) {
+      &:hover {
+        background-color: #bada55;
 
-      svg {
-        fill: #000;
+        svg {
+          fill: #000;
+        }
       }
     }
   }

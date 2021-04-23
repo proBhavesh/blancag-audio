@@ -41,7 +41,7 @@ const VolumeBar = styled.input`
   border: none;
   outline: none;
 
-  margin-left: 0.75rem;
+  margin-left: 0.5rem;
   background-color: #a6a6a680;
   z-index: 2;
 

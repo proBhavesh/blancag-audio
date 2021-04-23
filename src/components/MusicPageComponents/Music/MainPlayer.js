@@ -27,7 +27,6 @@ const MainPlayerDiv = styled.div`
     grid-template-areas: 'img' 'details' 'progress' 'controls' 'controls';
     grid-auto-rows: min-content;
     column-gap: 0;
-    row-gap: 2rem;
   }
 `;
 
@@ -43,6 +42,7 @@ const CoverDiv = styled.div`
 const DetailsDiv = styled.div`
   grid-area: details;
   text-align: left;
+  margin-bottom: 1.5rem;
 
   h1 {
     line-height: 1em;
@@ -59,7 +59,7 @@ const DetailsDiv = styled.div`
     @media (max-width: 768px) {
       font-size: ${(props) => props.sizes.mobileByLine}px;
     }
-    color: #a6a6a6;
+    color: ${(props) => props.theme.textGrey};
     letter-spacing: 0.15em;
 
     strong {
@@ -67,6 +67,7 @@ const DetailsDiv = styled.div`
       font-weight: bolder;
 
       @media (max-width: 768px) {
+        color: ${(props) => props.theme.textGrey};
         font-weight: normal;
       }
     }

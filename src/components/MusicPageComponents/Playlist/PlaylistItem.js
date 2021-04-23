@@ -30,9 +30,11 @@ const ListItem = styled.li`
 
   transition: background-color 0.25s linear;
 
-  &:not(.active):hover {
-    cursor: pointer;
-    background-color: #a6a6a640;
+  @media (min-width: 768px) {
+    &:not(.active):hover {
+      cursor: pointer;
+      background-color: #a6a6a640;
+    }
   }
 
   &.active {
@@ -116,6 +118,7 @@ const PlaylistItem = ({
             state: { redirect: true },
           }}
           sizes={{ desktopTitle, mobileTitle, durationMobile }}
+          onClick={() => setShowIconsItemIndex(index - 1)}
         >
           {window.innerWidth > 768 && <p>{index}</p>}
           <h4>{file.title}</h4>
