@@ -43,20 +43,21 @@ const PlaylistDiv = styled.ol`
     height: 100%;
     padding: 3rem 0;
 
-    transition: all 0.5s ease-in;
     position: fixed;
 
     ${(props) =>
       !props.isOpen
         ? `
-    opacity:0;
-    transform: translateY(100%);
-    pointer-events: none;
+      opacity:0;
+      transform: translateY(100%);
+      pointer-events: none;
+      transition: all 0.25s ease-in;
       `
         : `
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: initial;
+      transition: all 0.25s linear;
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: initial;
   `}
   }
 `;

@@ -44,4 +44,12 @@ export const GlobalStyles = createGlobalStyle`
   p {
     line-height: 1.5em;
   }
+
+  input,
+  textarea,
+  button,
+  select,
+  a {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+  }
 `;

@@ -64,7 +64,7 @@ const MusicPlayerDiv = styled.div`
 
   @media (max-width: 768px) {
     height: auto;
-    margin: 1rem auto 0;
+    margin: 2.25rem auto 0;
   }
 `;
 
@@ -73,6 +73,15 @@ const MobileNavDiv = styled.div`
   width: 100%;
   justify-content: space-between;
   align-items: center;
+
+  background-color: #000;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+
+  padding: 1.25rem 1.25rem 1rem;
+  z-index: 100000;
 `;
 
 const PlaylistIconDiv = styled.div`
@@ -204,7 +213,7 @@ const MusicPage = () => {
   );
 
   return (
-    <ContentDiv hideScroll={true}>
+    <ContentDiv hideScroll={true} style={{ padding: '1.25rem' }}>
       {!state || !state.redirect ? (
         <motion.div
           variants={pageVariant}
