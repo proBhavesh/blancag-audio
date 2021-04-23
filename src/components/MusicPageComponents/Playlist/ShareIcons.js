@@ -10,6 +10,11 @@ import {
 
 import { MusicPageData } from '../../../containers/MusicContainer/index';
 
+import FacebookIcon from '../../../assets/Facebook.svg';
+import TwitterIcon from '../../../assets/Twitter.svg';
+import LinkedInIcon from '../../../assets/LinkedIn.svg';
+import WhatsappIcon from '../../../assets/Whatsapp.svg';
+
 const IconDiv = styled.div`
   height: ${(props) => props.sizes.desktopTitle * 1.5}px;
   ${(props) =>
@@ -27,6 +32,10 @@ const IconDiv = styled.div`
       grid-area: arrow;
       justify-self: flex-end;
     `}
+  }
+
+  img {
+    height: 100%;
   }
 
   svg {
@@ -169,130 +178,22 @@ const ShareIcons = ({ index, showIconsItemIndex, setShowIconsItemIndex }) => {
         <InnerShareIconsDiv>
           <FacebookShareButton url={url}>
             <ShareIconDiv sizes={{ desktopTitle, mobileTitle }}>
-              <svg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'>
-                <g>
-                  <circle cx='256' cy='256' fill='#3B5998' r='256' />
-                  <path
-                    d='M301.6,151.2c15.6,0,36.3,0,36.3,0V97c0,0-21.8,0-51.4,0c-29.6,0-68.1,19-68.1,74.2c0,10.3,0,25.4,0,43   h-49.1v56.1h49.1c0,69.9,0,146,0,146h21.8h17.3H277c0,0,0-78.8,0-146h48.8l8.1-56.1H277c0-18.4,0-31.8,0-35.7   C277,160.1,286,151.2,301.6,151.2z'
-                    fill='#FFFFFF'
-                  />
-                </g>
-              </svg>
+              <img src={FacebookIcon} alt='facebook-share' />
             </ShareIconDiv>
           </FacebookShareButton>
           <TwitterShareButton url={url}>
             <ShareIconDiv sizes={{ desktopTitle, mobileTitle }}>
-              <svg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'>
-                <g>
-                  <path
-                    d='M512,256c0,141.4-114.6,256-256,256C114.6,512,0,397.4,0,256C0,114.6,114.6,0,256,0   C397.4,0,512,114.6,512,256z'
-                    fill='#1DA1F2'
-                  />
-                  <path
-                    d='M358.5,202.9c3.3,73.9-51.8,156.2-149.3,156.2c-29.7,0-57.3-8.7-80.5-23.6   c27.9,3.3,55.7-4.4,77.8-21.7c-23-0.4-42.4-15.6-49.1-36.5c8.2,1.6,16.3,1.1,23.7-0.9c-25.3-5.1-42.7-27.8-42.1-52.2   c7.1,3.9,15.2,6.3,23.8,6.6c-23.4-15.6-30-46.5-16.3-70.1c25.9,31.8,64.6,52.7,108.3,54.9c-7.6-32.9,17.3-64.5,51.2-64.5   c15.1,0,28.7,6.4,38.3,16.6c12-2.4,23.2-6.7,33.4-12.7c-3.9,12.3-12.3,22.6-23.1,29.1c10.6-1.3,20.7-4.1,30.2-8.3   C377.6,186.3,368.7,195.5,358.5,202.9z'
-                    fill='#FFFFFF'
-                  />
-                </g>
-              </svg>
+              <img src={TwitterIcon} alt='twitter-share' />
             </ShareIconDiv>
           </TwitterShareButton>
           <LinkedinShareButton url={url}>
             <ShareIconDiv sizes={{ desktopTitle, mobileTitle }}>
-              <svg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'>
-                <g>
-                  <circle cx='256' cy='256' fill='#0077B5' r='256' />
-                  <path
-                    d='M186.8,371.7h-51.9V204.1h51.9V371.7z M160.6,182.2   c-16.9,0-30.7-13.8-30.7-30.9c0-17.1,13.7-30.9,30.7-30.9c16.9,0,30.7,13.8,30.7,30.9C191.3,168.3,177.5,182.2,160.6,182.2z    M381.2,371.7h-51.6c0,0,0-63.8,0-88c0-24.1-9.2-37.6-28.2-37.6c-20.8,0-31.6,14-31.6,37.6c0,25.8,0,88,0,88h-49.8V204.1h49.8v22.6   c0,0,15-27.7,50.5-27.7c35.5,0,61,21.7,61,66.6C381.2,310.5,381.2,371.7,381.2,371.7z'
-                    fill='#FFFFFF'
-                  />
-                </g>
-              </svg>
+              <img src={LinkedInIcon} alt='linked-in-share' />
             </ShareIconDiv>
           </LinkedinShareButton>
           <WhatsappShareButton url={url}>
             <ShareIconDiv sizes={{ desktopTitle, mobileTitle }}>
-              <svg
-                viewBox='2619 506 120 120'
-                xmlns='http://www.w3.org/2000/svg'
-              >
-                <defs>
-                  <style>
-                    .cls-1 {'{'}
-                    fill: #27d045;
-                    {'}'}
-                    .cls-2, .cls-5 {'{'}
-                    fill: none;
-                    {'}'}
-                    .cls-2 {'{'}
-                    stroke: #fff; stroke-width: 5px;
-                    {'}'}
-                    .cls-3 {'{'}
-                    fill: #fff;
-                    {'}'}
-                    .cls-4 {'{'}
-                    stroke: none;
-                    {'}'}
-                  </style>
-                </defs>
-                <g
-                  data-name='Group 36'
-                  id='Group_36'
-                  transform='translate(2300 73)'
-                >
-                  <circle
-                    className='cls-1'
-                    cx='60'
-                    cy='60'
-                    data-name='Ellipse 18'
-                    id='Ellipse_18'
-                    r='60'
-                    transform='translate(319 433)'
-                  />
-                  <g
-                    data-name='Group 35'
-                    id='Group_35'
-                    transform='translate(254 386)'
-                  >
-                    <g data-name='Group 34' id='Group_34'>
-                      <g
-                        className='cls-2'
-                        data-name='Ellipse 19'
-                        id='Ellipse_19'
-                        transform='translate(94 75)'
-                      >
-                        <circle
-                          className='cls-4'
-                          cx='31.5'
-                          cy='31.5'
-                          r='31.5'
-                        />
-                        <circle className='cls-5' cx='31.5' cy='31.5' r='29' />
-                      </g>
-                      <path
-                        className='cls-3'
-                        d='M1424,191l-4.6,16.3,16.9-4.7.9-5.2-11,3.5,2.9-10.5Z'
-                        data-name='Path 126'
-                        id='Path_126'
-                        transform='translate(-1325 -68)'
-                      />
-                      <path
-                        className='cls-1'
-                        d='M1266,90c0-.1,3.5-11.7,3.5-11.7l8.4,7.9Z'
-                        data-name='Path 127'
-                        id='Path_127'
-                        transform='translate(-1165 43)'
-                      />
-                    </g>
-                    <path
-                      className='cls-3'
-                      d='M1439.3,160.6a9.4,9.4,0,0,0-3.9,6.1c-.5,3.9,1.9,7.9,1.9,7.9a50.876,50.876,0,0,0,8.6,9.8,30.181,30.181,0,0,0,9.6,5.1,11.378,11.378,0,0,0,6.4.6,9.167,9.167,0,0,0,4.8-3.2,9.851,9.851,0,0,0,.6-2.2,5.868,5.868,0,0,0,0-2c-.1-.7-7.3-4-8-3.8s-1.3,1.5-2.1,2.6-1.1,1.6-1.9,1.6-4.3-1.4-7.6-4.4a15.875,15.875,0,0,1-4.3-6s.6-.7,1.4-1.8a5.664,5.664,0,0,0,1.3-2.4c0-.5-2.8-7.6-3.5-7.9A11.852,11.852,0,0,0,1439.3,160.6Z'
-                      data-name='Path 128'
-                      id='Path_128'
-                      transform='translate(-1326.332 -68.467)'
-                    />
-                  </g>
-                </g>
-              </svg>
+              <img src={WhatsappIcon} alt='whatsapp-share' />
             </ShareIconDiv>
           </WhatsappShareButton>
           <LinkIconDiv

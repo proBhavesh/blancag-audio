@@ -18,6 +18,7 @@ const VolumeDiv = styled.div`
 const VolumeBarDiv = styled.div`
   display: flex;
   align-items: center;
+  height: 2rem;
 
   &:hover {
     input::-webkit-slider-thumb {
