@@ -10,8 +10,8 @@ export const GlobalStyles = createGlobalStyle`
   html {
     font-size: 17px;
     width: 100%;
-    overflow: hidden;
     position: relative;
+    overflow-x: hidden;
   }
 
   body {
@@ -20,15 +20,11 @@ export const GlobalStyles = createGlobalStyle`
     font-family: 'DIN Next Light', sans-serif;
     text-align: center;
 
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    @media (max-width: 768px) {
+      overflow-y: ${(props) => (props.safariMobile ? 'visible' : 'hidden')};
+    }
   }
 
   h1,h2,h3 {
