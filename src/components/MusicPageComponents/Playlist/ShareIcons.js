@@ -114,14 +114,12 @@ const CopiedMessage = styled.div`
 
   font-size: 0.75rem;
   font-family: 'DIN Next Light', sans-serif;
-  font-weight: bold;
-  color: ${(props) => props.theme.bgBlack};
-  padding: 0.5em;
+  color: ${(props) => props.theme.textWhite};
+  padding: 0.3em 0.5em;
 
-  box-shadow: 1px 1px #505050, 2px 2px #505050, 3px 3px #505050, 4px 4px #505050,
-    5px 5px #505050;
-
-  background-color: #cccccc;
+  background-color: #333;
+  border: 1px solid ${(props) => props.theme.textGrey};
+  border-radius: 1em;
 
   transition: opacity 0.25s linear;
   opacity: ${(props) => (props.showMessage ? 1 : 0)};
@@ -132,13 +130,15 @@ const CopiedMessage = styled.div`
     top: 0;
     left: 50%;
 
-    background-color: #cccccc;
+    background-color: #333;
+    border-top: 1px solid ${(props) => props.theme.textGrey};
+    border-left: 1px solid ${(props) => props.theme.textGrey};
     font-size: 0.75rem;
 
-    width: 0.75rem;
-    height: 0.75rem;
+    width: 0.5rem;
+    height: 0.5rem;
 
-    transform: translatex(-50%) translateY(-40%) rotate(45deg);
+    transform: translatex(-50%) translateY(-60%) rotate(45deg);
   }
 `;
 

@@ -20,6 +20,7 @@ const ProgressDiv = styled.div`
     grid-template-columns: repeat(2, 1fr);
     grid-template-areas: 'bar bar' 'currentTime duration';
     gap: 0.5rem;
+    margin-bottom: 1rem;
   }
 `;
 
@@ -32,6 +33,7 @@ const ProgressBarContainer = styled.div`
   align-items: center;
 
   @media (max-width: 768px) {
+    height: auto;
     grid-area: bar;
   }
 
@@ -111,7 +113,7 @@ const Time = styled.p`
 `;
 
 const CurrentTime = styled(Time)`
-  margin-right: 1.5em;
+  margin-right: 1em;
   font-size: ${(props) => props.sizes.desktopDuration}px;
   @media (max-width: 768px) {
     font-size: ${(props) => props.sizes.mobileDuration}px;
@@ -121,7 +123,7 @@ const CurrentTime = styled(Time)`
 `;
 
 const Duration = styled(Time)`
-  margin-left: 1.5em;
+  margin-left: 1em;
   font-size: ${(props) => props.sizes.desktopDuration}px;
   @media (max-width: 768px) {
     font-size: ${(props) => props.sizes.mobileDuration}px;
