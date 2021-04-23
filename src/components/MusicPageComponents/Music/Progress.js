@@ -10,6 +10,8 @@ const ProgressDiv = styled.div`
   align-self: end;
   width: 100%;
 
+  margin-top: 1rem;
+
   display: flex;
   align-items: center;
 
