@@ -8,7 +8,7 @@ import useScrollLock from '../../../helpers/useScrollLock';
 
 const PlaylistDiv = styled.ol`
   height: calc(100% - 2rem);
-  margin-top: 2rem;
+  margin-top: 1rem;
   list-style: none;
 
   color: #fff;

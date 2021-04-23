@@ -55,7 +55,6 @@ const ContainerDiv = styled.div`
 
 const MusicPlayerDiv = styled.div`
   width: 100%;
-  height: calc(100vh - 6rem);
   margin: 3rem auto;
   font-family: 'Open Sans', sans-serif;
   color: #fff;
@@ -63,7 +62,6 @@ const MusicPlayerDiv = styled.div`
   display: grid;
 
   @media (max-width: 768px) {
-    height: auto;
     margin: 2.25rem auto 0;
   }
 `;

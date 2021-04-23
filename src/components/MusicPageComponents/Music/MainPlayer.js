@@ -17,7 +17,6 @@ const MainPlayerDiv = styled.div`
 
   display: grid;
   grid-template-columns: 30% auto;
-  grid-template-rows: repeat(4, 1fr);
   column-gap: 2rem;
 
   grid-template-areas: 'img details' 'img details' 'img controls' 'img progress';
