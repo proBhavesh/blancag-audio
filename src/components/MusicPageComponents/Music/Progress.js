@@ -25,10 +25,20 @@ const ProgressDiv = styled.div`
 
 const ProgressBarContainer = styled.div`
   position: relative;
-  height: 0.2rem;
   width: 100%;
+  height: 4rem;
+
+  display: flex;
+  align-items: center;
+
   @media (max-width: 768px) {
     grid-area: bar;
+  }
+
+  &:hover {
+    input::-webkit-slider-thumb {
+      opacity: 1;
+    }
   }
 `;
 
@@ -48,12 +58,6 @@ const ProgressBar = styled.input`
   outline: none;
 
   cursor: pointer;
-
-  &:hover {
-    &::-webkit-slider-thumb {
-      opacity: 1;
-    }
-  }
 
   &::-webkit-slider-thumb {
     appearance: none;
@@ -140,19 +144,21 @@ const Progress = ({ currentTime, setCurrentTimeFn, duration }) => {
         {secondsToMinute(Math.floor(currentTime))}
       </CurrentTime>
       <ProgressBarContainer>
-        <GreyProgress />
-        <GreenProgress
-          style={{ width: `${(currentTime / duration) * 100}%` }}
-        />
-        <ProgressBar
-          type='range'
-          min='0'
-          max={`${duration}`}
-          step='any'
-          value={currentTime}
-          duration={duration}
-          onChange={(e) => setCurrentTimeFn(+e.target.value)}
-        />
+        <div style={{ width: '100%', height: '0.2rem', position: 'relative' }}>
+          <GreyProgress />
+          <GreenProgress
+            style={{ width: `${(currentTime / duration) * 100}%` }}
+          />
+          <ProgressBar
+            type='range'
+            min='0'
+            max={`${duration}`}
+            step='any'
+            value={currentTime}
+            duration={duration}
+            onChange={(e) => setCurrentTimeFn(+e.target.value)}
+          />
+        </div>
       </ProgressBarContainer>
       <Duration sizes={{ desktopDuration, mobileDuration }}>
         {secondsToMinute(Math.floor(duration))}
