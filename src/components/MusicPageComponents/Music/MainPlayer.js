@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
+import { AudioContext } from 'standardized-audio-context';
 import { useHistory, useLocation, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -152,7 +153,6 @@ const MainPlayer = ({ id }) => {
   }, [volume]);
 
   useEffect(() => {
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
     audioCtx.current = new AudioContext();
 
     // Create a MediaElementAudioSourceNode
