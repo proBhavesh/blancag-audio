@@ -39,9 +39,11 @@ const ProgressBarContainer = styled.div`
     grid-area: bar;
   }
 
-  &:hover {
-    input::-webkit-slider-thumb {
-      opacity: 1;
+  @media (min-width: 768px) {
+    &:hover {
+      input::-webkit-slider-thumb {
+        opacity: 1;
+      }
     }
   }
 `;
@@ -68,7 +70,6 @@ const ProgressBar = styled.input`
     opacity: 0;
 
     @media (max-width: 768px) {
-      transition: transform 0.25s linear;
       opacity: 1;
     }
 
@@ -78,11 +79,10 @@ const ProgressBar = styled.input`
 
     border-radius: 50%;
 
-    &:hover,
-    &:active {
-      background-color: #fff;
-      @media (max-width: 768px) {
-        transform: scale(1.2);
+    @media (min-width: 768px) {
+      &:hover,
+      &:active {
+        background-color: #fff;
       }
     }
   }
@@ -115,7 +115,7 @@ const Time = styled.p`
 `;
 
 const CurrentTime = styled(Time)`
-  margin-right: 1em;
+  margin-right: 0.75em;
   font-size: ${(props) => props.sizes.desktopDuration}px;
   @media (max-width: 768px) {
     font-size: ${(props) => props.sizes.mobileDuration}px;
@@ -125,7 +125,7 @@ const CurrentTime = styled(Time)`
 `;
 
 const Duration = styled(Time)`
-  margin-left: 1em;
+  margin-left: 0.75em;
   font-size: ${(props) => props.sizes.desktopDuration}px;
   @media (max-width: 768px) {
     font-size: ${(props) => props.sizes.mobileDuration}px;
