@@ -95,8 +95,9 @@ const LinkIconDiv = styled(ShareIconDiv)`
   margin-right: 0;
 
   @media (max-width: 768px) {
-    width: ${(props) => Math.round(props.sizes.mobileTitle * 1.5)}px;
-    padding: ${(props) => Math.round(props.sizes.mobileTitle * 0.35)}px 0;
+    width: ${(props) => props.sizes.mobileTitle * 1.5}px;
+    padding: ${(props) => props.sizes.mobileTitle * 0.35}px 0;
+    margin-right: 0;
   }
 
   position: relative;
@@ -121,7 +122,7 @@ const CopiedMessage = styled.div`
   border-radius: 1em;
 
   transition: opacity 0.25s linear;
-  /* opacity: ${(props) => (props.showMessage ? 1 : 0)}; */
+  opacity: ${(props) => (props.showMessage ? 1 : 0)};
 
   &:before {
     content: '';
@@ -209,7 +210,7 @@ const ShareIcons = ({ index, showIconsItemIndex, setShowIconsItemIndex }) => {
             sizes={{ desktopTitle, mobileTitle }}
             onClick={(e) => {
               e.preventDefault();
-              navigator.clipboard.writeText(url);
+              window.navigator.clipboard.writeText(url);
               setCopied(true);
             }}
           >

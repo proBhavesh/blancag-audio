@@ -36,12 +36,20 @@ const CoverDiv = styled.div`
   img {
     width: 100%;
   }
+
+  @media (max-width: 768px) {
+    margin-bottom: 5rem;
+  }
 `;
 
 const DetailsDiv = styled.div`
   grid-area: details;
   text-align: left;
   margin-bottom: 2.5rem;
+
+  @media (max-width: 768px) {
+    margin-bottom: 0.5rem;
+  }
 
   h1 {
     line-height: 1em;
@@ -96,6 +104,9 @@ const ShuffleControl = styled(IconDiv)`
   @media (max-width: 768px) {
     height: ${(props) => props.sizes.mobileIcon}px;
     grid-area: shuffle;
+    svg {
+      fill: ${(props) => props.theme.textGrey};
+    }
   }
 `;
 
@@ -105,6 +116,9 @@ const RepeatControl = styled(IconDiv)`
     height: ${(props) => props.sizes.mobileIcon}px;
     grid-area: repeatCtrl;
     justify-self: end;
+    svg {
+      fill: ${(props) => props.theme.textGrey};
+    }
   }
 `;
 
