@@ -42,7 +42,7 @@ const PlaylistDiv = styled.ol`
 
     width: 100%;
     height: 100%;
-    padding: 3rem 0;
+    padding: 4rem 0;
 
     position: fixed;
 

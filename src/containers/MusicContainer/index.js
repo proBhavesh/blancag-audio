@@ -62,7 +62,8 @@ const MusicPlayerDiv = styled.div`
   display: grid;
 
   @media (max-width: 768px) {
-    margin: 2.25rem auto 0;
+    height: auto;
+    margin: ${(props) => (props.fixed ? '3rem' : '1rem')} auto 0;
   }
 `;
 
@@ -73,12 +74,15 @@ const MobileNavDiv = styled.div`
   align-items: center;
 
   background-color: #000;
+  ${(props) =>
+    props.fixed &&
+    `
   position: fixed;
-  width: 100%;
   top: 0;
   left: 0;
 
-  padding: 1.25rem 1.25rem 1rem;
+  padding: 2rem 1.25rem 1rem;
+  `}
   z-index: 100000;
 `;
 
@@ -156,7 +160,7 @@ const MusicPage = () => {
       {!isLoading && (
         <>
           {window.innerWidth < 768 ? (
-            <MobileNavDiv>
+            <MobileNavDiv fixed={playListOpen}>
               <BackHomeButton />
               <PlaylistIconDiv onClick={() => setPlayListOpen((prev) => !prev)}>
                 <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'>
@@ -189,7 +193,7 @@ const MusicPage = () => {
                 sizes: sizesData,
               }}
             >
-              <MusicPlayerDiv>
+              <MusicPlayerDiv fixed={playListOpen}>
                 <MainPlayer id={match ? +match.params.id : 0} />
                 <MainPlaylist
                   id={match ? +match.params.id : 0}

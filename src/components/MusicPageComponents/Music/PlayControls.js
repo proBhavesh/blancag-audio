@@ -19,23 +19,23 @@ const PlayControlsDiv = styled.div`
 `;
 
 const PrevBtn = styled(IconDiv)`
-  margin-right: 2.25rem;
+  margin-right: 1.75rem;
   height: ${(props) => props.sizes.desktopIcon}px;
 
   @media (max-width: 768px) {
-    height: ${(props) => props.sizes.mobileIcon}px;
+    height: ${(props) => props.sizes.mobileIcon * 1.5}px;
   }
 `;
 
 const PlayPauseBtn = styled(IconDiv)`
-  margin-right: 2.25rem;
+  margin-right: 1.75rem;
 
   &.play-ctrl-btn {
     width: ${(props) => props.sizes.desktopIcon * 2.5}px;
     height: ${(props) => props.sizes.desktopIcon * 2.5}px;
     @media (max-width: 768px) {
-      width: ${(props) => props.sizes.mobileIcon * 2.5}px;
-      height: ${(props) => props.sizes.mobileIcon * 2.5}px;
+      width: ${(props) => props.sizes.mobileIcon * 3.75}px;
+      height: ${(props) => props.sizes.mobileIcon * 3.75}px;
     }
 
     background-color: #fff;
@@ -46,6 +46,10 @@ const PlayPauseBtn = styled(IconDiv)`
     svg {
       height: ${(props) => props.sizes.desktopIcon}px;
       fill: #000;
+
+      @media (max-width: 768px) {
+        height: ${(props) => props.sizes.mobileIcon * 1.5}px;
+      }
     }
 
     @media (min-width: 768px) {
@@ -73,7 +77,7 @@ const NextBtn = styled(IconDiv)`
   height: ${(props) => props.sizes.desktopIcon}px;
 
   @media (max-width: 768px) {
-    height: ${(props) => props.sizes.mobileIcon}px;
+    height: ${(props) => props.sizes.mobileIcon * 1.55}px;
   }
 `;
 
