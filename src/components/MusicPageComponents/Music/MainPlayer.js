@@ -21,6 +21,8 @@ const MainPlayerDiv = styled.div`
   grid-template-areas: 'img details' 'img details' 'img controls' 'img progress';
 
   @media (max-width: 768px) {
+    max-width: 600px;
+    margin: 0 auto;
     grid-template-columns: 1fr;
     grid-template-rows: repeat(5, min-content);
     grid-template-areas: 'img' 'details' 'progress' 'controls' 'controls';
@@ -38,7 +40,7 @@ const CoverDiv = styled.div`
   }
 
   @media (max-width: 768px) {
-    margin-bottom: 5rem;
+    margin: 0 auto 5rem;
   }
 `;
 
