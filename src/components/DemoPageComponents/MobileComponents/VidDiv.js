@@ -88,7 +88,9 @@ const VidDiv = ({ details, index }) => {
     setActiveVid_id,
     sizes: {
       titles: { mobile },
-      icons: { mobile: mobileIcon },
+      icons: {
+        mobile: { playIcon: mobileIcon },
+      },
     },
   } = useContext(DemosPageData);
   const vidPlayerDivRef = useRef(null);

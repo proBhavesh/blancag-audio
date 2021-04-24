@@ -45,11 +45,8 @@ export const GlobalStyles = createGlobalStyle`
     line-height: 1.5em;
   }
 
-<<<<<<< HEAD
   svg,
   path,
-=======
->>>>>>> 6dd320eb6f4ed851a0bb4811f60dbc124986de0c
   input,
   textarea,
   button,

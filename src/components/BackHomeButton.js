@@ -23,14 +23,14 @@ const IconDiv = styled.div`
 
     width: 100%;
     height: auto;
-    padding: 1rem 0;
+    padding: 1.5rem 0 1rem;
 
-    background-color: #000;
+    background-color: ${props.theme.bgBlack};
 
     display: flex;
 
     svg {
-      height: 2rem;
+      height: 1.75rem;
       width: auto;
     }
   `}

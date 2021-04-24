@@ -46,6 +46,7 @@ export const DemosPageData = React.createContext({
       },
       mobile: {
         playIcon: null,
+        backToTopButton: null,
       },
     },
   },
@@ -56,7 +57,7 @@ const ContainerDiv = styled.div`
   max-width: 800px;
   margin: 3rem auto;
   @media (max-width: 768px) {
-    margin: 2rem auto 0;
+    margin: 2.75rem auto 0;
   }
 
   font-family: 'Open Sans', sans-serif;
@@ -85,7 +86,10 @@ const DemosPage = () => {
             'vidLight_playIcon': vidLight_playIcon_size_desktop,
             'vidSlider_arrow': vidSlider_arrow_size_desktop,
           },
-          'mobile': vid_playIcon_size_mobile,
+          'mobile': {
+            'playIcon': vid_playIcon_size_mobile,
+            'backToTopButton': backToTopButton_size_mobile
+          },
         },
       }`),
     ])

@@ -77,6 +77,13 @@ const demosPageSizes = {
       validation: (Rule) => Rule.required(),
       fieldset: 'icons',
     },
+    {
+      name: 'backToTopButton_size_mobile',
+      type: 'number',
+      title: 'Back To Top Button size (in px) for Mobile',
+      validation: (Rule) => Rule.required(),
+      fieldset: 'icons',
+    },
   ],
 };
 
