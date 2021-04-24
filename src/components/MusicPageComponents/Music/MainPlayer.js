@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
-import { AudioContext } from 'standardized-audio-context';
 import { useHistory, useLocation, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -140,9 +139,6 @@ const MainPlayer = ({ id }) => {
   const rAF = useRef(null);
   const timer = useRef(null);
 
-  const audioCtx = useRef(null);
-  const gainNode = useRef(null);
-
   useEffect(() => {
     isPlaying ? playAudio() : pauseAudio();
   }, [isPlaying]);
@@ -152,26 +148,9 @@ const MainPlayer = ({ id }) => {
   }, [volume]);
 
   useEffect(() => {
-    audioCtx.current = new AudioContext();
-
-    // Create a MediaElementAudioSourceNode
-    // Feed the HTMLMediaElement into it
-    const source =
-      audioRef.current &&
-      audioCtx.current.createMediaElementSource(audioRef.current);
-
-    // Create a gain node
-    gainNode.current = audioCtx.current.createGain();
-
-    // connect the AudioBufferSourceNode to the gainNode
-    // and the gainNode to the destination
-    source.connect(gainNode.current);
-    gainNode.current.connect(audioCtx.current.destination);
-
     return () => {
       clearTimeout(timer.current);
       cancelAnimationFrame(rAF.current);
-      gainNode.current.gain.cancelScheduledValues(audioCtx.current.currentTime);
     };
   }, []);
 
@@ -181,7 +160,6 @@ const MainPlayer = ({ id }) => {
     <MainPlayerDiv>
       <audio
         src={activeFileData.file}
-        crossOrigin='anonymous'
         preload='auto'
         ref={audioRef}
         onDurationChange={(e) => {
@@ -267,46 +245,12 @@ const MainPlayer = ({ id }) => {
   );
 
   function playAudio() {
-    audioCtx.current.resume();
     audioRef.current.play().catch((err) => setIsPlaying(false));
-    // fade in on play
-    let currentValue = 0.001;
-    let endTime = audioCtx.current.currentTime + 0.5;
-    gainNode.current.gain.cancelScheduledValues(audioCtx.current.currentTime);
-    gainNode.current.gain.setValueAtTime(
-      currentValue,
-      audioCtx.current.currentTime
-    );
-    gainNode.current.gain.linearRampToValueAtTime(1, endTime);
   }
 
   function pauseAudio() {
-    // fade out on pause
-    audioCtx.current &&
-      gainNode.current &&
-      (() => {
-        let currentValue = 1;
-        let endTime = audioCtx.current.currentTime + 0.35;
-        gainNode.current.gain.cancelScheduledValues(
-          audioCtx.current.currentTime
-        );
-        gainNode.current.gain.setValueAtTime(
-          currentValue,
-          audioCtx.current.currentTime
-        );
-        gainNode.current.gain.linearRampToValueAtTime(0.0000001, endTime);
-
-        const timer = setInterval(() => {
-          if (
-            gainNode.current.gain.value.toFixed(7) <= 0.0000001 &&
-            audioRef.current
-          ) {
-            audioRef.current.pause();
-            cancelAnimationFrame(rAF.current);
-            clearInterval(timer);
-          }
-        }, 50);
-      })();
+    audioRef.current.pause();
+    cancelAnimationFrame(rAF.current);
   }
 
   function getCurrentTime() {
