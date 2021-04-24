@@ -1,5 +1,5 @@
 import React from 'react';
-import { isMobile, isSafari } from 'react-device-detect';
+import { isIOS } from 'react-device-detect';
 import styled from 'styled-components';
 
 const ContentDiv = styled.div`
@@ -83,7 +83,7 @@ const Content = ({ hideScroll, style, children }) => {
     <ContentDiv
       hideScroll={hideScroll}
       className='content-div'
-      safariMobile={isMobile && isSafari}
+      safariMobile={isIOS}
       style={style}
     >
       {children}
