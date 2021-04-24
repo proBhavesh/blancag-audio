@@ -8,7 +8,7 @@ const VidPlayerDiv = styled.div`
   width: calc(100% - 20px);
   margin: 0 auto 20px;
 
-  aspect-ratio: 1.7778;
+  padding-top: 56.25%;
   position: relative;
 
   font-family: 'Open Sans', sans-serif;
