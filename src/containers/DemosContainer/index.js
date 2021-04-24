@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Slider from 'react-slick';
 import '../../../node_modules/slick-carousel/slick/slick.css';
 import '../../../node_modules/slick-carousel/slick/slick-theme.css';
@@ -15,9 +15,11 @@ import Navbar from '../../components/Nav/NavBar';
 import BackHomeButton from '../../components/BackHomeButton';
 import HR from '../../components/HR';
 import Footer from '../../components/Footer/Footer';
+import LoadingIndicator from '../../components/LoadingIndicator';
 
 import { client as sanity } from '../../sanityClient';
 import { pageVariant } from '../../styles/motionVariants/pageVariant';
+import { loadingVariant } from '../../styles/motionVariants/loadingVariant';
 
 import BackToTopButton from '../../components/DemoPageComponents/MobileComponents/BackToTopButton';
 import VidPlayer from '../../components/DemoPageComponents/DesktopComponents/VidPlayer';
@@ -126,7 +128,19 @@ const DemosPage = () => {
   };
 
   return (
-    <ContentDiv hideScroll={true}>
+    <>
+      <AnimatePresence exitBeforeEnter>
+        {isLoading && (
+          <motion.div
+            variants={loadingVariant}
+            initial='hidden'
+            animate='visible'
+            exit='hidden'
+          >
+            <LoadingIndicator />
+          </motion.div>
+        )}
+      </AnimatePresence>
       {!isLoading && (
         <motion.div
           variants={pageVariant}
@@ -134,50 +148,52 @@ const DemosPage = () => {
           animate='visible'
           exit='hidden'
         >
-          {window.innerWidth > 768 ? (
-            <Navbar />
-          ) : (
-            <BackHomeButton fixed={true} />
-          )}
-          <ContainerDiv>
-            <DemosPageData.Provider
-              value={{
-                videos: data,
-                activeVid_id: activeVid,
-                setActiveVid_id: setActiveVid,
-                sizes: sizesData,
-              }}
-            >
-              {window.innerWidth > 768 ? (
-                <>
-                  <VidPlayer activeVid={activeVid} />
-                  <div id='vid_slider'>
-                    <Slider {...carouselSettingsDesktop}>
-                      {data.map((d, i) => (
-                        <VidLight key={i} details={d} index={i + 1} />
-                      ))}
-                    </Slider>
-                  </div>
-                </>
-              ) : (
-                <>
-                  {data.map((d, i) => (
-                    <VidDiv key={i} details={d} index={i + 1} />
-                  ))}
-                  <BackToTopButton />
-                </>
-              )}
-            </DemosPageData.Provider>
-          </ContainerDiv>
-          {window.innerWidth > 768 && (
-            <>
-              <HR />
-              <Footer />
-            </>
-          )}
+          <ContentDiv hideScroll={true}>
+            {window.innerWidth > 768 ? (
+              <Navbar />
+            ) : (
+              <BackHomeButton fixed={true} />
+            )}
+            <ContainerDiv>
+              <DemosPageData.Provider
+                value={{
+                  videos: data,
+                  activeVid_id: activeVid,
+                  setActiveVid_id: setActiveVid,
+                  sizes: sizesData,
+                }}
+              >
+                {window.innerWidth > 768 ? (
+                  <>
+                    <VidPlayer activeVid={activeVid} />
+                    <div id='vid_slider'>
+                      <Slider {...carouselSettingsDesktop}>
+                        {data.map((d, i) => (
+                          <VidLight key={i} details={d} index={i + 1} />
+                        ))}
+                      </Slider>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    {data.map((d, i) => (
+                      <VidDiv key={i} details={d} index={i + 1} />
+                    ))}
+                    <BackToTopButton />
+                  </>
+                )}
+              </DemosPageData.Provider>
+            </ContainerDiv>
+            {window.innerWidth > 768 && (
+              <>
+                <HR />
+                <Footer />
+              </>
+            )}
+          </ContentDiv>
         </motion.div>
       )}
-    </ContentDiv>
+    </>
   );
 };
 

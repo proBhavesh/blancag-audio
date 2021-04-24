@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import { motion } from 'framer-motion';
 
 import ContentDiv from '../../hoc/ContentDiv';
@@ -6,9 +7,11 @@ import Navbar from '../../components/Nav/NavBar';
 import Footer from '../../components/Footer/Footer';
 import BlurDiv from '../../hoc/BlurDiv';
 import BackDrop from '../../components/BackDrop';
+import LoadingIndicator from '../../components/LoadingIndicator';
 
 import { client as sanity } from '../../sanityClient';
 import { pageVariant } from '../../styles/motionVariants/pageVariant';
+import { loadingVariant } from '../../styles/motionVariants/loadingVariant';
 
 import Hero from '../../components/HomePageComponents/Hero/Hero';
 import About from '../../components/HomePageComponents/About/About';
@@ -159,16 +162,28 @@ const HomePage = ({ location }) => {
   }, []);
 
   return (
-    <ContentDiv hideScroll={false}>
-      <>
-        <BlurDiv blur={isOpen}>
-          {!isLoading && (
-            <motion.div
-              variants={pageVariant}
-              initial='hidden'
-              animate='visible'
-              exit='hidden'
-            >
+    <>
+      <AnimatePresence exitBeforeEnter>
+        {isLoading && (
+          <motion.div
+            variants={loadingVariant}
+            initial='hidden'
+            animate='visible'
+            exit='hidden'
+          >
+            <LoadingIndicator />
+          </motion.div>
+        )}
+      </AnimatePresence>
+      {!isLoading && (
+        <motion.div
+          variants={pageVariant}
+          initial='hidden'
+          animate='visible'
+          exit='hidden'
+        >
+          <ContentDiv hideScroll={false}>
+            <BlurDiv blur={isOpen}>
               <Navbar />
               <HomePageData.Provider value={data}>
                 <Hero />
@@ -178,12 +193,12 @@ const HomePage = ({ location }) => {
               </HomePageData.Provider>
               <Footer />
               <button onClick={() => setIsOpen((prev) => !prev)}>Open</button>
-            </motion.div>
-          )}
-        </BlurDiv>
-        <BackDrop isOpen={isOpen} setIsOpen={setIsOpen} />
-      </>
-    </ContentDiv>
+            </BlurDiv>
+            <BackDrop isOpen={isOpen} setIsOpen={setIsOpen} />
+          </ContentDiv>
+        </motion.div>
+      )}
+    </>
   );
 };
 

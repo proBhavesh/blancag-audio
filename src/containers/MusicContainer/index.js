@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useRouteMatch, useLocation } from 'react-router-dom';
 
 import ContentDiv from '../../hoc/ContentDiv';
@@ -13,8 +13,10 @@ import MainPlayer from '../../components/MusicPageComponents/Music/MainPlayer';
 import MainPlaylist from '../../components/MusicPageComponents/Playlist/MainPlaylist';
 
 import { pageVariant } from '../../styles/motionVariants/pageVariant';
+import { loadingVariant } from '../../styles/motionVariants/loadingVariant';
 
 import { client as sanity } from '../../sanityClient';
+import LoadingIndicator from '../../components/LoadingIndicator';
 
 export const MusicPageData = React.createContext({
   files: [],
@@ -157,78 +159,97 @@ const MusicPage = () => {
 
   const mainContentJSX = (
     <>
-      {!isLoading && (
+      {window.innerWidth < 768 ? (
+        <MobileNavDiv fixed={playListOpen}>
+          <BackHomeButton />
+          <PlaylistIconDiv onClick={() => setPlayListOpen((prev) => !prev)}>
+            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'>
+              <defs>
+                <style>
+                  .a{'{'}fill-rule:evenodd;{'}'}
+                </style>
+              </defs>
+              <title>playlist</title>
+              <path
+                className='a'
+                d='M0,0V6.19l5-3.1ZM0,20H20V18H0Zm0-8.12H20v-2H0ZM7,3.75H20v-2H7Z'
+              />
+            </svg>
+          </PlaylistIconDiv>
+        </MobileNavDiv>
+      ) : (
+        <Navbar />
+      )}
+      <ContainerDiv>
+        <MusicPageData.Provider
+          value={{
+            files: data,
+            volume: volume,
+            setVolume: setVolume,
+            shuffle: shuffle,
+            setShuffle: setShuffle,
+            repeat: repeat,
+            setRepeat: setRepeat,
+            sizes: sizesData,
+          }}
+        >
+          <MusicPlayerDiv fixed={playListOpen}>
+            <MainPlayer id={match ? +match.params.id : 0} />
+            <MainPlaylist
+              id={match ? +match.params.id : 0}
+              playListOpen={playListOpen}
+              setPlayListOpen={setPlayListOpen}
+            />
+          </MusicPlayerDiv>
+        </MusicPageData.Provider>
+      </ContainerDiv>
+      {window.innerWidth > 768 && (
         <>
-          {window.innerWidth < 768 ? (
-            <MobileNavDiv fixed={playListOpen}>
-              <BackHomeButton />
-              <PlaylistIconDiv onClick={() => setPlayListOpen((prev) => !prev)}>
-                <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'>
-                  <defs>
-                    <style>
-                      .a{'{'}fill-rule:evenodd;{'}'}
-                    </style>
-                  </defs>
-                  <title>playlist</title>
-                  <path
-                    className='a'
-                    d='M0,0V6.19l5-3.1ZM0,20H20V18H0Zm0-8.12H20v-2H0ZM7,3.75H20v-2H7Z'
-                  />
-                </svg>
-              </PlaylistIconDiv>
-            </MobileNavDiv>
-          ) : (
-            <Navbar />
-          )}
-          <ContainerDiv>
-            <MusicPageData.Provider
-              value={{
-                files: data,
-                volume: volume,
-                setVolume: setVolume,
-                shuffle: shuffle,
-                setShuffle: setShuffle,
-                repeat: repeat,
-                setRepeat: setRepeat,
-                sizes: sizesData,
-              }}
-            >
-              <MusicPlayerDiv fixed={playListOpen}>
-                <MainPlayer id={match ? +match.params.id : 0} />
-                <MainPlaylist
-                  id={match ? +match.params.id : 0}
-                  playListOpen={playListOpen}
-                  setPlayListOpen={setPlayListOpen}
-                />
-              </MusicPlayerDiv>
-            </MusicPageData.Provider>
-          </ContainerDiv>
-          {window.innerWidth > 768 && (
-            <>
-              <HR />
-              <Footer />
-            </>
-          )}
+          <HR />
+          <Footer />
         </>
       )}
     </>
   );
 
   return (
-    <ContentDiv hideScroll={true} style={{ padding: '1.25rem' }}>
-      {!state || !state.redirect ? (
+    <>
+      <AnimatePresence exitBeforeEnter>
+        {isLoading && (
+          <motion.div
+            variants={loadingVariant}
+            initial='hidden'
+            animate='visible'
+            exit='hidden'
+          >
+            <LoadingIndicator />
+          </motion.div>
+        )}
+      </AnimatePresence>
+      {!isLoading && (
         <motion.div
           variants={pageVariant}
           initial='hidden'
           animate='visible'
           exit='hidden'
         >
-          {mainContentJSX}
+          <ContentDiv hideScroll={true} style={{ padding: '1.25rem' }}>
+            {!state || !state.redirect ? (
+              <motion.div
+                variants={pageVariant}
+                initial='hidden'
+                animate='visible'
+                exit='hidden'
+              >
+                {mainContentJSX}
+              </motion.div>
+            ) : (
+              mainContentJSX
+            )}
+          </ContentDiv>
         </motion.div>
-      ) : (
-        mainContentJSX
       )}
-    </ContentDiv>
+    </>
   );
 };
 
