@@ -110,19 +110,18 @@ const CopiedMessage = styled.div`
   pointer-events: none;
   cursor: default;
   position: absolute;
-  top: calc(100% + 0.5rem);
+  top: calc(100% + 1rem);
 
   font-size: 0.75rem;
-  font-family: 'DIN Next Light', sans-serif;
   color: ${(props) => props.theme.textWhite};
-  padding: 0.3em 0.5em;
+  padding: 0.15em 0.6em;
 
   background-color: #333;
   border: 1px solid ${(props) => props.theme.textGrey};
   border-radius: 1em;
 
   transition: opacity 0.25s linear;
-  opacity: ${(props) => (props.showMessage ? 1 : 0)};
+  /* opacity: ${(props) => (props.showMessage ? 1 : 0)}; */
 
   &:before {
     content: '';

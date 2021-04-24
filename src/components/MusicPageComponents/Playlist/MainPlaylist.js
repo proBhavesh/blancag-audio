@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { isIOS } from 'react-device-detect';
 import styled from 'styled-components';
 
 import { MusicPageData } from '../../../containers/MusicContainer/index';
@@ -75,7 +76,10 @@ const MainPlaylist = ({ id, playListOpen }) => {
 
   return (
     <>
-      <PlaylistDiv isOpen={playListOpen}>
+      <PlaylistDiv
+        isOpen={playListOpen}
+        onTouchMove={(e) => isIOS && e.stopPropagation()}
+      >
         {files.map((file, index) => (
           <PlaylistItem
             key={index}

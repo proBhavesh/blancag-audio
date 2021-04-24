@@ -41,7 +41,7 @@ const CoverDiv = styled.div`
 const DetailsDiv = styled.div`
   grid-area: details;
   text-align: left;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2.5rem;
 
   h1 {
     line-height: 1em;
