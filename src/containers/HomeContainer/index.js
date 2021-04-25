@@ -163,7 +163,7 @@ const HomePage = ({ location }) => {
 
   return (
     <>
-      <AnimatePresence exitBeforeEnter>
+      <AnimatePresence>
         {isLoading && (
           <motion.div
             variants={loadingVariant}

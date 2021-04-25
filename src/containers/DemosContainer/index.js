@@ -112,7 +112,7 @@ const DemosPage = () => {
             const { title, thumbnail_url, duration, video_id } = d;
             return {
               title,
-              thumbnail_url,
+              thumbnail_url: `${thumbnail_url}?dummy=${new Date().getTime()}`,
               duration,
               video_id,
             };
@@ -137,7 +137,7 @@ const DemosPage = () => {
 
   return (
     <>
-      <AnimatePresence exitBeforeEnter>
+      <AnimatePresence>
         {isLoading && (
           <motion.div
             variants={loadingVariant}

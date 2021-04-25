@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { isMobile } from 'react-device-detect';
 
 const useDocDims = () => {
   const [width, setWidth] = useState(null);
@@ -13,12 +14,9 @@ const useDocDims = () => {
 
   useEffect(() => {
     setDocDims();
-    window.addEventListener('resize', function () {
-      setDocDims();
-    });
-    window.addEventListener('orientationchange', function () {
-      setDocDims();
-    });
+    isMobile && window.addEventListener('scroll', setDocDims);
+    window.addEventListener('resize', setDocDims);
+    window.addEventListener('orientationchange', setDocDims);
   }, []);
 
   return width;

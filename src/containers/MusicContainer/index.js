@@ -218,7 +218,7 @@ const MusicPage = () => {
 
   return (
     <>
-      <AnimatePresence exitBeforeEnter>
+      <AnimatePresence>
         {isLoading && (
           <motion.div
             variants={loadingVariant}

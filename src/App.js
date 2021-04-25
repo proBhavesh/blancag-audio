@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Switch, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
+import { isMobile } from 'react-device-detect';
 
 import LoadingIndicatorContextComponent from './context/LoadingIndicatorContext';
 import NavBarContextComponent from './context/NavbarContext';
@@ -12,6 +13,14 @@ import useDocDims from './helpers/useDocDims';
 const App = () => {
   const location = useLocation();
   const width = useDocDims();
+
+  useEffect(() => {
+    function emptyFunc() {}
+    isMobile && document.addEventListener('touchstart', emptyFunc, true);
+    return () => {
+      isMobile && document.addEventListener('touchmove', emptyFunc, true);
+    };
+  }, []);
 
   return (
     width && (
