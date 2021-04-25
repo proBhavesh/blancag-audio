@@ -114,10 +114,10 @@ const CopiedMessage = styled.div`
   top: calc(100% + 1rem);
 
   font-size: 0.75rem;
-  color: ${(props) => props.theme.textWhite};
+  color: ${(props) => props.theme.bgBlack};
   padding: 0.15em 0.6em;
 
-  background-color: #333;
+  background-color: ${(props) => props.theme.textWhite};
   border: 1px solid ${(props) => props.theme.textGrey};
   border-radius: 1em;
 
@@ -130,7 +130,7 @@ const CopiedMessage = styled.div`
     top: 0;
     left: 50%;
 
-    background-color: #333;
+    background-color: ${(props) => props.theme.textWhite};
     border-top: 1px solid ${(props) => props.theme.textGrey};
     border-left: 1px solid ${(props) => props.theme.textGrey};
     font-size: 0.75rem;
