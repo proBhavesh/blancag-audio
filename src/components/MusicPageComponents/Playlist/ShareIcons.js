@@ -187,26 +187,39 @@ const ShareIcons = ({ index, showIconsItemIndex, setShowIconsItemIndex }) => {
       >
         <InnerShareIconsDiv>
           <FacebookShareButton url={url}>
-            <ShareIconDiv sizes={{ desktopTitle, mobileTitle }}>
+            <ShareIconDiv
+              className='icon-div'
+              sizes={{ desktopTitle, mobileTitle }}
+            >
               <img src={FacebookIcon} alt='facebook-share' />
             </ShareIconDiv>
           </FacebookShareButton>
           <TwitterShareButton url={url}>
-            <ShareIconDiv sizes={{ desktopTitle, mobileTitle }}>
+            <ShareIconDiv
+              className='icon-div'
+              sizes={{ desktopTitle, mobileTitle }}
+            >
               <img src={TwitterIcon} alt='twitter-share' />
             </ShareIconDiv>
           </TwitterShareButton>
           <TumblrShareButton url={url}>
-            <ShareIconDiv sizes={{ desktopTitle, mobileTitle }}>
+            <ShareIconDiv
+              className='icon-div'
+              sizes={{ desktopTitle, mobileTitle }}
+            >
               <img src={TumblrIcon} alt='linked-in-share' />
             </ShareIconDiv>
           </TumblrShareButton>
           <WhatsappShareButton url={url}>
-            <ShareIconDiv sizes={{ desktopTitle, mobileTitle }}>
+            <ShareIconDiv
+              className='icon-div'
+              sizes={{ desktopTitle, mobileTitle }}
+            >
               <img src={WhatsappIcon} alt='whatsapp-share' />
             </ShareIconDiv>
           </WhatsappShareButton>
           <LinkIconDiv
+            className='icon-div'
             sizes={{ desktopTitle, mobileTitle }}
             onClick={(e) => {
               e.preventDefault();
@@ -226,6 +239,7 @@ const ShareIcons = ({ index, showIconsItemIndex, setShowIconsItemIndex }) => {
         </InnerShareIconsDiv>
       </motion.div>
       <IconDiv
+        className='icon-div'
         arrow
         onClick={(e) => {
           e.preventDefault();

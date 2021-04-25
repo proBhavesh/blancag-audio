@@ -12,6 +12,7 @@ import BackHomeButton from '../../components/BackHomeButton';
 import ColorBallButton from '../../components/FxRelated/Chooser/ColorBallButton';
 import BlurDiv from '../../hoc/BlurDiv';
 import FxWheel from '../../components/FxRelated/Chooser/FxWheel/index';
+import ActiveFx from '../../components/FxRelated/FXes/ActiveFx';
 
 import MainPlayer from '../../components/MusicPageComponents/Music/MainPlayer';
 import MainPlaylist from '../../components/MusicPageComponents/Playlist/MainPlaylist';
@@ -171,7 +172,10 @@ const MusicPage = () => {
       {width < 769 ? (
         <MobileNavDiv fixed={playListOpen}>
           <BackHomeButton />
-          <PlaylistIconDiv onClick={() => setPlayListOpen((prev) => !prev)}>
+          <PlaylistIconDiv
+            className='icon-div'
+            onClick={() => setPlayListOpen((prev) => !prev)}
+          >
             <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'>
               <defs>
                 <style>
@@ -263,6 +267,7 @@ const MusicPage = () => {
               <>
                 <ColorBallButton isOpen={isOpen} setIsOpen={setIsOpen} />
                 <FxWheel isOpen={isOpen} setIsOpen={setIsOpen} />
+                <ActiveFx />
               </>
             )}
           </ContentDiv>

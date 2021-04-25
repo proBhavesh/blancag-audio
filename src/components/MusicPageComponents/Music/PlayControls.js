@@ -93,6 +93,7 @@ const PlayControls = ({ isPlaying, setIsPlaying, goToNewSong }) => {
   return (
     <PlayControlsDiv>
       <PrevBtn
+        className='icon-div'
         onClick={() => goToNewSong(false)}
         sizes={{ desktopIcon, mobileIcon }}
       >
@@ -102,7 +103,9 @@ const PlayControls = ({ isPlaying, setIsPlaying, goToNewSong }) => {
         </svg>
       </PrevBtn>
       <PlayPauseBtn
-        className={'play-ctrl-btn ' + (!isPlaying ? 'play-btn' : 'pause-btn')}
+        className={
+          'play-ctrl-btn icon-div ' + (!isPlaying ? 'play-btn' : 'pause-btn')
+        }
         onClick={() => setIsPlaying((prev) => !prev)}
         sizes={{ desktopIcon, mobileIcon }}
       >
@@ -118,6 +121,7 @@ const PlayControls = ({ isPlaying, setIsPlaying, goToNewSong }) => {
         )}
       </PlayPauseBtn>
       <NextBtn
+        className='icon-div'
         onClick={() => goToNewSong()}
         sizes={{ desktopIcon, mobileIcon }}
       >

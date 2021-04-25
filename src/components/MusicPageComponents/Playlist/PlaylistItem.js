@@ -116,6 +116,7 @@ const PlaylistItem = ({
       ></audio>
       <ListItem className={active ? 'active' : ''}>
         <LinkStyled
+          className='playlist-item'
           to={{
             pathname: `/music/${index - 1}`,
             state: { redirect: true },

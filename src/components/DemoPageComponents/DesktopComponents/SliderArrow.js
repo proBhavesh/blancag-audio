@@ -45,7 +45,7 @@ export function SamplePrevArrow({ currentSlide, onClick }) {
   return (
     <IconDiv
       size={vidSlider_arrow}
-      className='iconDiv'
+      className='icon-div'
       style={
         currentSlide === 0
           ? { opacity: 0, pointerEvents: 'none' }
@@ -74,7 +74,7 @@ export function SampleNextArrow({ currentSlide, onClick, slideCount }) {
   return (
     <IconDiv
       size={vidSlider_arrow}
-      className='iconDiv'
+      className='icon-div'
       style={
         currentSlide + 3 >= slideCount - 1
           ? { opacity: 0, pointerEvents: 'none' }

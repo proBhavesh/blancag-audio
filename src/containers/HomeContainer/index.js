@@ -6,10 +6,12 @@ import { useLocation } from 'react-router-dom';
 import ContentDiv from '../../hoc/ContentDiv';
 import Navbar from '../../components/Nav/NavBar';
 import Footer from '../../components/Footer/Footer';
+import LoadingIndicator from '../../components/LoadingIndicator';
+
 import BlurDiv from '../../hoc/BlurDiv';
 import FxWheel from '../../components/FxRelated/Chooser/FxWheel/index';
-import LoadingIndicator from '../../components/LoadingIndicator';
 import ColorBallButton from '../../components/FxRelated/Chooser/ColorBallButton';
+import ActiveFx from '../../components/FxRelated/FXes/ActiveFx';
 
 import { client as sanity } from '../../sanityClient';
 import { pageVariant } from '../../styles/motionVariants/pageVariant';
@@ -203,6 +205,7 @@ const HomePage = () => {
             </BlurDiv>
             <ColorBallButton isOpen={isOpen} setIsOpen={setIsOpen} />
             <FxWheel isOpen={isOpen} setIsOpen={setIsOpen} />
+            <ActiveFx />
           </ContentDiv>
         </motion.div>
       )}

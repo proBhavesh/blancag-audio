@@ -20,6 +20,7 @@ import LoadingIndicator from '../../components/LoadingIndicator';
 import ColorBallButton from '../../components/FxRelated/Chooser/ColorBallButton';
 import BlurDiv from '../../hoc/BlurDiv';
 import FxWheel from '../../components/FxRelated/Chooser/FxWheel/index';
+import ActiveFx from '../../components/FxRelated/FXes/ActiveFx';
 
 import { client as sanity } from '../../sanityClient';
 import { pageVariant } from '../../styles/motionVariants/pageVariant';
@@ -206,6 +207,7 @@ const DemosPage = () => {
               <>
                 <ColorBallButton isOpen={isOpen} setIsOpen={setIsOpen} />
                 <FxWheel isOpen={isOpen} setIsOpen={setIsOpen} />
+                <ActiveFx />
               </>
             )}
           </ContentDiv>

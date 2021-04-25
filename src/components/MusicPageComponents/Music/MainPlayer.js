@@ -227,7 +227,7 @@ const MainPlayer = ({ id }) => {
       <ControlsDiv>
         <ShuffleControl
           ref={shuffleRef}
-          className={shuffle ? 'active' : ''}
+          className={'icon-div' + (shuffle ? ' active' : '')}
           onClick={() => {
             setShuffle((prev) => !prev);
           }}
@@ -239,6 +239,7 @@ const MainPlayer = ({ id }) => {
         </ShuffleControl>
         <RepeatControl
           ref={repeatRef}
+          className='icon-div'
           onClick={() => {
             repeatRef.current.classList.toggle('active');
             setRepeat((prev) => !prev);

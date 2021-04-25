@@ -118,6 +118,7 @@ const VidDiv = ({ details, index }) => {
               <strong>{details.title}</strong>
             </p>
             <IconDiv
+              className='icon-div'
               size={mobileIcon}
               onClick={() => {
                 setActiveVid_id(details.video_id);

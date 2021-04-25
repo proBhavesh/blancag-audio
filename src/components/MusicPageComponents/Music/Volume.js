@@ -179,6 +179,7 @@ const Volume = () => {
   return (
     <VolumeDiv>
       <VolumeIcon
+        className='icon-div'
         onClick={() =>
           setVolume((prev) => (prev === 0 ? volumeRef.current : 0))
         }
