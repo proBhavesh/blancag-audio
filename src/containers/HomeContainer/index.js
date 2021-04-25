@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { motion } from 'framer-motion';
+import { useLocation } from 'react-router-dom';
 
 import ContentDiv from '../../hoc/ContentDiv';
 import Navbar from '../../components/Nav/NavBar';
@@ -17,6 +18,7 @@ import Hero from '../../components/HomePageComponents/Hero/Hero';
 import About from '../../components/HomePageComponents/About/About';
 import Skills from '../../components/HomePageComponents/Skills/Skills';
 import Contact from '../../components/HomePageComponents/Contact/Contact';
+import SplashScreen from '../../components/HomePageComponents/SplashScreen/SplashScreen';
 
 export const HomePageData = React.createContext({
   hero: {
@@ -73,12 +75,13 @@ export const HomePageData = React.createContext({
   },
 });
 
-const HomePage = ({ location }) => {
-  // const redirected = location.redirected;
+const HomePage = () => {
+  const location = useLocation();
 
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [animation, setAnimation] = useState('not-done');
 
   useEffect(() => {
     Promise.all([
@@ -163,18 +166,22 @@ const HomePage = ({ location }) => {
 
   return (
     <>
-      <AnimatePresence>
-        {isLoading && (
-          <motion.div
-            variants={loadingVariant}
-            initial='hidden'
-            animate='visible'
-            exit='hidden'
-          >
-            <LoadingIndicator />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {!location.redirected && animation === 'not-done' ? (
+        <SplashScreen setAnimation={setAnimation} />
+      ) : (
+        <AnimatePresence>
+          {isLoading && (
+            <motion.div
+              variants={loadingVariant}
+              initial='hidden'
+              animate='visible'
+              exit='hidden'
+            >
+              <LoadingIndicator />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      )}
       {!isLoading && (
         <motion.div
           variants={pageVariant}
