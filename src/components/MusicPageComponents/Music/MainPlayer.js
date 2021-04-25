@@ -42,7 +42,7 @@ const CoverDiv = styled.div`
   }
 
   @media (max-width: 768px) {
-    margin: 0 auto 5rem;
+    margin: 0 auto 2rem;
   }
 `;
 
@@ -57,7 +57,7 @@ const DetailsDiv = styled.div`
 
   h1 {
     line-height: 1em;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     font-size: ${(props) => props.sizes.desktopTitle}px;
 
     @media (max-width: 768px) {

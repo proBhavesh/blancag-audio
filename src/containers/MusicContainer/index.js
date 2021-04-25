@@ -67,7 +67,7 @@ const MusicPlayerDiv = styled.div`
 
   @media (max-width: 768px) {
     height: auto;
-    margin: ${(props) => (props.fixed ? '3rem' : '1rem')} auto 0;
+    margin: ${(props) => (props.fixed ? '3rem' : '1.5rem')} auto 0;
   }
 `;
 
