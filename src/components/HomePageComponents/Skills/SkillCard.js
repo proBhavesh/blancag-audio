@@ -70,15 +70,11 @@ const SkillCard = ({ skill }) => {
   } = useContext(HomePageData);
 
   useEffect(() => {
-    setWidth(
-      Math.round(
-        +getComputedStyle(imageDivRef.current)
-          .getPropertyValue('width')
-          .split('')
-          .slice(0, -2)
-          .join('')
-      )
-    );
+    getImageWidth();
+    window.addEventListener('resize', getImageWidth);
+    return () => {
+      window.removeEventListener('resize', getImageWidth);
+    };
   }, []);
 
   return (
@@ -101,6 +97,19 @@ const SkillCard = ({ skill }) => {
       </SkillContent>
     </SkillCardDiv>
   );
+
+  function getImageWidth() {
+    imageDivRef.current &&
+      setWidth(
+        Math.round(
+          +getComputedStyle(imageDivRef.current)
+            .getPropertyValue('width')
+            .split('')
+            .slice(0, -2)
+            .join('')
+        )
+      );
+  }
 };
 
 export default SkillCard;
