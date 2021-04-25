@@ -21,6 +21,8 @@ import { client as sanity } from '../../sanityClient';
 import { pageVariant } from '../../styles/motionVariants/pageVariant';
 import { loadingVariant } from '../../styles/motionVariants/loadingVariant';
 
+import useDocDims from '../../helpers/useDocDims';
+
 import BackToTopButton from '../../components/DemoPageComponents/MobileComponents/BackToTopButton';
 import VidPlayer from '../../components/DemoPageComponents/DesktopComponents/VidPlayer';
 import VidLight from '../../components/DemoPageComponents/DesktopComponents/VidLight';
@@ -121,6 +123,8 @@ const DemosPage = () => {
       });
   }, []);
 
+  const width = useDocDims();
+
   const carouselSettingsDesktop = {
     dots: false,
     infinite: false,
@@ -153,11 +157,7 @@ const DemosPage = () => {
           exit='hidden'
         >
           <ContentDiv hideScroll={true}>
-            {window.innerWidth > 768 ? (
-              <Navbar />
-            ) : (
-              <BackHomeButton fixed={true} />
-            )}
+            {width > 768 ? <Navbar /> : <BackHomeButton fixed={true} />}
             <ContainerDiv>
               <DemosPageData.Provider
                 value={{
@@ -167,7 +167,7 @@ const DemosPage = () => {
                   sizes: sizesData,
                 }}
               >
-                {window.innerWidth > 768 ? (
+                {width > 768 ? (
                   <>
                     <VidPlayer activeVid={activeVid} />
                     <div id='vid_slider'>
@@ -188,7 +188,7 @@ const DemosPage = () => {
                 )}
               </DemosPageData.Provider>
             </ContainerDiv>
-            {window.innerWidth > 768 && (
+            {width > 768 && (
               <>
                 <HR />
                 <Footer />

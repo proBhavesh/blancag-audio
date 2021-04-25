@@ -1,4 +1,5 @@
 import { useRef, useCallback, useEffect } from 'react';
+import { isIOS } from 'react-device-detect';
 
 const useScrollLock = () => {
   const top = useRef(0);
@@ -8,19 +9,28 @@ const useScrollLock = () => {
   }, []);
 
   useEffect(() => {
-    document.querySelector('.content-div').addEventListener('scroll', getTop);
+    !isIOS
+      ? document
+          .querySelector('.content-div')
+          .addEventListener('scroll', getTop)
+      : document.documentElement.addEventListener('scroll', getTop);
   }, [getTop]);
 
   const stopScroll = useCallback(
     () =>
-      document
-        .querySelector('.content-div')
-        .setAttribute('style', 'overflow-y:hidden'),
+      !isIOS
+        ? document
+            .querySelector('.content-div')
+            .setAttribute('style', 'overflow-y:hidden')
+        : document.documentElement.setAttribute('style', 'overflow-y:hidden'),
     []
   );
 
   const resumeScroll = useCallback(
-    () => document.querySelector('.content-div').setAttribute('style', ''),
+    () =>
+      !isIOS
+        ? document.querySelector('.content-div').setAttribute('style', '')
+        : document.documentElement.setAttribute('style', ''),
     []
   );
 

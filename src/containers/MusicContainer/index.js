@@ -15,6 +15,8 @@ import MainPlaylist from '../../components/MusicPageComponents/Playlist/MainPlay
 import { pageVariant } from '../../styles/motionVariants/pageVariant';
 import { loadingVariant } from '../../styles/motionVariants/loadingVariant';
 
+import useDocDims from '../../helpers/useDocDims';
+
 import { client as sanity } from '../../sanityClient';
 import LoadingIndicator from '../../components/LoadingIndicator';
 
@@ -157,9 +159,11 @@ const MusicPage = () => {
     });
   }, []);
 
+  const width = useDocDims();
+
   const mainContentJSX = (
     <>
-      {window.innerWidth < 769 ? (
+      {width < 769 ? (
         <MobileNavDiv fixed={playListOpen}>
           <BackHomeButton />
           <PlaylistIconDiv onClick={() => setPlayListOpen((prev) => !prev)}>
@@ -203,7 +207,7 @@ const MusicPage = () => {
           </MusicPlayerDiv>
         </MusicPageData.Provider>
       </ContainerDiv>
-      {window.innerWidth > 768 && (
+      {width > 768 && (
         <>
           <HR />
           <Footer />

@@ -90,7 +90,7 @@ const MenuDiv = styled.div`
   left: -2rem;
 
   width: calc(100% + 4rem);
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
 
   background-color: ${(props) => props.theme.bgBlack};
   z-index: 990;
@@ -103,7 +103,7 @@ const MenuDiv = styled.div`
   font-size: 1.5rem;
   overflow-y: auto;
 
-  padding: 225px 0 20vh;
+  padding: 225px 0 calc(var(--vh, 1vh) * 20);
 
   transition: 1s ease;
   ${(props) =>

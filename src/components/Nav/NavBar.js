@@ -7,17 +7,20 @@ import HR from '../HR';
 import NavDesktop from './NavDesktop';
 import NavMobile from './NavMobile';
 
+import useDocDims from '../../helpers/useDocDims';
+
 const Header = styled.header`
   margin-bottom: 1rem;
 `;
 
 const NavBar = () => {
+  const width = useDocDims();
   return (
     <>
       <Header>
         <Container>
           <Logo />
-          {window.innerWidth > 768 ? <NavDesktop /> : <NavMobile />}
+          {width > 768 ? <NavDesktop /> : <NavMobile />}
         </Container>
       </Header>
       <HR />

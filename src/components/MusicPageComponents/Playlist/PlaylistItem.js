@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import ShareIcons from './ShareIcons';
 
 import { secondsToMinute } from '../../../helpers/SecondsToMinutes';
+import useDocDims from '../../../helpers/useDocDims';
 
 import { MusicPageData } from '../../../containers/MusicContainer/index';
 
@@ -104,6 +105,8 @@ const PlaylistItem = ({
     },
   } = useContext(MusicPageData);
 
+  const width = useDocDims();
+
   return (
     <>
       <audio
@@ -120,7 +123,7 @@ const PlaylistItem = ({
           sizes={{ desktopTitle, mobileTitle, durationMobile }}
           onClick={() => setShowIconsItemIndex(index - 1)}
         >
-          {window.innerWidth > 768 && <p>{index}</p>}
+          {width > 768 && <p>{index}</p>}
           <h4>{file.title}</h4>
           <ShareIcons
             index={index}

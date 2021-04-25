@@ -7,7 +7,7 @@ const ContentDiv = styled.div`
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
 
   padding: 2rem;
 
@@ -19,73 +19,39 @@ const ContentDiv = styled.div`
   @media (max-width: 768px) {
     padding: 2rem 1.25rem;
     ${(props) => props.safariMobile && `height: auto; width: 100%`};
+  }
 
-    scrollbar-width: thin;
-    scrollbar-color: transparent #bada55bf;
+  scrollbar-width: thin;
+  scrollbar-color: transparent ${(props) => props.theme.mainGreen}bf;
 
-    &::-webkit-scrollbar {
-      appearance: none;
+  &::-webkit-scrollbar {
+    appearance: none;
+    width: 8px;
+
+    @media (max-width: 768px) {
       width: 4px;
-
-      &::-webkit-scrollbar:horizontal {
-        display: none;
-      }
     }
 
-    &::-webkit-scrollbar-track {
-      background-color: transparent;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: ${(props) => props.theme.bgBlack}80;
-      border-radius: 2rem;
-      border: 1px solid ${(props) => props.theme.lighterGrey}80;
-      z-index: 10000;
+    &::-webkit-scrollbar:horizontal {
+      display: none;
     }
   }
 
-  @media (min-width: 768px) {
-    ${(props) =>
-      !props.hideScroll
-        ? `
-    scrollbar-width: thin;
-    scrollbar-color: transparent #bada55bf;
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
 
-    &::-webkit-scrollbar {
-      appearance: none;
-      width: 8px;
-    }
-
-    &::-webkit-scrollbar-track {
-      background-color: transparent;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: ${(props) => props.theme.bgBlack}80;
-      border-radius: 2rem;
-      border: 1px solid ${(props) => props.theme.lighterGrey}80;
-      z-index: 10000;
-    }
-  `
-        : `
-    scrollbar-color: transparent transparent;
-
-     &::-webkit-scrollbar {
-      appearance: none;
-      display: none;
-    }
-  `}
+  &::-webkit-scrollbar-thumb {
+    background-color: ${(props) => props.theme.bgBlack}80;
+    border-radius: 2rem;
+    border: 1px solid ${(props) => props.theme.lighterGrey}80;
+    z-index: 10000;
   }
 `;
 
 const Content = ({ hideScroll, style, children }) => {
   return (
-    <ContentDiv
-      hideScroll={hideScroll}
-      className='content-div'
-      safariMobile={isIOS}
-      style={style}
-    >
+    <ContentDiv className='content-div' safariMobile={isIOS} style={style}>
       {children}
     </ContentDiv>
   );

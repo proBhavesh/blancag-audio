@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import { MusicPageData } from '../../../containers/MusicContainer/index';
 
 import { urlFor } from '../../../helpers/ImageUrlGetter';
+import useDocDims from '../../../helpers/useDocDims';
+
 import { IconDiv } from './IconDiv';
 
 import PlayControls from './PlayControls';
@@ -155,6 +157,8 @@ const MainPlayer = ({ id }) => {
   const rAF = useRef(null);
   const timer = useRef(null);
 
+  const width = useDocDims();
+
   useEffect(() => {
     isPlaying ? playAudio() : pauseAudio();
   }, [isPlaying]);
@@ -216,7 +220,7 @@ const MainPlayer = ({ id }) => {
       >
         <h1>{activeFileData.title}</h1>
         <p>
-          {window.innerWidth > 768 && <>By </>}
+          {width > 768 && <>By </>}
           <strong>Blanca G.</strong>
         </p>
       </DetailsDiv>
@@ -250,7 +254,7 @@ const MainPlayer = ({ id }) => {
           setIsPlaying={setIsPlaying}
           goToNewSong={goToNewSong}
         />
-        {window.innerWidth > 768 && <Volume />}
+        {width > 768 && <Volume />}
       </ControlsDiv>
       <Progress
         duration={duration}
