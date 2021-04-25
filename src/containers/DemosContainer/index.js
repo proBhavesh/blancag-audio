@@ -162,17 +162,18 @@ const DemosPage = () => {
           exit='hidden'
         >
           <ContentDiv hideScroll={true}>
-            <BlurDiv blur={isOpen}>
-              {width > 768 ? <Navbar /> : <BackHomeButton fixed={true} />}
-              <ContainerDiv>
-                <DemosPageData.Provider
-                  value={{
-                    videos: data,
-                    activeVid_id: activeVid,
-                    setActiveVid_id: setActiveVid,
-                    sizes: sizesData,
-                  }}
-                >
+            {width < 769 && <BackHomeButton fixed={true} />}
+            <DemosPageData.Provider
+              value={{
+                videos: data,
+                activeVid_id: activeVid,
+                setActiveVid_id: setActiveVid,
+                sizes: sizesData,
+              }}
+            >
+              <BlurDiv blur={isOpen}>
+                {width > 768 && <Navbar />}
+                <ContainerDiv>
                   {width > 768 ? (
                     <>
                       <VidPlayer activeVid={activeVid} />
@@ -189,20 +190,24 @@ const DemosPage = () => {
                       {data.map((d, i) => (
                         <VidDiv key={i} details={d} index={i + 1} />
                       ))}
-                      <BackToTopButton />
                     </>
                   )}
-                </DemosPageData.Provider>
-              </ContainerDiv>
-              {width > 768 && (
-                <>
-                  <HR />
-                  <Footer />
-                </>
-              )}
-            </BlurDiv>
-            <ColorBallButton isOpen={isOpen} setIsOpen={setIsOpen} />
-            <FxWheel isOpen={isOpen} setIsOpen={setIsOpen} />
+                </ContainerDiv>
+                {width > 768 && (
+                  <>
+                    <HR />
+                    <Footer />
+                  </>
+                )}
+              </BlurDiv>
+              {width < 769 && <BackToTopButton />}
+            </DemosPageData.Provider>
+            {width > 768 && (
+              <>
+                <ColorBallButton isOpen={isOpen} setIsOpen={setIsOpen} />
+                <FxWheel isOpen={isOpen} setIsOpen={setIsOpen} />
+              </>
+            )}
           </ContentDiv>
         </motion.div>
       )}

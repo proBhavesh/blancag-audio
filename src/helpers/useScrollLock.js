@@ -1,39 +1,29 @@
-import { useRef, useCallback, useEffect } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { isIOS } from 'react-device-detect';
 
 const useScrollLock = () => {
-  const top = useRef(0);
+  const [top, setTop] = useState(0);
   const prevStyles = useRef(`${window.innerHeight / 100}px`);
 
-  const getTop = useCallback(function (e) {
-    top.current = this.scrollTop;
-  }, []);
-
-  useEffect(() => {
+  const stopScroll = useCallback(() => {
     !isIOS
-      ? document
-          .querySelector('.content-div')
-          .addEventListener('scroll', getTop)
-      : document.documentElement.addEventListener('touchmove', getTop);
-  }, [getTop]);
-
-  const stopScroll = useCallback(
-    () =>
-      !isIOS
-        ? document
+      ? (() => {
+          setTop(document.querySelector('.content-div').scrollTop);
+          document
             .querySelector('.content-div')
-            .setAttribute('style', 'overflow-y:hidden')
-        : (() => {
-            prevStyles.current = document.documentElement.style.getPropertyValue(
-              '--vh'
-            );
-            document.documentElement.setAttribute(
-              'style',
-              `overflow-y:hidden; --vh: ${prevStyles.current}`
-            );
-          })(),
-    []
-  );
+            .setAttribute('style', 'overflow-y:hidden');
+        })()
+      : (() => {
+          prevStyles.current = document.documentElement.style.getPropertyValue(
+            '--vh'
+          );
+          setTop(document.documentElement.scrollTop);
+          document.documentElement.setAttribute(
+            'style',
+            `overflow-y:hidden; --vh: ${prevStyles.current}`
+          );
+        })();
+  }, []);
 
   const resumeScroll = useCallback(
     () =>
@@ -49,7 +39,7 @@ const useScrollLock = () => {
   return {
     stopScroll: stopScroll,
     resumeScroll: resumeScroll,
-    top: top.current,
+    top: top,
   };
 };
 

@@ -71,7 +71,7 @@ const MusicPlayerDiv = styled.div`
 
   @media (max-width: 768px) {
     height: auto;
-    margin: ${(props) => (props.fixed ? '3rem' : '1.5rem')} auto 0;
+    margin: ${(props) => (props.fixed ? '3.5rem' : '1.5rem')} auto 0;
   }
 `;
 
@@ -89,7 +89,7 @@ const MobileNavDiv = styled.div`
   top: 0;
   left: 0;
 
-  padding: 2rem 1.25rem 1rem;
+  padding: 1.25rem 1.25rem 1.5rem;
   `}
   z-index: 100000;
 `;
@@ -167,7 +167,7 @@ const MusicPage = () => {
   const width = useDocDims();
 
   const mainContentJSX = (
-    <BlurDiv blur={isOpen}>
+    <>
       {width < 769 ? (
         <MobileNavDiv fixed={playListOpen}>
           <BackHomeButton />
@@ -218,7 +218,7 @@ const MusicPage = () => {
           <Footer />
         </>
       )}
-    </BlurDiv>
+    </>
   );
 
   return (
@@ -250,13 +250,21 @@ const MusicPage = () => {
                 animate='visible'
                 exit='hidden'
               >
-                {mainContentJSX}
+                {width > 768 ? (
+                  <BlurDiv blur={isOpen}>{mainContentJSX}</BlurDiv>
+                ) : (
+                  mainContentJSX
+                )}
               </motion.div>
             ) : (
               mainContentJSX
             )}
-            <ColorBallButton isOpen={isOpen} setIsOpen={setIsOpen} />
-            <FxWheel isOpen={isOpen} setIsOpen={setIsOpen} />
+            {width > 768 && (
+              <>
+                <ColorBallButton isOpen={isOpen} setIsOpen={setIsOpen} />
+                <FxWheel isOpen={isOpen} setIsOpen={setIsOpen} />
+              </>
+            )}
           </ContentDiv>
         </motion.div>
       )}

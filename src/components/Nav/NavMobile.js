@@ -86,7 +86,7 @@ const MenuButton = styled.button`
 
 const MenuDiv = styled.div`
   position: absolute;
-  top: ${(props) => props.top}px;
+  top: calc(${(props) => props.top}px - 2rem);
   left: -2rem;
 
   width: calc(100% + 4rem);
@@ -125,6 +125,7 @@ const NavMobile = () => {
   const [clicked, setClicked] = useState(0);
 
   const { top, stopScroll, resumeScroll } = useScrollLock();
+  console.log(top);
 
   useEffect(() => {
     openMenu ? stopScroll() : resumeScroll();
