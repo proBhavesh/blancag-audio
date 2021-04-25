@@ -52,7 +52,7 @@ const DetailsDiv = styled.div`
   margin-bottom: 2.5rem;
 
   @media (max-width: 768px) {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
   }
 
   h1 {

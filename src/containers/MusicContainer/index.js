@@ -59,7 +59,7 @@ const ContainerDiv = styled.div`
 
 const MusicPlayerDiv = styled.div`
   width: 100%;
-  margin: 3rem auto;
+  margin: 3rem auto 2.5rem;
   font-family: 'Open Sans', sans-serif;
   color: #fff;
 

@@ -8,7 +8,6 @@ import PlaylistItem from './PlaylistItem';
 import useScrollLock from '../../../helpers/useScrollLock';
 
 const PlaylistDiv = styled.ol`
-  height: calc(100% - 2rem);
   margin-top: 1rem;
   list-style: none;
 
