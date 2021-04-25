@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import {
   FacebookShareButton,
   TwitterShareButton,
-  LinkedinShareButton,
+  TumblrShareButton,
   WhatsappShareButton,
 } from 'react-share';
 
@@ -12,7 +12,7 @@ import { MusicPageData } from '../../../containers/MusicContainer/index';
 
 import FacebookIcon from '../../../assets/Facebook.svg';
 import TwitterIcon from '../../../assets/Twitter.svg';
-import LinkedInIcon from '../../../assets/LinkedIn.svg';
+import TumblrIcon from '../../../assets/Tumblr.svg';
 import WhatsappIcon from '../../../assets/Whatsapp.svg';
 
 const IconDiv = styled.div`
@@ -196,11 +196,11 @@ const ShareIcons = ({ index, showIconsItemIndex, setShowIconsItemIndex }) => {
               <img src={TwitterIcon} alt='twitter-share' />
             </ShareIconDiv>
           </TwitterShareButton>
-          <LinkedinShareButton url={url}>
+          <TumblrShareButton url={url}>
             <ShareIconDiv sizes={{ desktopTitle, mobileTitle }}>
-              <img src={LinkedInIcon} alt='linked-in-share' />
+              <img src={TumblrIcon} alt='linked-in-share' />
             </ShareIconDiv>
-          </LinkedinShareButton>
+          </TumblrShareButton>
           <WhatsappShareButton url={url}>
             <ShareIconDiv sizes={{ desktopTitle, mobileTitle }}>
               <img src={WhatsappIcon} alt='whatsapp-share' />
