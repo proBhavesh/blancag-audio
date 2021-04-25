@@ -9,6 +9,10 @@ import Navbar from '../../components/Nav/NavBar';
 import Footer from '../../components/Footer/Footer';
 import BackHomeButton from '../../components/BackHomeButton';
 
+import ColorBallButton from '../../components/FxRelated/Chooser/ColorBallButton';
+import BlurDiv from '../../hoc/BlurDiv';
+import FxWheel from '../../components/FxRelated/Chooser/FxWheel/index';
+
 import MainPlayer from '../../components/MusicPageComponents/Music/MainPlayer';
 import MainPlaylist from '../../components/MusicPageComponents/Playlist/MainPlaylist';
 
@@ -117,6 +121,7 @@ const MusicPage = () => {
   const [volume, setVolume] = useState(1);
 
   const [playListOpen, setPlayListOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     Promise.all([
@@ -162,7 +167,7 @@ const MusicPage = () => {
   const width = useDocDims();
 
   const mainContentJSX = (
-    <>
+    <BlurDiv blur={isOpen}>
       {width < 769 ? (
         <MobileNavDiv fixed={playListOpen}>
           <BackHomeButton />
@@ -213,7 +218,7 @@ const MusicPage = () => {
           <Footer />
         </>
       )}
-    </>
+    </BlurDiv>
   );
 
   return (
@@ -250,6 +255,8 @@ const MusicPage = () => {
             ) : (
               mainContentJSX
             )}
+            <ColorBallButton isOpen={isOpen} setIsOpen={setIsOpen} />
+            <FxWheel isOpen={isOpen} setIsOpen={setIsOpen} />
           </ContentDiv>
         </motion.div>
       )}

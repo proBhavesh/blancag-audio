@@ -4,9 +4,11 @@ import { AnimatePresence } from 'framer-motion';
 import styled from 'styled-components';
 import { isMobile } from 'react-device-detect';
 
+import FxContextComponent from './context/FxContext';
 import LoadingIndicatorContextComponent from './context/LoadingIndicatorContext';
 import NavBarContextComponent from './context/NavbarContext';
 import FooterContextComponent from './context/FooterContext';
+
 import { HomePage, DemosPage, MusicPage } from './containers/exporter';
 
 import useDocDims from './helpers/useDocDims';
@@ -24,11 +26,12 @@ const WhiteBG = styled.div`
 
 const App = () => {
   const [showWhite, setShowWhite] = useState(true);
+
   const location = useLocation();
   const width = useDocDims();
 
   useEffect(() => {
-    const timer = setTimeout(() => setShowWhite(false), 2000);
+    const timer = setTimeout(() => setShowWhite(false), 3000);
 
     function emptyFunc() {}
     isMobile && document.addEventListener('touchstart', emptyFunc, true);
@@ -42,27 +45,29 @@ const App = () => {
     <>
       <WhiteBG showWhite={showWhite} />
       {width && (
-        <LoadingIndicatorContextComponent>
-          <NavBarContextComponent>
-            <FooterContextComponent>
-              <AnimatePresence exitBeforeEnter>
-                <Switch location={location} key={location.key}>
-                  <Route path='/' exact>
-                    <HomePage />
-                  </Route>
-                  <Route path='/demos'>
-                    <DemosPage />
+        <FxContextComponent>
+          <LoadingIndicatorContextComponent>
+            <NavBarContextComponent>
+              <FooterContextComponent>
+                <AnimatePresence exitBeforeEnter>
+                  <Switch location={location} key={location.key}>
+                    <Route path='/' exact>
+                      <HomePage />
+                    </Route>
+                    <Route path='/demos'>
+                      <DemosPage />
+                    </Route>
+                  </Switch>
+                </AnimatePresence>
+                <Switch>
+                  <Route path='/music'>
+                    <MusicPage />
                   </Route>
                 </Switch>
-              </AnimatePresence>
-              <Switch>
-                <Route path='/music'>
-                  <MusicPage />
-                </Route>
-              </Switch>
-            </FooterContextComponent>
-          </NavBarContextComponent>
-        </LoadingIndicatorContextComponent>
+              </FooterContextComponent>
+            </NavBarContextComponent>
+          </LoadingIndicatorContextComponent>
+        </FxContextComponent>
       )}
     </>
   );

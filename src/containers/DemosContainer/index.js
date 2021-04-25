@@ -17,6 +17,10 @@ import HR from '../../components/HR';
 import Footer from '../../components/Footer/Footer';
 import LoadingIndicator from '../../components/LoadingIndicator';
 
+import ColorBallButton from '../../components/FxRelated/Chooser/ColorBallButton';
+import BlurDiv from '../../hoc/BlurDiv';
+import FxWheel from '../../components/FxRelated/Chooser/FxWheel/index';
+
 import { client as sanity } from '../../sanityClient';
 import { pageVariant } from '../../styles/motionVariants/pageVariant';
 import { loadingVariant } from '../../styles/motionVariants/loadingVariant';
@@ -70,6 +74,7 @@ const DemosPage = () => {
   const [data, setData] = useState(null);
   const [sizesData, setSizesData] = useState(null);
   const [activeVid, setActiveVid] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     Promise.all([
@@ -157,43 +162,47 @@ const DemosPage = () => {
           exit='hidden'
         >
           <ContentDiv hideScroll={true}>
-            {width > 768 ? <Navbar /> : <BackHomeButton fixed={true} />}
-            <ContainerDiv>
-              <DemosPageData.Provider
-                value={{
-                  videos: data,
-                  activeVid_id: activeVid,
-                  setActiveVid_id: setActiveVid,
-                  sizes: sizesData,
-                }}
-              >
-                {width > 768 ? (
-                  <>
-                    <VidPlayer activeVid={activeVid} />
-                    <div id='vid_slider'>
-                      <Slider {...carouselSettingsDesktop}>
-                        {data.map((d, i) => (
-                          <VidLight key={i} details={d} index={i + 1} />
-                        ))}
-                      </Slider>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    {data.map((d, i) => (
-                      <VidDiv key={i} details={d} index={i + 1} />
-                    ))}
-                    <BackToTopButton />
-                  </>
-                )}
-              </DemosPageData.Provider>
-            </ContainerDiv>
-            {width > 768 && (
-              <>
-                <HR />
-                <Footer />
-              </>
-            )}
+            <BlurDiv blur={isOpen}>
+              {width > 768 ? <Navbar /> : <BackHomeButton fixed={true} />}
+              <ContainerDiv>
+                <DemosPageData.Provider
+                  value={{
+                    videos: data,
+                    activeVid_id: activeVid,
+                    setActiveVid_id: setActiveVid,
+                    sizes: sizesData,
+                  }}
+                >
+                  {width > 768 ? (
+                    <>
+                      <VidPlayer activeVid={activeVid} />
+                      <div id='vid_slider'>
+                        <Slider {...carouselSettingsDesktop}>
+                          {data.map((d, i) => (
+                            <VidLight key={i} details={d} index={i + 1} />
+                          ))}
+                        </Slider>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      {data.map((d, i) => (
+                        <VidDiv key={i} details={d} index={i + 1} />
+                      ))}
+                      <BackToTopButton />
+                    </>
+                  )}
+                </DemosPageData.Provider>
+              </ContainerDiv>
+              {width > 768 && (
+                <>
+                  <HR />
+                  <Footer />
+                </>
+              )}
+            </BlurDiv>
+            <ColorBallButton isOpen={isOpen} setIsOpen={setIsOpen} />
+            <FxWheel isOpen={isOpen} setIsOpen={setIsOpen} />
           </ContentDiv>
         </motion.div>
       )}

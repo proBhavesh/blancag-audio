@@ -1,18 +1,23 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
-import useScrollLock from '../helpers/useScrollLock';
+import useScrollLock from '../../../../helpers/useScrollLock';
+
+import FxWheel from './FxWheel';
 
 const BackdropDiv = styled.div`
-  position: absolute;
-  top: ${(props) => props.top}px;
+  position: fixed;
+  top: 0;
   right: 0;
   width: 100%;
-  height: 100%;
+  height: calc(var(--vh, 1vh) * 100);
 
-  background-color: #00000040;
+  background-color: ${(props) => props.theme.bgBlack}40;
   transition: opacity 0.5s linear;
   z-index: 5000;
+
+  display: grid;
+  place-items: center;
 
   ${(props) =>
     !props.isOpen
@@ -26,18 +31,18 @@ const BackdropDiv = styled.div`
   `}
 `;
 
-const BackDrop = ({ isOpen, setIsOpen }) => {
-  const { top, stopScroll, resumeScroll } = useScrollLock();
+const FxWheelIndex = ({ isOpen, setIsOpen }) => {
+  const { stopScroll, resumeScroll } = useScrollLock();
 
   useEffect(() => {
     isOpen ? stopScroll() : resumeScroll();
   }, [isOpen, stopScroll, resumeScroll]);
 
   return (
-    <BackdropDiv isOpen={isOpen} top={top}>
-      <button onClick={() => setIsOpen(false)}>Close</button>
+    <BackdropDiv isOpen={isOpen}>
+      <FxWheel setIsOpen={setIsOpen} />
     </BackdropDiv>
   );
 };
 
-export default BackDrop;
+export default FxWheelIndex;
