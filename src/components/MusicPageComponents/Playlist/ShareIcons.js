@@ -69,7 +69,7 @@ const InnerShareIconsDiv = styled.div`
 
   @media (max-width: 768px) {
     grid-area: shareIcons;
-    margin-right: 0;
+    margin-right: -0.2rem;
   }
 `;
 
