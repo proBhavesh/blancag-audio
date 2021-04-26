@@ -75,14 +75,15 @@ const ProgressBar = styled.input`
 
     width: 0.75rem;
     height: 0.75rem;
-    background-color: #a6a6a6;
 
     border-radius: 50%;
+    background-color: ${(props) => props.theme.textWhite};
 
     @media (min-width: 768px) {
+      background-color: ${(props) => props.theme.textGrey};
       &:hover,
       &:active {
-        background-color: #fff;
+        background-color: ${(props) => props.theme.textWhite};
       }
     }
   }
@@ -115,7 +116,7 @@ const Time = styled.p`
 `;
 
 const CurrentTime = styled(Time)`
-  margin-right: 0.75em;
+  margin-right: 0.65em;
   font-size: ${(props) => props.sizes.desktopDuration}px;
   @media (max-width: 768px) {
     font-size: ${(props) => props.sizes.mobileDuration}px;

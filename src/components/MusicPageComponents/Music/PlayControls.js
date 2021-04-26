@@ -19,7 +19,7 @@ const PlayControlsDiv = styled.div`
 `;
 
 const PrevBtn = styled(IconDiv)`
-  margin-right: 1.75rem;
+  margin-right: 2rem;
   height: ${(props) => props.sizes.desktopIcon}px;
 
   @media (max-width: 768px) {
@@ -28,7 +28,7 @@ const PrevBtn = styled(IconDiv)`
 `;
 
 const PlayPauseBtn = styled(IconDiv)`
-  margin-right: 1.75rem;
+  margin-right: 2rem;
 
   &.play-ctrl-btn {
     width: ${(props) => props.sizes.desktopIcon * 2.5}px;

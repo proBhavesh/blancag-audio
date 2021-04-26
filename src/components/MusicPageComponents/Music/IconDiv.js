@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const IconDiv = styled.div`
+  position: relative;
   cursor: pointer;
   height: 1rem;
 
@@ -10,22 +11,28 @@ export const IconDiv = styled.div`
     transition: fill 0.25s linear;
   }
 
+  &:before {
+    content: '';
+    position: absolute;
+    bottom: -1rem;
+    left: 50%;
+    transform: translatex(-50%);
+
+    height: 5px;
+    width: 5px;
+    border-radius: 50%;
+
+    opacity: 0;
+    transition: opacity 0.25s linear;
+
+    background-color: ${(props) => props.theme.mainGreen};
+  }
+
   &.active {
-    position: relative;
-
     &:before {
-      content: '';
-      position: absolute;
-      bottom: -1rem;
-      left: 50%;
-      transform: translatex(-50%);
-
-      height: 5px;
-      width: 5px;
-      border-radius: 50%;
-
-      background-color: ${(props) => props.theme.mainGreen};
+      opacity: 1;
     }
+
     svg {
       fill: #bada55;
     }

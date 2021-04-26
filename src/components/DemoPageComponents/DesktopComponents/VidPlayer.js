@@ -109,7 +109,7 @@ const VidPlayer = ({ activeVid }) => {
   }, [activeVid]);
 
   return (
-    <VidPlayerDiv ref={vidPlayerDivRef}>
+    <VidPlayerDiv ref={vidPlayerDivRef} className='vid-player'>
       {!play ? (
         <NotPlayingDiv>
           <img

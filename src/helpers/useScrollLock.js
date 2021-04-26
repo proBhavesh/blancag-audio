@@ -1,33 +1,48 @@
 import { useState, useRef, useCallback } from 'react';
-import { isIOS } from 'react-device-detect';
+import { isSafari } from 'react-device-detect';
 
 const useScrollLock = () => {
   const [top, setTop] = useState(0);
   const prevStyles = useRef(`${window.innerHeight / 100}px`);
 
   const stopScroll = useCallback(() => {
-    !isIOS
+    prevStyles.current = document.documentElement.style.getPropertyValue(
+      '--vh'
+    );
+    !isSafari
       ? (() => {
+          const paddingRight = +getComputedStyle(
+            document.querySelector('.content-div')
+          )
+            .getPropertyValue('padding-right')
+            .split('')
+            .slice(0, -2)
+            .join('');
+
           setTop(document.querySelector('.content-div').scrollTop);
           document
             .querySelector('.content-div')
-            .setAttribute('style', 'overflow-y:hidden');
+            .setAttribute(
+              'style',
+              `overflow-y:hidden; padding-right: ${paddingRight + 8}px`
+            );
+          document.documentElement.setAttribute(
+            'style',
+            ` --vh: ${prevStyles.current};`
+          );
         })()
       : (() => {
-          prevStyles.current = document.documentElement.style.getPropertyValue(
-            '--vh'
-          );
           setTop(document.documentElement.scrollTop);
           document.documentElement.setAttribute(
             'style',
-            `overflow-y:hidden; --vh: ${prevStyles.current}`
+            `overflow-y:hidden; --vh: ${prevStyles.current}; padding-right: 8px`
           );
         })();
   }, []);
 
   const resumeScroll = useCallback(
     () =>
-      !isIOS
+      !isSafari
         ? document.querySelector('.content-div').setAttribute('style', '')
         : document.documentElement.setAttribute(
             'style',

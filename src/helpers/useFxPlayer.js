@@ -12,7 +12,6 @@ const useFxPlayer = (ref, type) => {
       interactiveElements.forEach((element) => {
         if ([...document.querySelectorAll(element)].includes(e.target)) {
           ret = true;
-          console.log(element);
         }
       });
 

@@ -16,7 +16,7 @@ const PlaylistDiv = styled.ol`
   scrollbar-width: thin;
   scrollbar-color: transparent #bada55bf;
   overflow-x: hidden;
-  overflow-y: overlay;
+  overflow-y: auto;
 
   &::-webkit-scrollbar {
     appearance: none;

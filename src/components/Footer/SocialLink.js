@@ -223,7 +223,7 @@ const SocialLink = ({ url, type }) => {
   }
 
   return (
-    <A sizes={sizes} href={url} target='_blank'>
+    <A sizes={sizes} href={url} target='_blank' className='icon-div'>
       {icon}
     </A>
   );

@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import { useHistory, useLocation, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
+import { isMobile } from 'react-device-detect';
 
 import { MusicPageData } from '../../../containers/MusicContainer/index';
 
@@ -12,6 +13,8 @@ import { IconDiv } from './IconDiv';
 import PlayControls from './PlayControls';
 import Volume from './Volume';
 import Progress from './Progress';
+
+import nothing from '../../../assets/nothing.wav';
 
 const MainPlayerDiv = styled.div`
   width: 100%;
@@ -152,6 +155,7 @@ const MainPlayer = ({ id }) => {
   const [duration, setDuration] = useState(0);
 
   const audioRef = useRef(null);
+  const audioRefUnlock = useRef(null);
   const shuffleRef = useRef(null);
   const repeatRef = useRef(null);
   const rAF = useRef(null);
@@ -168,16 +172,34 @@ const MainPlayer = ({ id }) => {
   }, [volume]);
 
   useEffect(() => {
+    // -- unlocking audios
+    function unlock() {
+      if (audioRefUnlock.current) {
+        audioRefUnlock.current.play();
+        audioRefUnlock.current.pause();
+        audioRefUnlock.current.currentTime = 0;
+      }
+      audioRefUnlock.current = null;
+    }
+    // mobile
+    isMobile
+      ? document.body.addEventListener('touchstart', unlock, false)
+      : // desktop
+        document.body.addEventListener('click', unlock, false);
     return () => {
       clearTimeout(timer.current);
       cancelAnimationFrame(rAF.current);
+      isMobile
+        ? document.body.removeEventListener('touchstart', unlock, false)
+        : document.body.removeEventListener('click', unlock, false);
     };
   }, []);
 
   return id > files.length - 1 ? (
     <Redirect to='/music/0' />
   ) : (
-    <MainPlayerDiv>
+    <MainPlayerDiv className='main-player'>
+      <audio src={nothing} preload='auto' ref={audioRefUnlock} />
       <audio
         src={activeFileData.file}
         preload='auto'
@@ -266,7 +288,10 @@ const MainPlayer = ({ id }) => {
   );
 
   function playAudio() {
-    audioRef.current.play().catch((err) => setIsPlaying(false));
+    audioRef.current.play().catch((err) => {
+      setIsPlaying(false);
+      console.log(err);
+    });
   }
 
   function pauseAudio() {

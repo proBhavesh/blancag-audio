@@ -14,7 +14,7 @@ const ContentDiv = styled.div`
   padding: 2rem;
 
   overflow-x: hidden;
-  overflow-y: overlay;
+  overflow-y: auto;
 
   /* -webkit-overflow-scrolling: touch; */
 
