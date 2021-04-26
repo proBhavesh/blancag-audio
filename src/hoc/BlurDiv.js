@@ -4,9 +4,9 @@ import styled from 'styled-components';
 const BlurDivDiv = styled.div`
   ${(props) =>
     props.blur
-      ? `transition: filter 1s linear;
+      ? `transition: filter 0.25s linear;
       filter: blur(5px) opacity(0.75);`
-      : `transition: filter 0.5s linear;
+      : `transition: filter 0.25s linear;
       filter: blur(0)  opacity(1);`}
 `;
 

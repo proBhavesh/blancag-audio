@@ -27,7 +27,7 @@ const SpellDiv = styled.div`
   opacity: 0;
 
   &.play {
-    animation: slash 250ms ease-out;
+    animation: slash 150ms ease-out;
   }
 
   ${createKeyframes()}

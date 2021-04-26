@@ -6,7 +6,7 @@ import { LoadingIndicatorContext } from '../context/LoadingIndicatorContext';
 import UFO from '../assets/Loading UFO.gif';
 
 const LoadingDiv = styled.div`
-  background-color: ${(props) => props.theme.bgBlack};
+  background-color: transparent;
 
   position: absolute;
   top: 0;

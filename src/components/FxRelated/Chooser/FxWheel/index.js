@@ -13,7 +13,7 @@ const BackdropDiv = styled.div`
   height: calc(var(--vh, 1vh) * 100);
 
   background-color: ${(props) => props.theme.bgBlack}40;
-  transition: opacity 0.5s linear;
+  transition: opacity 0.25s linear;
   z-index: 5000;
 
   display: grid;

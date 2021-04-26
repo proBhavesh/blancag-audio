@@ -9,6 +9,8 @@ const ContentDiv = styled.div`
   width: 100vw;
   height: calc(var(--vh, 1vh) * 100);
 
+  background: transparent;
+
   padding: 2rem;
 
   overflow-x: hidden;

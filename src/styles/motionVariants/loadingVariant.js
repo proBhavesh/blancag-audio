@@ -5,7 +5,9 @@ export const loadingVariant = {
   visible: {
     opacity: 1,
     transition: {
-      duration: 0.25,
+      duration: 0.5,
+      // delay: 0.25,
+      ease: 'easeOut',
     },
   },
 };
