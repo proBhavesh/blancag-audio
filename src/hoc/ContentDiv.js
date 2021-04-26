@@ -51,7 +51,7 @@ const ContentDiv = styled.div`
   }
 `;
 
-const Content = ({ hideScroll, style, children }) => {
+const Content = ({ style, children }) => {
   return (
     <ContentDiv className='content-div' safariMobile={isIOS} style={style}>
       {children}

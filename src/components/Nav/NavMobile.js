@@ -137,6 +137,7 @@ const NavMobile = () => {
           setClicked((prev) => prev + 1);
           setOpenMenu(!openMenu);
         }}
+        className='icon-div'
         showCloseButton={openMenu}
         clicked={clicked}
       />

@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback } from 'react';
-import { isSafari } from 'react-device-detect';
+import { isSafari, isMobile } from 'react-device-detect';
 
 const useScrollLock = () => {
   const [top, setTop] = useState(0);
@@ -24,7 +24,9 @@ const useScrollLock = () => {
             .querySelector('.content-div')
             .setAttribute(
               'style',
-              `overflow-y:hidden; padding-right: ${paddingRight + 8}px`
+              `overflow-y:hidden; padding-right: ${
+                paddingRight + (!isMobile ? 8 : 4)
+              }px`
             );
           document.documentElement.setAttribute(
             'style',
@@ -35,7 +37,9 @@ const useScrollLock = () => {
           setTop(document.documentElement.scrollTop);
           document.documentElement.setAttribute(
             'style',
-            `overflow-y:hidden; --vh: ${prevStyles.current}; padding-right: 8px`
+            `overflow-y:hidden; --vh: ${prevStyles.current}; padding-right: ${
+              !isMobile ? 8 : 0
+            }px`
           );
         })();
   }, []);

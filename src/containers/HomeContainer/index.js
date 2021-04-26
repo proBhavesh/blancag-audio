@@ -192,7 +192,7 @@ const HomePage = () => {
           animate='visible'
           exit='hidden'
         >
-          <ContentDiv hideScroll={false}>
+          <ContentDiv style={{ fontFamily: "'DIN Next Light', sans-serif" }}>
             <BlurDiv blur={isOpen}>
               <Navbar />
               <HomePageData.Provider value={data}>
