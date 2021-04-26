@@ -23,6 +23,8 @@ const ColorBall = styled.button`
   width: ${(props) => props.sizes.desktop}px;
   height: ${(props) => props.sizes.desktop}px;
 
+  border-radius: 50%;
+
   &:before {
     content: '';
     position: absolute;
