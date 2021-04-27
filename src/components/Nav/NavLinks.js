@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { NavBarContext } from '../../context/NavbarContext';
@@ -32,7 +32,7 @@ const NavLinks = ({ resumeScroll }) => {
   return (
     <>
       <NavLinkStyled
-        onClick={() => resumeScroll()}
+        onClick={() => resumeScroll && resumeScroll()}
         size={navLinkFontSize}
         to={{
           pathname: '/',
@@ -43,14 +43,14 @@ const NavLinks = ({ resumeScroll }) => {
         Home
       </NavLinkStyled>
       <NavLinkStyled
-        onClick={() => resumeScroll()}
+        onClick={() => resumeScroll && resumeScroll()}
         size={navLinkFontSize}
         to={{ pathname: '/demos' }}
       >
         Demos
       </NavLinkStyled>
       <NavLinkStyled
-        onClick={() => resumeScroll()}
+        onClick={() => resumeScroll && resumeScroll()}
         size={navLinkFontSize}
         to={{ pathname: '/music', state: { redirect: false } }}
       >
