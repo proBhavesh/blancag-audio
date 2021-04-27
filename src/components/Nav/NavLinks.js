@@ -26,33 +26,31 @@ const NavLinkStyled = styled(NavLink)`
   }
 `;
 
-const NavLinks = () => {
+const NavLinks = ({ resumeScroll }) => {
   const { navLinkFontSize } = useContext(NavBarContext);
-  const { pathname } = useLocation();
-
-  const musicPathRegex = new RegExp(/^\/music(\/\d*)?$/);
-  const isFromMusic = musicPathRegex.test(pathname);
 
   return (
     <>
       <NavLinkStyled
+        onClick={() => resumeScroll()}
         size={navLinkFontSize}
         to={{
           pathname: '/',
           redirected: true,
-          fromMusic: isFromMusic,
         }}
         exact={true}
       >
         Home
       </NavLinkStyled>
       <NavLinkStyled
+        onClick={() => resumeScroll()}
         size={navLinkFontSize}
-        to={{ pathname: '/demos', fromMusic: isFromMusic }}
+        to={{ pathname: '/demos' }}
       >
         Demos
       </NavLinkStyled>
       <NavLinkStyled
+        onClick={() => resumeScroll()}
         size={navLinkFontSize}
         to={{ pathname: '/music', state: { redirect: false } }}
       >

@@ -154,7 +154,7 @@ const ShareIcons = ({ index, showIconsItemIndex, setShowIconsItemIndex }) => {
     },
   } = useContext(MusicPageData);
 
-  const url = `${window.location.origin}/music/${index - 1}`;
+  const url = `${window.location.href}`;
 
   useEffect(() => {
     let timer;

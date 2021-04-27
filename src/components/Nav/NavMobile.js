@@ -86,7 +86,7 @@ const MenuButton = styled.button`
 
 const MenuDiv = styled.div`
   position: fixed;
-  top: calc(${(props) => props.top}px - 2rem);
+  top: ${(props) => props.top}px;
   left: -1.25rem;
 
   width: calc(100% + 2.75rem);
@@ -142,7 +142,7 @@ const NavMobile = () => {
         clicked={clicked}
       />
       <MenuDiv open={openMenu} top={top}>
-        <NavLinks />
+        <NavLinks resumeScroll={resumeScroll} />
       </MenuDiv>
     </>
   );

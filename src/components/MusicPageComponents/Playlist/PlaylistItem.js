@@ -97,6 +97,7 @@ const PlaylistItem = ({
   const [duration, setDuration] = useState(0);
 
   const {
+    files,
     sizes: {
       playlist: {
         title: { desktop: desktopTitle, mobile: mobileTitle },
@@ -120,7 +121,9 @@ const PlaylistItem = ({
           to={{
             pathname: `/music`,
             state: { redirect: true },
-            search: `${index - 1}`,
+            search: `?id=${index - 1}&title=${encodeURI(
+              files[index - 1].title
+            ).replaceAll('%20', '+')}`,
           }}
           sizes={{ desktopTitle, mobileTitle, durationMobile }}
           onClick={() => setShowIconsItemIndex(index - 1)}

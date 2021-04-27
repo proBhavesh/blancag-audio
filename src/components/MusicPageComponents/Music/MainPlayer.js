@@ -119,7 +119,9 @@ const ShuffleControl = styled(IconDiv)`
 
 const RepeatControl = styled(IconDiv)`
   height: ${(props) => props.sizes.desktopIcon}px;
+  margin-left: 0.5rem;
   @media (max-width: 768px) {
+    margin-left: 0;
     height: ${(props) => props.sizes.mobileIcon}px;
     grid-area: repeatCtrl;
     justify-self: end;
@@ -342,13 +344,15 @@ const MainPlayer = ({ id }) => {
   }
 
   function goToNewSong(next = true) {
+    const newId = getNewIndex(next);
+    const newTitle = encodeURI(files[newId].title).replaceAll('%20', '+');
     history.push({
       pathname: `/music`,
       state: {
         redirect: true,
         playState: isPlaying,
       },
-      search: `${getNewIndex(next)}`,
+      search: `?id=${newId}&title=${newTitle}`,
     });
   }
 };

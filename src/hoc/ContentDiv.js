@@ -1,14 +1,8 @@
 import React from 'react';
-import { isIOS } from 'react-device-detect';
+import { isIOS, isMobile } from 'react-device-detect';
 import styled from 'styled-components';
 
 const ContentDiv = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: calc(100vw - 8px);
-  height: calc(var(--vh, 1vh) * 100);
-
   background: ${(props) => props.theme.bgBlack};
 
   padding: 2rem;
@@ -18,11 +12,18 @@ const ContentDiv = styled.div`
 
   -webkit-overflow-scrolling: touch;
 
+  ${!isMobile &&
+  `
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(100vw - 8px);
+  height: calc(var(--vh, 1vh) * 100);
+  `}
+
   @media (max-width: 768px) {
     padding: 2rem 1.25rem;
     width: calc(100vw - 4px);
-    /* ${(props) =>
-      props.safariMobile && `height: auto; width: calc(100vw - 2px);`}; */
   }
 
   scrollbar-width: thin;

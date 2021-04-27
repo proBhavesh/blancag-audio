@@ -76,6 +76,7 @@ const MainPlaylist = ({ id, playListOpen }) => {
   return (
     <>
       <PlaylistDiv
+        className='fx-no'
         isOpen={playListOpen}
         onTouchMove={(e) => isIOS && e.stopPropagation()}
       >
