@@ -44,7 +44,7 @@ const ContentDiv = styled.div`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: ${(props) => props.theme.bgBlack}80;
+    background-color: transparent;
     border-radius: 2rem;
     border: 1px solid ${(props) => props.theme.lighterGrey}80;
     z-index: 10000;
