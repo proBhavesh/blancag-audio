@@ -7,6 +7,7 @@ export const interactiveElements = [
   '.vid-player *',
   '.main-player',
   '.main-player *',
+  '.fx-wheel-no-fx',
   '[href]:not(.playlist-item)',
   'input',
   'select',

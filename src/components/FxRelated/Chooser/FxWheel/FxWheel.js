@@ -31,7 +31,6 @@ const MainChooser = styled.div`
   button {
     padding: 0;
     outline: none;
-    cursor: pointer;
 
     position: absolute;
     top: 50%;
@@ -57,7 +56,16 @@ const MainChooser = styled.div`
       transition: fill 0.3s;
     }
 
-    &:hover,
+    @media (min-width: 769px) {
+      cursor: pointer;
+      &:hover:not(.close) {
+        border-color: #bada55;
+        svg {
+          fill: #bada55;
+        }
+      }
+    }
+
     &.apply {
       border-color: #bada55;
       svg {
@@ -73,6 +81,11 @@ const CloseButton = styled.button`
 
   svg {
     width: 30% !important;
+
+    &:hover {
+      cursor: pointer;
+      fill: ${(props) => props.theme.mainGreen};
+    }
   }
 `;
 
@@ -95,6 +108,19 @@ function createCSS() {
   `;
 }
 
+const NoEffectDiv = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  width: 45%;
+  height: 45%;
+
+  border-radius: 50%;
+`;
+
 const FxWheel = ({ setIsOpen, sizes }) => {
   const {
     sizes: {
@@ -108,8 +134,13 @@ const FxWheel = ({ setIsOpen, sizes }) => {
 
   return (
     <MainChooser className='wheel-wrapper' size={{ desktop, mobile }} tan={tan}>
-      <CloseButton className='close' onClick={() => setIsOpen(false)}>
-        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'>
+      <NoEffectDiv className='fx-wheel-no-fx' />
+      <CloseButton className='close'>
+        <svg
+          xmlns='http://www.w3.org/2000/svg'
+          viewBox='0 0 14 14'
+          onClick={() => setIsOpen(false)}
+        >
           <path d='M8.41,7l5.3-5.29A1,1,0,1,0,12.29.29L7,5.59,1.71.29A1,1,0,0,0,.29,1.71L5.59,7,.29,12.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L7,8.41l5.29,5.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z' />
         </svg>
       </CloseButton>
