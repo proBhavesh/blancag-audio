@@ -14,15 +14,15 @@ const ContentDiv = styled.div`
   padding: 2rem;
 
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: scroll;
 
   -webkit-overflow-scrolling: touch;
 
   @media (max-width: 768px) {
     padding: 2rem 1.25rem;
     width: calc(100vw - 4px);
-    ${(props) =>
-      props.safariMobile && `height: auto; width: calc(100vw - 2px)`};
+    /* ${(props) =>
+      props.safariMobile && `height: auto; width: calc(100vw - 2px);`}; */
   }
 
   scrollbar-width: thin;

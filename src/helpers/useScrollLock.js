@@ -9,49 +9,49 @@ const useScrollLock = () => {
     prevStyles.current = document.documentElement.style.getPropertyValue(
       '--vh'
     );
-    !isSafari
-      ? (() => {
-          const paddingRight = +getComputedStyle(
-            document.querySelector('.content-div')
-          )
-            .getPropertyValue('padding-right')
-            .split('')
-            .slice(0, -2)
-            .join('');
+    // !isSafari
+    //   ? (() => {
+    const paddingRight = +getComputedStyle(
+      document.querySelector('.content-div')
+    )
+      .getPropertyValue('padding-right')
+      .split('')
+      .slice(0, -2)
+      .join('');
 
-          setTop(document.querySelector('.content-div').scrollTop);
-          document
-            .querySelector('.content-div')
-            .setAttribute(
-              'style',
-              `overflow-y:hidden; padding-right: ${
-                paddingRight + (!isMobile ? 8 : 4)
-              }px`
-            );
-          document.documentElement.setAttribute(
-            'style',
-            ` --vh: ${prevStyles.current};`
-          );
-        })()
-      : (() => {
-          setTop(document.documentElement.scrollTop);
-          document.documentElement.setAttribute(
-            'style',
-            `overflow-y:hidden; --vh: ${prevStyles.current}; padding-right: ${
-              !isMobile ? 8 : 2
-            }px`
-          );
-        })();
+    setTop(document.querySelector('.content-div').scrollTop);
+    document
+      .querySelector('.content-div')
+      .setAttribute(
+        'style',
+        `overflow-y:hidden; padding-right: ${
+          paddingRight + (!isMobile ? 8 : 4)
+        }px`
+      );
+    document.documentElement.setAttribute(
+      'style',
+      ` --vh: ${prevStyles.current};`
+    );
+    //   })()
+    // : (() => {
+    //     setTop(document.documentElement.scrollTop);
+    //     document.documentElement.setAttribute(
+    //       'style',
+    //       `overflow-y:hidden; --vh: ${prevStyles.current}; padding-right: ${
+    //         !isMobile ? 8 : 2
+    //       }px`
+    //     );
+    //   })();
   }, []);
 
   const resumeScroll = useCallback(
     () =>
-      !isSafari
-        ? document.querySelector('.content-div').setAttribute('style', '')
-        : document.documentElement.setAttribute(
-            'style',
-            `--vh: ${prevStyles.current}`
-          ),
+      // !isSafari
+      document.querySelector('.content-div').setAttribute('style', ''),
+    // : document.documentElement.setAttribute(
+    //     'style',
+    //     `--vh: ${prevStyles.current}`
+    //   ),
     []
   );
 

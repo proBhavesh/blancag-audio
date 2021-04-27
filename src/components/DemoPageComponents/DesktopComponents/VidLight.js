@@ -92,7 +92,7 @@ const VidLight = ({ details }) => {
   } = useContext(DemosPageData);
 
   return (
-    <ThumbnailDiv>
+    <ThumbnailDiv className='vid-light'>
       <button>
         <img src={thumbnail_url} alt='thumbnail' />
       </button>

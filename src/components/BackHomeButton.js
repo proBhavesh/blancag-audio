@@ -19,18 +19,18 @@ const IconDiv = styled.div`
     `
     position: fixed;
     top: 0;
-    left: 1.25rem;
+    left: 0;
 
     width: 100%;
     height: auto;
-    padding: 1.5rem 0 1rem;
+    padding: 1.5rem 1.25rem 1rem;
 
     background-color: ${props.theme.bgBlack};
 
     display: flex;
 
     svg {
-      height: 1.75rem;
+      height: 1.65rem;
       width: auto;
     }
   `}

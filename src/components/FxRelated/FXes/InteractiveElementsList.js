@@ -5,6 +5,8 @@ export const interactiveElements = [
   '.icon-div',
   '.icon-div *',
   '.vid-player *',
+  '.vid-light',
+  '.vid-light *',
   '.main-player',
   '.main-player *',
   '.fx-wheel-no-fx',
