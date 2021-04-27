@@ -9,14 +9,14 @@ const ContentDiv = styled.div`
   width: 100vw;
   height: calc(var(--vh, 1vh) * 100);
 
-  background: transparent;
+  background: ${(props) => props.theme.bgBlack};
 
   padding: 2rem;
 
   overflow-x: hidden;
   overflow-y: auto;
 
-  /* -webkit-overflow-scrolling: touch; */
+  -webkit-overflow-scrolling: touch;
 
   @media (max-width: 768px) {
     padding: 2rem 1.25rem;

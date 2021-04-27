@@ -24,6 +24,16 @@ const App = () => {
     };
   }, [location]);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      document.querySelector('body').style.backgroundColor = '#000';
+    }, 2000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+
   return (
     <>
       {width && (
@@ -31,21 +41,19 @@ const App = () => {
           <LoadingIndicatorContextComponent>
             <NavBarContextComponent>
               <FooterContextComponent>
-                <AnimatePresence exitBeforeEnter>
-                  <Switch location={location} key={location.key}>
+                <AnimatePresence>
+                  <Switch location={location} key={location.pathname}>
                     <Route path='/' exact>
                       <HomePage />
                     </Route>
                     <Route path='/demos'>
                       <DemosPage />
                     </Route>
+                    <Route path='/music'>
+                      <MusicPage />
+                    </Route>
                   </Switch>
                 </AnimatePresence>
-                <Switch>
-                  <Route path='/music'>
-                    <MusicPage />
-                  </Route>
-                </Switch>
               </FooterContextComponent>
             </NavBarContextComponent>
           </LoadingIndicatorContextComponent>

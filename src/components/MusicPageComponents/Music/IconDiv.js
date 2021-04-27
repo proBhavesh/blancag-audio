@@ -8,7 +8,6 @@ export const IconDiv = styled.div`
   svg {
     height: 100%;
     fill: #fff;
-    transition: fill 0.25s linear;
   }
 
   &:before {
@@ -23,7 +22,6 @@ export const IconDiv = styled.div`
     border-radius: 50%;
 
     opacity: 0;
-    transition: opacity 0.25s linear;
 
     background-color: ${(props) => props.theme.mainGreen};
   }
@@ -34,7 +32,7 @@ export const IconDiv = styled.div`
     }
 
     svg {
-      fill: #bada55;
+      fill: ${(props) => props.theme.mainGreen};
     }
   }
 
@@ -45,7 +43,7 @@ export const IconDiv = styled.div`
   @media (min-width: 768px) {
     &:hover {
       svg {
-        fill: #bada55;
+        fill: ${(props) => props.theme.mainGreen};
       }
     }
   }

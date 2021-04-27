@@ -167,16 +167,6 @@ const HomePage = () => {
     });
   }, []);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      document.querySelector('body').style.backgroundColor = '#000';
-    }, 2000);
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, []);
-
   return (
     <>
       {!location.redirected && animation === 'not-done' ? (

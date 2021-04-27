@@ -61,10 +61,9 @@ const IconDiv = styled.div`
 
   svg {
     width: 100%;
-    fill: #fff;
-    transition: fill 0.25s linear;
+    fill: ${(props) => props.theme.textWhite};
     &:hover {
-      fill: #bada55;
+      fill: ${(props) => props.theme.mainGreen};
     }
   }
 `;

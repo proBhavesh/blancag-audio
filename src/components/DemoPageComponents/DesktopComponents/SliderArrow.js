@@ -22,14 +22,13 @@ const IconDiv = styled.div`
   }
 
   svg {
-    fill: #a6a6a6;
+    fill: ${(props) => props.theme.textGrey};
     height: 100%;
-    transition: fill 0.3s linear;
   }
 
   &:hover {
     svg {
-      fill: #bada55;
+      fill: ${(props) => props.theme.mainGreen};
     }
   }
 `;

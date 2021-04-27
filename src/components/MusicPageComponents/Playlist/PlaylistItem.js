@@ -19,7 +19,7 @@ const ListItem = styled.li`
     padding-right: 1.5rem;
   }
 
-  border-bottom: 1px solid #a6a6a680;
+  border-bottom: 1px solid ${(props) => props.theme.textGrey}80;
 
   &:last-of-type {
     border-bottom: none;
@@ -34,16 +34,16 @@ const ListItem = styled.li`
   @media (min-width: 768px) {
     &:not(.active):hover {
       cursor: pointer;
-      background-color: #a6a6a640;
+      background-color: ${(props) => props.theme.textGrey}40;
     }
   }
 
   &.active {
-    background-color: #bada55bf;
-    color: #000;
+    background-color: ${(props) => props.theme.mainGreen}bf;
+    color: ${(props) => props.theme.bgBlack};
 
     svg {
-      fill: #000;
+      fill: ${(props) => props.theme.bgBlack};
     }
   }
 `;
@@ -118,8 +118,9 @@ const PlaylistItem = ({
         <LinkStyled
           className='playlist-item'
           to={{
-            pathname: `/music/${index - 1}`,
+            pathname: `/music`,
             state: { redirect: true },
+            search: `${index - 1}`,
           }}
           sizes={{ desktopTitle, mobileTitle, durationMobile }}
           onClick={() => setShowIconsItemIndex(index - 1)}

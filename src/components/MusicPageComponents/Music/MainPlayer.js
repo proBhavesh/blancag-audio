@@ -77,7 +77,7 @@ const DetailsDiv = styled.div`
     letter-spacing: 0.15em;
 
     strong {
-      color: #fff;
+      color: ${(props) => props.theme.textWhite};
       font-weight: bolder;
 
       @media (max-width: 768px) {
@@ -196,7 +196,7 @@ const MainPlayer = ({ id }) => {
   }, []);
 
   return id > files.length - 1 ? (
-    <Redirect to='/music/0' />
+    <Redirect to={{ pathname: '/music' }} />
   ) : (
     <MainPlayerDiv className='main-player'>
       <audio src={nothing} preload='auto' ref={audioRefUnlock} />
@@ -343,11 +343,12 @@ const MainPlayer = ({ id }) => {
 
   function goToNewSong(next = true) {
     history.push({
-      pathname: `/music/${getNewIndex(next)}`,
+      pathname: `/music`,
       state: {
         redirect: true,
         playState: isPlaying,
       },
+      search: `${getNewIndex(next)}`,
     });
   }
 };

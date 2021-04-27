@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { NavBarContext } from '../../context/NavbarContext';
@@ -28,6 +28,10 @@ const NavLinkStyled = styled(NavLink)`
 
 const NavLinks = () => {
   const { navLinkFontSize } = useContext(NavBarContext);
+  const { pathname } = useLocation();
+
+  const musicPathRegex = new RegExp(/^\/music(\/\d*)?$/);
+  const isFromMusic = musicPathRegex.test(pathname);
 
   return (
     <>
@@ -36,12 +40,16 @@ const NavLinks = () => {
         to={{
           pathname: '/',
           redirected: true,
+          fromMusic: isFromMusic,
         }}
         exact={true}
       >
         Home
       </NavLinkStyled>
-      <NavLinkStyled size={navLinkFontSize} to={{ pathname: '/demos' }}>
+      <NavLinkStyled
+        size={navLinkFontSize}
+        to={{ pathname: '/demos', fromMusic: isFromMusic }}
+      >
         Demos
       </NavLinkStyled>
       <NavLinkStyled

@@ -125,7 +125,6 @@ const NavMobile = () => {
   const [clicked, setClicked] = useState(0);
 
   const { top, stopScroll, resumeScroll } = useScrollLock();
-  console.log(top);
 
   useEffect(() => {
     openMenu ? stopScroll() : resumeScroll();

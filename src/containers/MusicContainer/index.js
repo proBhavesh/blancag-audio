@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useRouteMatch, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import ContentDiv from '../../hoc/ContentDiv';
 import HR from '../../components/HR';
@@ -66,7 +66,7 @@ const MusicPlayerDiv = styled.div`
   width: 100%;
   margin: 3rem auto 2.5rem;
   font-family: 'Open Sans', sans-serif;
-  color: #fff;
+  color: ${(props) => props.theme.textWhite};
 
   display: grid;
 
@@ -82,7 +82,7 @@ const MobileNavDiv = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  background-color: #000;
+  background-color: ${(props) => props.theme.bgBlack};
   ${(props) =>
     props.fixed &&
     `
@@ -102,16 +102,13 @@ const PlaylistIconDiv = styled.div`
 
   svg {
     width: 100%;
-    fill: #f5f5f5;
+    fill: ${(props) => props.theme.textWhite};
   }
 `;
 
 const MusicPage = () => {
-  const match = useRouteMatch({
-    path: '/music/:id',
-    exact: true,
-  });
-  const { state } = useLocation();
+  const { search } = useLocation();
+  const searchID = search.split('').slice(1).join('');
 
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(null);
@@ -207,9 +204,9 @@ const MusicPage = () => {
           }}
         >
           <MusicPlayerDiv fixed={playListOpen}>
-            <MainPlayer id={match ? +match.params.id : 0} />
+            <MainPlayer id={+searchID || 0} />
             <MainPlaylist
-              id={match ? +match.params.id : 0}
+              id={+searchID || 0}
               playListOpen={playListOpen}
               setPlayListOpen={setPlayListOpen}
             />
@@ -240,38 +237,30 @@ const MusicPage = () => {
         )}
       </AnimatePresence>
       {!isLoading && (
-        <motion.div
-          variants={pageVariant}
-          initial='hidden'
-          animate='visible'
-          exit='hidden'
+        <ContentDiv
+          hideScroll={true}
+          style={{ padding: '1.25rem', fontFamily: '"Open Sans",sans-serif' }}
         >
-          <ContentDiv hideScroll={true} style={{ padding: '1.25rem' }}>
-            {!state || !state.redirect ? (
-              <motion.div
-                variants={pageVariant}
-                initial='hidden'
-                animate='visible'
-                exit='hidden'
-              >
-                {width > 768 ? (
-                  <BlurDiv blur={isOpen}>{mainContentJSX}</BlurDiv>
-                ) : (
-                  mainContentJSX
-                )}
-              </motion.div>
+          <motion.div
+            variants={pageVariant}
+            initial='hidden'
+            animate='visible'
+            exit='hidden'
+          >
+            {width > 768 ? (
+              <BlurDiv blur={isOpen}>{mainContentJSX}</BlurDiv>
             ) : (
               mainContentJSX
             )}
-            {width > 768 && (
-              <>
-                <ColorBallButton isOpen={isOpen} setIsOpen={setIsOpen} />
-                <FxWheel isOpen={isOpen} setIsOpen={setIsOpen} />
-                <ActiveFx />
-              </>
-            )}
-          </ContentDiv>
-        </motion.div>
+          </motion.div>
+          {width > 768 && (
+            <>
+              <ColorBallButton isOpen={isOpen} setIsOpen={setIsOpen} />
+              <FxWheel isOpen={isOpen} setIsOpen={setIsOpen} />
+              <ActiveFx />
+            </>
+          )}
+        </ContentDiv>
       )}
     </>
   );

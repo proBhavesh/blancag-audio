@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Slider from 'react-slick';
 import '../../../node_modules/slick-carousel/slick/slick.css';
 import '../../../node_modules/slick-carousel/slick/slick-theme.css';
@@ -24,7 +24,6 @@ import ActiveFx from '../../components/FxRelated/FXes/ActiveFx';
 
 import { client as sanity } from '../../sanityClient';
 import { pageVariant } from '../../styles/motionVariants/pageVariant';
-import { loadingVariant } from '../../styles/motionVariants/loadingVariant';
 
 import useDocDims from '../../helpers/useDocDims';
 
@@ -79,6 +78,8 @@ const DemosPage = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
+    document.querySelector('body').style.backgroundColor = '#000';
+
     Promise.all([
       sanity.fetch(`*[_type == 'demosPageVidLinks'][0].vidLinks`),
       sanity.fetch(`*[_type == 'demosPageSizes'][0]{
@@ -144,18 +145,12 @@ const DemosPage = () => {
 
   return (
     <>
-      <AnimatePresence>
-        {isLoading && (
-          <motion.div
-            variants={loadingVariant}
-            initial='hidden'
-            animate='visible'
-            exit='hidden'
-          >
-            <LoadingIndicator />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <motion.div
+        animate={{ opacity: isLoading ? 1 : 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        <LoadingIndicator />
+      </motion.div>
       {!isLoading && (
         <motion.div
           variants={pageVariant}
@@ -163,7 +158,10 @@ const DemosPage = () => {
           animate='visible'
           exit='hidden'
         >
-          <ContentDiv hideScroll={true}>
+          <ContentDiv
+            hideScroll={true}
+            style={{ fontFamily: '"Open Sans",sans-serif' }}
+          >
             {width < 769 && <BackHomeButton fixed={true} />}
             <DemosPageData.Provider
               value={{

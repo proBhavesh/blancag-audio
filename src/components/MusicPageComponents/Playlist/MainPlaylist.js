@@ -11,10 +11,10 @@ const PlaylistDiv = styled.ol`
   margin-top: 1rem;
   list-style: none;
 
-  color: #fff;
+  color: ${(props) => props.theme.textWhite};
 
   scrollbar-width: thin;
-  scrollbar-color: transparent #bada55bf;
+  scrollbar-color: transparent ${(props) => props.theme.mainGreen}bf;
   overflow-x: hidden;
   overflow-y: auto;
 
@@ -28,16 +28,16 @@ const PlaylistDiv = styled.ol`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: #00000080;
+    background-color: transparent;
     border-radius: 2rem;
-    border: 1px solid #a0a0a080;
+    border: 1px solid ${(props) => props.theme.textGrey}80;
     z-index: 10000;
   }
 
   @media (max-width: 768px) {
     top: 0;
     left: 0;
-    background-color: #000;
+    background-color: ${(props) => props.theme.bgBlack};
 
     width: 100%;
     height: 100%;

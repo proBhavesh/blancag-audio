@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const HRStyled = styled.hr`
-  border-color: ${(props) => props.theme.textWhite};
+  border-color: ${(props) => props.theme.textWhite}bf;
   border-style: solid;
   border-width: 0;
   border-top-width: 2px;
