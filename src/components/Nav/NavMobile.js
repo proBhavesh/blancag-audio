@@ -85,11 +85,11 @@ const MenuButton = styled.button`
 `;
 
 const MenuDiv = styled.div`
-  position: absolute;
-  top: calc(${(props) => props.top}px - 2rem);
-  left: -2rem;
+  position: fixed;
+  top: calc(${(props) => props.top}px - 1.25rem);
+  left: -1.25rem;
 
-  width: calc(100% + 4rem);
+  width: calc(100% + 2.5rem);
   height: calc(var(--vh, 1vh) * 100);
 
   background-color: ${(props) => props.theme.bgBlack};

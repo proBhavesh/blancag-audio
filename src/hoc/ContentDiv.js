@@ -6,7 +6,7 @@ const ContentDiv = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
+  width: calc(100vw - 8px);
   height: calc(var(--vh, 1vh) * 100);
 
   background: ${(props) => props.theme.bgBlack};
@@ -20,7 +20,9 @@ const ContentDiv = styled.div`
 
   @media (max-width: 768px) {
     padding: 2rem 1.25rem;
-    ${(props) => props.safariMobile && `height: auto; width: 100%`};
+    width: calc(100vw - 4px);
+    ${(props) =>
+      props.safariMobile && `height: auto; width: calc(100vw - 2px)`};
   }
 
   scrollbar-width: thin;

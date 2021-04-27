@@ -38,7 +38,7 @@ const useScrollLock = () => {
           document.documentElement.setAttribute(
             'style',
             `overflow-y:hidden; --vh: ${prevStyles.current}; padding-right: ${
-              !isMobile ? 8 : 0
+              !isMobile ? 8 : 2
             }px`
           );
         })();

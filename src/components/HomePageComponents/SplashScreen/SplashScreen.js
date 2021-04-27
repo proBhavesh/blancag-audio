@@ -27,9 +27,9 @@ const GreenDiv = styled.div`
   left: 0;
 
   width: 100%;
-  height: calc(100% + 100px);
+  height: calc(100% + 200px);
 
-  margin-top: -100px;
+  margin-top: -200px;
 
   background: ${(props) => props.theme.mainGreen};
   animation: green-anim 3s ease-out forwards;
