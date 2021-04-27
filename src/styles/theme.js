@@ -4,4 +4,5 @@ export const theme = {
   mainGreen: '#bada55',
   textGrey: '#a6a6a6',
   lighterGrey: '#a0a0a0',
+  bgColor: '#bada55',
 };

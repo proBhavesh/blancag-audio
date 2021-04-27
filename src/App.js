@@ -22,7 +22,7 @@ const App = () => {
     return () => {
       isMobile && document.addEventListener('touchmove', emptyFunc, true);
     };
-  }, []);
+  }, [location]);
 
   return (
     <>

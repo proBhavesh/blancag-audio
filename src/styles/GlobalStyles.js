@@ -15,7 +15,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   body {
-    background-color: ${(props) => props.theme.bgBlack};
+    background-color: ${(props) => props.theme.bgColor};
     color: ${(props) => props.theme.textGrey};
     font-family: 'DIN Next Light', sans-serif;
     text-align: center;
