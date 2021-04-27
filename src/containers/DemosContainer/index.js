@@ -65,6 +65,7 @@ const ContainerDiv = styled.div`
   margin: 3rem auto;
   @media (max-width: 768px) {
     margin: 2.75rem auto 0;
+    max-width: 500px;
   }
 
   font-family: 'Open Sans', sans-serif;

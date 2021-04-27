@@ -10,7 +10,7 @@ const SkillCardDiv = styled.div`
   display: flex;
   flex-direction: column;
 
-  @media (min-width: 768px) {
+  @media (min-width: 769px) {
     &:nth-of-type(1),
     &:nth-of-type(3) {
       margin-top: -2rem;
@@ -28,6 +28,11 @@ const SkillImageDiv = styled.div`
 
   @media (max-width: 786px) {
     width: ${(props) => props.sizes.mobile}%;
+    max-width: 300px;
+  }
+
+  @media (max-width: 768px) and (orientation: landscape) {
+    max-width: 50%;
   }
 
   img {

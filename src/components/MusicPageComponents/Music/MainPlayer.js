@@ -26,7 +26,7 @@ const MainPlayerDiv = styled.div`
   grid-template-areas: 'img details' 'img details' 'img controls' 'img progress';
 
   @media (max-width: 768px) {
-    max-width: 600px;
+    max-width: 500px;
     margin: 0 auto;
     grid-template-columns: 1fr;
     grid-template-rows: repeat(5, min-content);

@@ -36,6 +36,7 @@ const SkillsGrid = styled.div`
     grid-auto-rows: auto;
     row-gap: 2rem;
     width: 100%;
+    max-width: 500px;
   }
 `;
 

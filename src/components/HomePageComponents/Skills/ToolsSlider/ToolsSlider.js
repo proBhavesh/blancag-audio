@@ -18,6 +18,7 @@ const ToolsDiv = styled.div`
 
   @media (max-width: 769px) {
     width: 75%;
+    max-width: 400px;
   }
 `;
 
