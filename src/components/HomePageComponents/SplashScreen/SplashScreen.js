@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import Avatar from '../../../assets/Avatar.png';
-import GreenGif from '../../../assets/splash screen gif.gif';
 
 const SplashScreenDiv = styled.div`
   position: absolute;
@@ -30,10 +29,25 @@ const GreenDiv = styled.div`
   width: 100%;
   height: 100%;
 
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  background-color: ${(props) => props.theme.mainGreen};
+  animation: green-anim 3s ease-out forwards;
+
+  @keyframes green-anim {
+    0% {
+      transform: translatey(100%);
+    }
+
+    16.7% {
+      transform: translatey(0);
+    }
+
+    83.33% {
+      transform: translatey(0);
+    }
+
+    100% {
+      transform: translatey(100%);
+    }
   }
 `;
 
@@ -48,7 +62,6 @@ const IMG = styled.img`
   opacity: 0;
 
   animation: img-anim 2.3s ease forwards 0.5s;
-  animation-play-state: ${(props) => (props.loaded ? 'running' : 'paused')};
 
   @keyframes img-anim {
     0% {
@@ -74,29 +87,10 @@ const IMG = styled.img`
 `;
 
 const SplashScreen = ({ setAnimation }) => {
-  const [loaded, setLoaded] = useState([false, false]);
   return (
     <SplashScreenDiv>
-      {/* <GreenDiv loaded={loaded} onAnimationEnd={() => setAnimation('done')} /> */}
-      <GreenDiv>
-        <img
-          loaded={loaded.reduce((prev, item) => item && prev, true)}
-          src={GreenGif}
-          alt='green-gif'
-          onLoad={() =>
-            setLoaded((prev) => prev.map((item, i) => (i === 0 ? true : item)))
-          }
-        />
-      </GreenDiv>
-      <IMG
-        loaded={loaded.reduce((prev, item) => item && prev, true)}
-        src={Avatar}
-        alt='avatar'
-        onLoad={() =>
-          setLoaded((prev) => prev.map((item, i) => (i === 1 ? true : item)))
-        }
-        onAnimationEnd={() => setTimeout(() => setAnimation('done'), 250)}
-      />
+      <GreenDiv onAnimationEnd={() => setAnimation('done')} />
+      <IMG src={Avatar} alt='avatar' />
     </SplashScreenDiv>
   );
 };
