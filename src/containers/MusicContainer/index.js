@@ -18,7 +18,6 @@ import MainPlayer from '../../components/MusicPageComponents/Music/MainPlayer';
 import MainPlaylist from '../../components/MusicPageComponents/Playlist/MainPlaylist';
 
 import { pageVariant } from '../../styles/motionVariants/pageVariant';
-import { loadingVariant } from '../../styles/motionVariants/loadingVariant';
 
 import useDocDims from '../../helpers/useDocDims';
 

@@ -15,7 +15,6 @@ import ActiveFx from '../../components/FxRelated/FXes/ActiveFx';
 
 import { client as sanity } from '../../sanityClient';
 import { pageVariant } from '../../styles/motionVariants/pageVariant';
-import { loadingVariant } from '../../styles/motionVariants/loadingVariant';
 
 import Hero from '../../components/HomePageComponents/Hero/Hero';
 import About from '../../components/HomePageComponents/About/About';

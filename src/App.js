@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { Switch, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
-import { isMobile } from 'react-device-detect';
+import { ThemeProvider } from 'styled-components';
+import { isMobile, isIOS } from 'react-device-detect';
 
 import FxContextComponent from './context/FxContext';
 import LoadingIndicatorContextComponent from './context/LoadingIndicatorContext';
@@ -13,9 +14,13 @@ import { HomePage, DemosPage, MusicPage } from './containers/exporter';
 
 import useDocDims from './helpers/useDocDims';
 
+import { GlobalStyles } from './styles/GlobalStyles';
+import useTheme from './styles/useTheme';
+
 const App = () => {
   const location = useLocation();
   const width = useDocDims();
+  const theme = useTheme();
 
   useEffect(() => {
     function emptyFunc() {}
@@ -28,7 +33,7 @@ const App = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       document.querySelector('body').style.backgroundColor = '#000';
-    }, 2000);
+    }, 3000);
 
     return () => {
       clearTimeout(timer);
@@ -36,7 +41,8 @@ const App = () => {
   }, []);
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
+      <GlobalStyles safariMobile={isIOS} />
       {width && (
         <FxContextComponent>
           <LoadingIndicatorContextComponent>
@@ -62,7 +68,7 @@ const App = () => {
           </LoadingIndicatorContextComponent>
         </FxContextComponent>
       )}
-    </>
+    </ThemeProvider>
   );
 };
 
