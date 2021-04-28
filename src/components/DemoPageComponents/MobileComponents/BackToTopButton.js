@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
-import { isIOS } from 'react-device-detect';
 import smoothscroll from 'smoothscroll-polyfill';
 
 import { DemosPageData } from '../../../containers/DemosContainer/index';

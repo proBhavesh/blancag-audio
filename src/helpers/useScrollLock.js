@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback } from 'react';
-import { isSafari, isMobile } from 'react-device-detect';
+import {  isMobile } from 'react-device-detect';
 
 const useScrollLock = () => {
   const [top, setTop] = useState(0);
