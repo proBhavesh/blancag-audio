@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+
+import { SplashScreenContext } from '../../../context/SplashScreenContext';
 
 import Avatar from '../../../assets/Avatar.png';
 
@@ -31,6 +33,11 @@ const GreenDiv = styled.div`
 
   margin-top: -200px;
 
+  @media (max-width: 768px) {
+    width: 300%;
+    transform: translatex(-50%);
+  }
+
   background: ${(props) => props.theme.mainGreen};
   animation: green-anim 3s ease-out forwards;
   clip-path: url(#wave);
@@ -55,16 +62,16 @@ const GreenDiv = styled.div`
 `;
 
 const IMG = styled.img`
-  width: 15%;
+  width: ${(props) => props.sizes.desktop}%;
   z-index: 1000000;
 
   @media (max-width: 768px) {
-    width: 50%;
+    width: ${(props) => props.sizes.mobile}%;
   }
 
   opacity: 0;
 
-  animation: img-anim 2.3s ease forwards 0.5s;
+  animation: img-anim 3s ease forwards;
 
   @keyframes img-anim {
     0% {
@@ -90,11 +97,12 @@ const IMG = styled.img`
 `;
 
 const SplashScreen = ({ setAnimation }) => {
+  const { desktop, mobile } = useContext(SplashScreenContext);
   return (
     <>
       <SplashScreenDiv>
         <GreenDiv onAnimationEnd={() => setAnimation('done')} />
-        <IMG src={Avatar} alt='avatar' />
+        <IMG src={Avatar} alt='avatar' sizes={{ desktop, mobile }} />
       </SplashScreenDiv>
       <svg>
         <defs>

@@ -10,6 +10,7 @@ import navbar from './common/navbar';
 import fx from './common/fx';
 import footer from './common/footer';
 import loadingSizes from './common/loadingSizes';
+import splashScreenSizes from './common/splashScreenSizes';
 
 import homePageText from './homePage/homePageText';
 import homePageVid from './homePage/homePageVid';
@@ -39,6 +40,7 @@ export default createSchema({
     fx,
     footer,
     loadingSizes,
+    splashScreenSizes,
 
     homePageText,
     homePageVid,

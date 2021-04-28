@@ -7,6 +7,7 @@ import FxContextComponent from './context/FxContext';
 import LoadingIndicatorContextComponent from './context/LoadingIndicatorContext';
 import NavBarContextComponent from './context/NavbarContext';
 import FooterContextComponent from './context/FooterContext';
+import SplashScreenContext from './context/SplashScreenContext';
 
 import { HomePage, DemosPage, MusicPage } from './containers/exporter';
 
@@ -22,7 +23,7 @@ const App = () => {
     return () => {
       isMobile && document.addEventListener('touchmove', emptyFunc, true);
     };
-  }, [location]);
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -44,7 +45,9 @@ const App = () => {
                 <AnimatePresence>
                   <Switch location={location} key={location.pathname}>
                     <Route path='/' exact>
-                      <HomePage />
+                      <SplashScreenContext>
+                        <HomePage />
+                      </SplashScreenContext>
                     </Route>
                     <Route path='/demos'>
                       <DemosPage />

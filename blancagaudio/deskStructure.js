@@ -18,6 +18,7 @@ import {
   faCompactDisc,
 } from '@fortawesome/free-solid-svg-icons';
 import { faVimeo } from '@fortawesome/free-brands-svg-icons';
+import Avatar from '../src/assets/Avatar.png';
 
 const HomeIcon = () => <FontAwesomeIcon icon={faHome} />;
 const ContentIcon = () => <FontAwesomeIcon icon={faAlignJustify} />;
@@ -39,6 +40,11 @@ const UFOIcon = () => (
     <path d='M17.8,46.53a2.62,2.62,0,1,0,2.62,2.62A2.62,2.62,0,0,0,17.8,46.53Zm0,3.52a.9.9,0,1,1,.9-.9A.9.9,0,0,1,17.8,50.05Z' />
     <path d='M27.71,38.62a.86.86,0,0,0,.87-.86,17.93,17.93,0,0,1,5.61-13.52c3.38-3,8-4.27,13.31-3.65a.86.86,0,1,0,.2-1.71C41.87,18.2,36.8,19.6,33,23a19.69,19.69,0,0,0-6.19,14.81A.86.86,0,0,0,27.71,38.62Z' />
   </svg>
+);
+const AvatarIcon = () => (
+  <div>
+    <img src={Avatar} alt='avatar' style={{ width: '100%', height: '100%' }} />
+  </div>
 );
 
 const DemosIcon = () => <FontAwesomeIcon icon={faFilm} />;
@@ -211,6 +217,15 @@ const exportFunc = () =>
                     .schemaType('loadingSizes')
                     .documentId('loadingSizes')
                 ),
+              S.listItem()
+                .title('Splash Screen')
+                .icon(AvatarIcon)
+                .child(
+                  S.document()
+                    .title('Splash Screen Sizes')
+                    .schemaType('splashScreenSizes')
+                    .documentId('splashScreenSizes')
+                ),
             ])
         ),
       ...S.documentTypeListItems().filter(
@@ -220,6 +235,7 @@ const exportFunc = () =>
             'fx',
             'footer',
             'loadingSizes',
+            'splashScreenSizes',
 
             'homePageText',
             'homePageSizes',
