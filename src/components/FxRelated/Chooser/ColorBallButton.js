@@ -16,6 +16,8 @@ const ColorBall = styled.button`
   outline: none;
   cursor: pointer;
 
+  overflow: hidden;
+
   transition: filter 0.5s ease;
   filter: ${(props) => props.blur && `blur(5px) opacity(0.75)`};
   pointer-events: ${(props) => props.blur && `none`};
@@ -50,8 +52,6 @@ const ColorBall = styled.button`
   img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    z-index: 5;
   }
 `;
 

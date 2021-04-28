@@ -10,6 +10,8 @@ export const interactiveElements = [
   '.main-player',
   '.main-player *',
   '.fx-wheel-no-fx',
+  '.close',
+  '.close *',
   '.fx-no',
   '.fx-no *',
   '[href]:not(.playlist-item)',

@@ -78,6 +78,7 @@ const MainChooser = styled.div`
 const CloseButton = styled.button`
   border: none !important;
   background-color: transparent !important;
+  cursor: default !important;
 
   svg {
     width: 30% !important;
