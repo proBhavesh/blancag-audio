@@ -82,9 +82,12 @@ const HomePage = () => {
   const location = useLocation();
 
   const [isLoading, setIsLoading] = useState(true);
+  const [showPage, setShowPage] = useState(!location.redirected);
   const [data, setData] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [animation, setAnimation] = useState('not-done');
+
+  console.log(showPage);
 
   useEffect(() => {
     Promise.all([
@@ -169,23 +172,27 @@ const HomePage = () => {
 
   return (
     <>
-      {!location.redirected && animation === 'not-done' ? (
+      {!location.redirected && animation === 'not-done' && (
         <SplashScreen setAnimation={setAnimation} />
-      ) : (
-        <AnimatePresence>
-          {isLoading && (
-            <motion.div
-              variants={loadingVariant}
-              initial='hidden'
-              animate='visible'
-              exit='hidden'
-            >
-              <LoadingIndicator />
-            </motion.div>
-          )}
-        </AnimatePresence>
       )}
-      {!isLoading && (
+      <AnimatePresence>
+        {!showPage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            onAnimationStart={() =>
+              setTimeout(() => {
+                setShowPage(true);
+              }, 1000)
+            }
+          >
+            <LoadingIndicator />
+          </motion.div>
+        )}
+      </AnimatePresence>
+      {!isLoading && showPage && (
         <motion.div
           variants={pageVariant}
           initial='hidden'

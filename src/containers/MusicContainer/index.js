@@ -111,6 +111,7 @@ const MusicPage = () => {
   const searchID = new URLSearchParams(search).get('id');
 
   const [isLoading, setIsLoading] = useState(true);
+  const [showPage, setShowPage] = useState(false);
   const [data, setData] = useState(null);
   const [sizesData, setSizesData] = useState(null);
 
@@ -225,42 +226,47 @@ const MusicPage = () => {
   return (
     <>
       <AnimatePresence>
-        {isLoading && (
+        {!showPage && (
           <motion.div
-            variants={loadingVariant}
-            initial='hidden'
-            animate='visible'
-            exit='hidden'
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            onAnimationStart={() =>
+              setTimeout(() => {
+                setShowPage(true);
+              }, 1000)
+            }
           >
             <LoadingIndicator />
           </motion.div>
         )}
       </AnimatePresence>
-      {!isLoading && (
-        <ContentDiv
-          hideScroll={true}
-          style={{ padding: '1.25rem', fontFamily: '"Open Sans",sans-serif' }}
+      {!isLoading && showPage && (
+        <motion.div
+          variants={pageVariant}
+          initial='hidden'
+          animate='visible'
+          exit='hidden'
         >
-          <motion.div
-            variants={pageVariant}
-            initial='hidden'
-            animate='visible'
-            exit='hidden'
+          <ContentDiv
+            hideScroll={true}
+            style={{ padding: '1.25rem', fontFamily: '"Open Sans",sans-serif' }}
           >
             {width > 768 ? (
               <BlurDiv blur={isOpen}>{mainContentJSX}</BlurDiv>
             ) : (
               mainContentJSX
             )}
-          </motion.div>
-          {width > 768 && (
-            <>
-              <ColorBallButton isOpen={isOpen} setIsOpen={setIsOpen} />
-              <FxWheel isOpen={isOpen} setIsOpen={setIsOpen} />
-              <ActiveFx />
-            </>
-          )}
-        </ContentDiv>
+            {width > 768 && (
+              <>
+                <ColorBallButton isOpen={isOpen} setIsOpen={setIsOpen} />
+                <FxWheel isOpen={isOpen} setIsOpen={setIsOpen} />
+                <ActiveFx />
+              </>
+            )}
+          </ContentDiv>
+        </motion.div>
       )}
     </>
   );

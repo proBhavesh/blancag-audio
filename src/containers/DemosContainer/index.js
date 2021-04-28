@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import Slider from 'react-slick';
 import '../../../node_modules/slick-carousel/slick/slick.css';
 import '../../../node_modules/slick-carousel/slick/slick-theme.css';
@@ -72,6 +72,8 @@ const ContainerDiv = styled.div`
 
 const DemosPage = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [showPage, setShowPage] = useState(false);
+
   const [data, setData] = useState(null);
   const [sizesData, setSizesData] = useState(null);
   const [activeVid, setActiveVid] = useState(null);
@@ -149,13 +151,24 @@ const DemosPage = () => {
 
   return (
     <>
-      <motion.div
-        animate={{ opacity: isLoading ? 1 : 0 }}
-        transition={{ duration: 0.3 }}
-      >
-        <LoadingIndicator />
-      </motion.div>
-      {!isLoading && (
+      <AnimatePresence>
+        {!showPage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            onAnimationStart={() =>
+              setTimeout(() => {
+                setShowPage(true);
+              }, 1000)
+            }
+          >
+            <LoadingIndicator />
+          </motion.div>
+        )}
+      </AnimatePresence>
+      {!isLoading && showPage && (
         <motion.div
           variants={pageVariant}
           initial='hidden'
