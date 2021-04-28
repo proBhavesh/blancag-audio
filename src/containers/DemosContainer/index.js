@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
+import { Helmet } from 'react-helmet';
 import Slider from 'react-slick';
 import '../../../node_modules/slick-carousel/slick/slick.css';
 import '../../../node_modules/slick-carousel/slick/slick-theme.css';
@@ -151,6 +152,9 @@ const DemosPage = () => {
 
   return (
     <>
+      <Helmet>
+        <title>blancagaudio | demos</title>
+      </Helmet>
       <AnimatePresence>
         {!showPage && (
           <motion.div

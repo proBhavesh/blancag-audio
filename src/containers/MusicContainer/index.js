@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 import ContentDiv from '../../hoc/ContentDiv';
 import HR from '../../components/HR';
@@ -224,6 +225,9 @@ const MusicPage = () => {
 
   return (
     <>
+      <Helmet>
+        <title>blancagaudio | music</title>
+      </Helmet>
       <AnimatePresence>
         {!showPage && (
           <motion.div

@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Switch, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { ThemeProvider } from 'styled-components';
 import { isMobile, isIOS } from 'react-device-detect';
+import { Helmet } from 'react-helmet';
 
 import FxContextComponent from './context/FxContext';
 import LoadingIndicatorContextComponent from './context/LoadingIndicatorContext';
@@ -21,6 +22,9 @@ const App = () => {
   const location = useLocation();
   const width = useDocDims();
   const theme = useTheme();
+  const [themeColor, setThemeColor] = useState(
+    location.pathname === '/' ? '#bada55' : '#000'
+  );
 
   useEffect(() => {
     function emptyFunc() {}
@@ -33,6 +37,7 @@ const App = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       document.querySelector('body').style.backgroundColor = '#000';
+      setThemeColor('#000');
     }, 3000);
 
     return () => {
@@ -42,6 +47,9 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
+      <Helmet>
+        <meta name='theme-color' content={themeColor} />
+      </Helmet>
       <GlobalStyles safariMobile={isIOS} />
       {width && (
         <FxContextComponent>
