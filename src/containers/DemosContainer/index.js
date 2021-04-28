@@ -107,7 +107,11 @@ const DemosPage = () => {
         setSizesData(res[1]);
         return Promise.all(
           res[0].map((link) =>
-            fetch(`https://noembed.com/embed?url=${encodeURIComponent(link)}`)
+            fetch(
+              `https://vimeo.com/api/oembed.json?url=${encodeURIComponent(
+                link
+              )}`
+            )
           )
         );
       })
@@ -120,7 +124,7 @@ const DemosPage = () => {
             const { title, thumbnail_url, duration, video_id } = d;
             return {
               title,
-              thumbnail_url: `${thumbnail_url}?dummy=${new Date().getTime()}`,
+              thumbnail_url,
               duration,
               video_id,
             };
