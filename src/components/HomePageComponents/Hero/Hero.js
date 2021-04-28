@@ -14,7 +14,7 @@ const HeroDiv = styled.div`
 
   position: relative;
 
-  @media (max-width: 768px) {
+  @media (max-width: 480px) {
     height: 10rem;
   }
 `;
