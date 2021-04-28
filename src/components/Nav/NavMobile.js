@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { AnimatePresence, motion } from 'framer-motion';
 
 import useScrollLock from '../../helpers/useScrollLock';
 
@@ -84,12 +85,12 @@ const MenuButton = styled.button`
   }
 `;
 
-const MenuDiv = styled.div`
+const MenuDiv = styled(motion.div)`
   position: fixed;
-  top: ${(props) => props.top}px;
-  left: -1.25rem;
+  top: 0;
+  left: 0;
 
-  width: calc(100% + 2.75rem);
+  width: 100%;
   height: calc(var(--vh, 1vh) * 100);
 
   background-color: ${(props) => props.theme.bgBlack};
@@ -101,30 +102,16 @@ const MenuDiv = styled.div`
   place-items: center;
   row-gap: 4rem;
   font-size: 1.5rem;
-  overflow-y: auto;
+  overflow-y: hidden;
 
   padding: 225px 0 calc(var(--vh, 1vh) * 20);
-
-  transition: 1s ease;
-  ${(props) =>
-    props.open
-      ? `
-    opacity:1;
-    transform: translateY(0);
-    pointer-events: initial;
-  `
-      : `
-    opacity:0;
-    transform: translateY(100%);
-    pointer-events: none;
-  `}
 `;
 
 const NavMobile = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const [clicked, setClicked] = useState(0);
 
-  const { top, stopScroll, resumeScroll } = useScrollLock();
+  const { stopScroll, resumeScroll } = useScrollLock();
 
   useEffect(() => {
     openMenu ? stopScroll() : resumeScroll();
@@ -135,15 +122,24 @@ const NavMobile = () => {
       <MenuButton
         onClick={() => {
           setClicked((prev) => prev + 1);
-          setOpenMenu(!openMenu);
+          setOpenMenu((prev) => !prev);
         }}
         className='icon-div'
         showCloseButton={openMenu}
         clicked={clicked}
       />
-      <MenuDiv open={openMenu} top={top}>
-        <NavLinks resumeScroll={resumeScroll} />
-      </MenuDiv>
+      <AnimatePresence>
+        {openMenu && (
+          <MenuDiv
+            initial={{ y: '100%', opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: '100%', opacity: 0 }}
+            transition={{ duration: 0.5, ease: 'linear' }}
+          >
+            <NavLinks resumeScroll={resumeScroll} />
+          </MenuDiv>
+        )}
+      </AnimatePresence>
     </>
   );
 };

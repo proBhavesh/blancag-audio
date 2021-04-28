@@ -9,6 +9,7 @@ const useFxPlayer = (ref, type) => {
   const fxPlayer = useCallback(
     (e) => {
       let ret = false;
+      console.log(e.target);
       interactiveElements.forEach((element) => {
         if ([...document.querySelectorAll(element)].includes(e.target)) {
           ret = true;

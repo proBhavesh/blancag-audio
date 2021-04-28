@@ -29,6 +29,8 @@ const IconDiv = styled.div`
 
     display: flex;
 
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+
     svg {
       height: 1.65rem;
       width: auto;

@@ -9,51 +9,40 @@ const useScrollLock = () => {
     prevStyles.current = document.documentElement.style.getPropertyValue(
       '--vh'
     );
-    !isSafari || !isMobile
-      ? (() => {
-          const paddingRight = +getComputedStyle(
-            document.querySelector('.content-div')
-          )
-            .getPropertyValue('padding-right')
-            .split('')
-            .slice(0, -2)
-            .join('');
+    document.documentElement.style.setProperty(
+      '--vh',
+      `${prevStyles.current};`
+    );
 
-          setTop(document.querySelector('.content-div').scrollTop);
+    setTop(document.documentElement.scrollTop);
+
+    const paddingRight = +getComputedStyle(
+      document.querySelector('.content-div')
+    )
+      .getPropertyValue('padding-right')
+      .split('')
+      .slice(0, -2)
+      .join('');
+
+    isMobile
+      ? document.documentElement.setAttribute('style', 'overflow-y:hidden')
+      : (() => {
           document
             .querySelector('.content-div')
             .setAttribute(
               'style',
-              `overflow-y:hidden; padding-right: ${
-                paddingRight + (!isMobile ? 8 : 4)
-              }px`
+              `position:fixed; overflow-y:hidden; padding-right: ${
+                !isMobile ? paddingRight + 8 : paddingRight + 4
+              }px;`
             );
-          document.documentElement.setAttribute(
-            'style',
-            ` --vh: ${prevStyles.current};`
-          );
-        })()
-      : (() => {
-          setTop(document.documentElement.scrollTop);
-          document.documentElement.setAttribute(
-            'style',
-            `overflow-y:hidden; --vh: ${prevStyles.current}; padding-right: ${
-              !isMobile ? 8 : 2
-            }px`
-          );
         })();
   }, []);
 
-  const resumeScroll = useCallback(
-    () =>
-      !isSafari || !isMobile
-        ? document.querySelector('.content-div').setAttribute('style', '')
-        : document.documentElement.setAttribute(
-            'style',
-            `--vh: ${prevStyles.current}`
-          ),
-    []
-  );
+  const resumeScroll = useCallback(() => {
+    isMobile
+      ? document.documentElement.setAttribute('style', '')
+      : document.querySelector('.content-div').setAttribute('style', '');
+  }, []);
 
   return {
     stopScroll: stopScroll,

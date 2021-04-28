@@ -86,8 +86,6 @@ const HomePage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [animation, setAnimation] = useState('not-done');
 
-  console.log(showPage);
-
   useEffect(() => {
     Promise.all([
       // -- HERO

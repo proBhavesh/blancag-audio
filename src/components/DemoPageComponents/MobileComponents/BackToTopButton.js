@@ -71,15 +71,10 @@ const BackToTopButton = () => {
   );
 
   function scrollTop() {
-    !isIOS
-      ? document.querySelector('.content-div').scrollTo({
-          top: 0,
-          behavior: 'smooth',
-        })
-      : document.documentElement.scrollTo({
-          top: 0,
-          behavior: 'smooth',
-        });
+    document.documentElement.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
   }
 };
 

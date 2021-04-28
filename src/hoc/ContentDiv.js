@@ -7,6 +7,7 @@ const ContentDiv = styled.div`
 
   padding: 2rem;
 
+  position: relative;
   overflow-x: hidden;
   overflow-y: scroll;
 
@@ -17,13 +18,13 @@ const ContentDiv = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  width: calc(100vw - 8px);
+  width: 100vw;
   height: calc(var(--vh, 1vh) * 100);
   `}
 
   @media (max-width: 768px) {
     padding: 2rem 1.25rem;
-    width: calc(100vw - 4px);
+    width: 100vw;
   }
 
   scrollbar-width: thin;

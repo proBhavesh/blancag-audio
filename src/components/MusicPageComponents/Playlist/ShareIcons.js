@@ -63,7 +63,7 @@ const ShareIconsDiv = styled.div`
   }
 `;
 
-const InnerShareIconsDiv = styled.div`
+const InnerShareIconsDiv = styled(motion.div)`
   margin-right: 1rem;
   display: flex;
 
@@ -177,7 +177,7 @@ const ShareIcons = ({ index, showIconsItemIndex, setShowIconsItemIndex }) => {
 
   return (
     <ShareIconsDiv>
-      <motion.div
+      <InnerShareIconsDiv
         animate={{ opacity: showShareIcons ? 1 : 0 }}
         style={{
           opacity: 0,
@@ -185,59 +185,57 @@ const ShareIcons = ({ index, showIconsItemIndex, setShowIconsItemIndex }) => {
         }}
         transition={{ duration: 0.25 }}
       >
-        <InnerShareIconsDiv>
-          <FacebookShareButton url={url}>
-            <ShareIconDiv
-              className='icon-div'
-              sizes={{ desktopTitle, mobileTitle }}
-            >
-              <img src={FacebookIcon} alt='facebook-share' />
-            </ShareIconDiv>
-          </FacebookShareButton>
-          <TwitterShareButton url={url}>
-            <ShareIconDiv
-              className='icon-div'
-              sizes={{ desktopTitle, mobileTitle }}
-            >
-              <img src={TwitterIcon} alt='twitter-share' />
-            </ShareIconDiv>
-          </TwitterShareButton>
-          <TumblrShareButton url={url}>
-            <ShareIconDiv
-              className='icon-div'
-              sizes={{ desktopTitle, mobileTitle }}
-            >
-              <img src={TumblrIcon} alt='linked-in-share' />
-            </ShareIconDiv>
-          </TumblrShareButton>
-          <WhatsappShareButton url={url}>
-            <ShareIconDiv
-              className='icon-div'
-              sizes={{ desktopTitle, mobileTitle }}
-            >
-              <img src={WhatsappIcon} alt='whatsapp-share' />
-            </ShareIconDiv>
-          </WhatsappShareButton>
-          <LinkIconDiv
+        <FacebookShareButton url={url}>
+          <ShareIconDiv
             className='icon-div'
             sizes={{ desktopTitle, mobileTitle }}
-            onClick={(e) => {
-              e.preventDefault();
-              window.navigator.clipboard.writeText(url);
-              setCopied(true);
-            }}
           >
-            <CopiedMessage showMessage={copied}>Copied!</CopiedMessage>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              viewBox='0 0 12.57 12.57'
-              transform='rotate(90)'
-            >
-              <path d='M12.43,9.15,8.89,5.61a.51.51,0,0,0-.71,0l-.93.93-.61-.61L6,5.32,7,4.39a.5.5,0,0,0,0-.71L3.43.15A.49.49,0,0,0,3.07,0a.47.47,0,0,0-.35.15L.15,2.72A.47.47,0,0,0,0,3.07a.51.51,0,0,0,.15.36L3.68,7A.51.51,0,0,0,4,7.11.5.5,0,0,0,4.39,7L5.32,6l.61.61.61.61-.93.93a.51.51,0,0,0,0,.71l3.54,3.53a.48.48,0,0,0,.7,0l2.58-2.57a.51.51,0,0,0,0-.7ZM4,5.9,1.21,3.07,3.07,1.21,5.9,4l-.58.58-.93-.94-.71.71.93.93ZM9.5,11.37,6.67,8.54,7.25,8l.93.93.71-.71L8,7.25l.58-.58L11.37,9.5Z' />
-            </svg>
-          </LinkIconDiv>
-        </InnerShareIconsDiv>
-      </motion.div>
+            <img src={FacebookIcon} alt='facebook-share' />
+          </ShareIconDiv>
+        </FacebookShareButton>
+        <TwitterShareButton url={url}>
+          <ShareIconDiv
+            className='icon-div'
+            sizes={{ desktopTitle, mobileTitle }}
+          >
+            <img src={TwitterIcon} alt='twitter-share' />
+          </ShareIconDiv>
+        </TwitterShareButton>
+        <TumblrShareButton url={url}>
+          <ShareIconDiv
+            className='icon-div'
+            sizes={{ desktopTitle, mobileTitle }}
+          >
+            <img src={TumblrIcon} alt='linked-in-share' />
+          </ShareIconDiv>
+        </TumblrShareButton>
+        <WhatsappShareButton url={url}>
+          <ShareIconDiv
+            className='icon-div'
+            sizes={{ desktopTitle, mobileTitle }}
+          >
+            <img src={WhatsappIcon} alt='whatsapp-share' />
+          </ShareIconDiv>
+        </WhatsappShareButton>
+        <LinkIconDiv
+          className='icon-div'
+          sizes={{ desktopTitle, mobileTitle }}
+          onClick={(e) => {
+            e.preventDefault();
+            window.navigator.clipboard.writeText(url);
+            setCopied(true);
+          }}
+        >
+          <CopiedMessage showMessage={copied}>Copied!</CopiedMessage>
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            viewBox='0 0 12.57 12.57'
+            transform='rotate(90)'
+          >
+            <path d='M12.43,9.15,8.89,5.61a.51.51,0,0,0-.71,0l-.93.93-.61-.61L6,5.32,7,4.39a.5.5,0,0,0,0-.71L3.43.15A.49.49,0,0,0,3.07,0a.47.47,0,0,0-.35.15L.15,2.72A.47.47,0,0,0,0,3.07a.51.51,0,0,0,.15.36L3.68,7A.51.51,0,0,0,4,7.11.5.5,0,0,0,4.39,7L5.32,6l.61.61.61.61-.93.93a.51.51,0,0,0,0,.71l3.54,3.53a.48.48,0,0,0,.7,0l2.58-2.57a.51.51,0,0,0,0-.7ZM4,5.9,1.21,3.07,3.07,1.21,5.9,4l-.58.58-.93-.94-.71.71.93.93ZM9.5,11.37,6.67,8.54,7.25,8l.93.93.71-.71L8,7.25l.58-.58L11.37,9.5Z' />
+          </svg>
+        </LinkIconDiv>
+      </InnerShareIconsDiv>
       <IconDiv
         className='icon-div'
         arrow
