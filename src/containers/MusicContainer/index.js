@@ -11,14 +11,11 @@ import Footer from '../../components/Footer/Footer';
 import BackHomeButton from '../../components/BackHomeButton';
 
 import ColorBallButton from '../../components/FxRelated/Chooser/ColorBallButton';
-import BlurDiv from '../../hoc/BlurDiv';
 import FxWheel from '../../components/FxRelated/Chooser/FxWheel/index';
 import ActiveFx from '../../components/FxRelated/FXes/ActiveFx';
 
 import MainPlayer from '../../components/MusicPageComponents/Music/MainPlayer';
 import MainPlaylist from '../../components/MusicPageComponents/Playlist/MainPlaylist';
-
-import { pageVariant } from '../../styles/motionVariants/pageVariant';
 
 import useDocDims from '../../helpers/useDocDims';
 
@@ -246,30 +243,19 @@ const MusicPage = () => {
         )}
       </AnimatePresence>
       {!isLoading && showPage && (
-        <motion.div
-          variants={pageVariant}
-          initial='hidden'
-          animate='visible'
-          exit='hidden'
+        <ContentDiv
+          hideScroll={true}
+          style={{ padding: '1.25rem', fontFamily: '"Open Sans",sans-serif' }}
         >
-          <ContentDiv
-            hideScroll={true}
-            style={{ padding: '1.25rem', fontFamily: '"Open Sans",sans-serif' }}
-          >
-            {width > 768 ? (
-              <BlurDiv blur={isOpen}>{mainContentJSX}</BlurDiv>
-            ) : (
-              mainContentJSX
-            )}
-            {width > 768 && (
-              <>
-                <ColorBallButton isOpen={isOpen} setIsOpen={setIsOpen} />
-                <FxWheel isOpen={isOpen} setIsOpen={setIsOpen} />
-                <ActiveFx />
-              </>
-            )}
-          </ContentDiv>
-        </motion.div>
+          {mainContentJSX}
+          {width > 768 && (
+            <>
+              <ColorBallButton isOpen={isOpen} setIsOpen={setIsOpen} />
+              <FxWheel isOpen={isOpen} setIsOpen={setIsOpen} />
+              <ActiveFx />
+            </>
+          )}
+        </ContentDiv>
       )}
     </>
   );

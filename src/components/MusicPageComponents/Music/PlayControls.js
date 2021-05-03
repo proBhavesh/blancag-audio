@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { IconDiv } from './IconDiv';
 
 import { MusicPageData } from '../../../containers/MusicContainer/index';
+import { isMobileSafari } from 'react-device-detect';
 
 const PlayControlsDiv = styled.div`
   grid-column: span 2;
@@ -94,7 +95,8 @@ const PlayControls = ({ isPlaying, setIsPlaying, goToNewSong }) => {
     <PlayControlsDiv>
       <PrevBtn
         className='icon-div'
-        onClick={() => goToNewSong(false)}
+        onClick={() => !isMobileSafari && goToNewSong(false)}
+        onTouchEnd={() => isMobileSafari && goToNewSong(false)}
         sizes={{ desktopIcon, mobileIcon }}
       >
         <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36.09 35.92'>
@@ -106,7 +108,8 @@ const PlayControls = ({ isPlaying, setIsPlaying, goToNewSong }) => {
         className={
           'play-ctrl-btn icon-div ' + (!isPlaying ? 'play-btn' : 'pause-btn')
         }
-        onClick={() => setIsPlaying((prev) => !prev)}
+        onClick={() => !isMobileSafari && setIsPlaying((prev) => !prev)}
+        onTouchEnd={() => isMobileSafari && setIsPlaying((prev) => !prev)}
         sizes={{ desktopIcon, mobileIcon }}
       >
         {!isPlaying ? (
@@ -122,7 +125,8 @@ const PlayControls = ({ isPlaying, setIsPlaying, goToNewSong }) => {
       </PlayPauseBtn>
       <NextBtn
         className='icon-div'
-        onClick={() => goToNewSong()}
+        onClick={() => !isMobileSafari && goToNewSong()}
+        onTouchEnd={() => isMobileSafari && goToNewSong()}
         sizes={{ desktopIcon, mobileIcon }}
       >
         <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36.09 35.92'>

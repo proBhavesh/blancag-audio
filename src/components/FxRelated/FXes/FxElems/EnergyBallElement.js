@@ -6,9 +6,10 @@ import { ENERGY_BALL } from '../../../../FxConstants';
 
 const EnergyBallDiv = styled.div`
   position: absolute;
+  top: 0;
   pointer-events: none;
   z-index: 10000;
-  --size: 40px;
+  --size: 50px;
 
   transform: translate(-50%, -50%);
 

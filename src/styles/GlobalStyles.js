@@ -9,9 +9,6 @@ export const GlobalStyles = createGlobalStyle`
 
   html {
     font-size: 17px;
-    width: 100%;
-    position: relative;
-    overflow-x: hidden;
   }
 
   body {
@@ -22,8 +19,9 @@ export const GlobalStyles = createGlobalStyle`
 
     overflow-x: hidden;
     overflow-y: hidden;
+
     @media (max-width: 768px) {
-      overflow-y: ${(props) => (props.safariMobile ? 'visible' : 'hidden')};
+      overflow-y: auto;
     }
   }
 

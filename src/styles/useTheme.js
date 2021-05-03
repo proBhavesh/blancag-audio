@@ -2,10 +2,10 @@ import { useLocation } from 'react-router-dom';
 
 const useTheme = () => {
   const location = useLocation();
-  const bgColor = location.pathname === '/' ? '#bada55' : '#000';
+  const bgColor = location.pathname === '/' ? '#bada55' : '#000000';
 
   return {
-    bgBlack: '#000',
+    bgBlack: '#000000',
     textWhite: '#f5f5f5',
     mainGreen: '#bada55',
     textGrey: '#a6a6a6',

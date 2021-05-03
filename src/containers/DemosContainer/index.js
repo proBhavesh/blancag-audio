@@ -19,12 +19,10 @@ import Footer from '../../components/Footer/Footer';
 import LoadingIndicator from '../../components/LoadingIndicator';
 
 import ColorBallButton from '../../components/FxRelated/Chooser/ColorBallButton';
-import BlurDiv from '../../hoc/BlurDiv';
 import FxWheel from '../../components/FxRelated/Chooser/FxWheel/index';
 import ActiveFx from '../../components/FxRelated/FXes/ActiveFx';
 
 import { client as sanity } from '../../sanityClient';
-import { pageVariant } from '../../styles/motionVariants/pageVariant';
 
 import useDocDims from '../../helpers/useDocDims';
 
@@ -173,65 +171,56 @@ const DemosPage = () => {
         )}
       </AnimatePresence>
       {!isLoading && showPage && (
-        <motion.div
-          variants={pageVariant}
-          initial='hidden'
-          animate='visible'
-          exit='hidden'
+        <ContentDiv
+          hideScroll={true}
+          style={{ fontFamily: '"Open Sans",sans-serif' }}
         >
-          <ContentDiv
-            hideScroll={true}
-            style={{ fontFamily: '"Open Sans",sans-serif' }}
+          {width < 769 && <BackHomeButton fixed={true} />}
+          <DemosPageData.Provider
+            value={{
+              videos: data,
+              activeVid_id: activeVid,
+              setActiveVid_id: setActiveVid,
+              sizes: sizesData,
+            }}
           >
-            {width < 769 && <BackHomeButton fixed={true} />}
-            <DemosPageData.Provider
-              value={{
-                videos: data,
-                activeVid_id: activeVid,
-                setActiveVid_id: setActiveVid,
-                sizes: sizesData,
-              }}
-            >
-              <BlurDiv blur={isOpen}>
-                {width > 768 && <Navbar />}
-                <ContainerDiv>
-                  {width > 768 ? (
-                    <>
-                      <VidPlayer activeVid={activeVid} />
-                      <div id='vid_slider'>
-                        <Slider {...carouselSettingsDesktop}>
-                          {data.map((d, i) => (
-                            <VidLight key={i} details={d} index={i + 1} />
-                          ))}
-                        </Slider>
-                      </div>
-                    </>
-                  ) : (
-                    <>
+            {width > 768 && <Navbar />}
+            <ContainerDiv>
+              {width > 768 ? (
+                <>
+                  <VidPlayer activeVid={activeVid} />
+                  <div id='vid_slider'>
+                    <Slider {...carouselSettingsDesktop}>
                       {data.map((d, i) => (
-                        <VidDiv key={i} details={d} index={i + 1} />
+                        <VidLight key={i} details={d} index={i + 1} />
                       ))}
-                    </>
-                  )}
-                </ContainerDiv>
-                {width > 768 && (
-                  <>
-                    <HR />
-                    <Footer />
-                  </>
-                )}
-              </BlurDiv>
-              {width < 769 && <BackToTopButton />}
-            </DemosPageData.Provider>
+                    </Slider>
+                  </div>
+                </>
+              ) : (
+                <>
+                  {data.map((d, i) => (
+                    <VidDiv key={i} details={d} index={i + 1} />
+                  ))}
+                </>
+              )}
+            </ContainerDiv>
             {width > 768 && (
               <>
-                <ColorBallButton isOpen={isOpen} setIsOpen={setIsOpen} />
-                <FxWheel isOpen={isOpen} setIsOpen={setIsOpen} />
-                <ActiveFx />
+                <HR />
+                <Footer />
               </>
             )}
-          </ContentDiv>
-        </motion.div>
+            {width < 769 && <BackToTopButton />}
+          </DemosPageData.Provider>
+          {width > 768 && (
+            <>
+              <ColorBallButton isOpen={isOpen} setIsOpen={setIsOpen} />
+              <FxWheel isOpen={isOpen} setIsOpen={setIsOpen} />
+              <ActiveFx />
+            </>
+          )}
+        </ContentDiv>
       )}
     </>
   );

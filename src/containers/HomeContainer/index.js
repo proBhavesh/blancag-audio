@@ -8,13 +8,11 @@ import Navbar from '../../components/Nav/NavBar';
 import Footer from '../../components/Footer/Footer';
 import LoadingIndicator from '../../components/LoadingIndicator';
 
-import BlurDiv from '../../hoc/BlurDiv';
 import FxWheel from '../../components/FxRelated/Chooser/FxWheel/index';
 import ColorBallButton from '../../components/FxRelated/Chooser/ColorBallButton';
 import ActiveFx from '../../components/FxRelated/FXes/ActiveFx';
 
 import { client as sanity } from '../../sanityClient';
-import { pageVariant } from '../../styles/motionVariants/pageVariant';
 
 import Hero from '../../components/HomePageComponents/Hero/Hero';
 import About from '../../components/HomePageComponents/About/About';
@@ -190,28 +188,19 @@ const HomePage = () => {
         )}
       </AnimatePresence>
       {!isLoading && showPage && (
-        <motion.div
-          variants={pageVariant}
-          initial='hidden'
-          animate='visible'
-          exit='hidden'
-        >
-          <ContentDiv style={{ fontFamily: "'DIN Next Light', sans-serif" }}>
-            <BlurDiv blur={isOpen}>
-              <Navbar />
-              <HomePageData.Provider value={data}>
-                <Hero />
-                <About />
-                <Skills />
-                <Contact />
-              </HomePageData.Provider>
-              <Footer />
-            </BlurDiv>
-            <ColorBallButton isOpen={isOpen} setIsOpen={setIsOpen} />
-            <FxWheel isOpen={isOpen} setIsOpen={setIsOpen} />
-            <ActiveFx />
-          </ContentDiv>
-        </motion.div>
+        <ContentDiv style={{ fontFamily: "'DIN Next Light', sans-serif" }}>
+          <Navbar />
+          <HomePageData.Provider value={data}>
+            <Hero />
+            <About />
+            <Skills />
+            <Contact />
+          </HomePageData.Provider>
+          <Footer />
+          <ColorBallButton isOpen={isOpen} setIsOpen={setIsOpen} />
+          <FxWheel isOpen={isOpen} setIsOpen={setIsOpen} />
+          <ActiveFx />
+        </ContentDiv>
       )}
     </>
   );

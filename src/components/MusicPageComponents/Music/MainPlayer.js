@@ -14,8 +14,6 @@ import PlayControls from './PlayControls';
 import Volume from './Volume';
 import Progress from './Progress';
 
-import nothing from '../../../assets/nothing.wav';
-
 const MainPlayerDiv = styled.div`
   width: 100%;
 
@@ -155,9 +153,9 @@ const MainPlayer = ({ id }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [unlock, setUnlock] = useState(false);
 
   const audioRef = useRef(null);
-  const audioRefUnlock = useRef(null);
   const shuffleRef = useRef(null);
   const repeatRef = useRef(null);
   const rAF = useRef(null);
@@ -175,25 +173,30 @@ const MainPlayer = ({ id }) => {
 
   useEffect(() => {
     // -- unlocking audios
-    function unlock() {
-      if (audioRefUnlock.current) {
-        audioRefUnlock.current.play();
-        audioRefUnlock.current.pause();
-        audioRefUnlock.current.currentTime = 0;
+    function unlockFn() {
+      if (audioRef.current && !unlock) {
+        audioRef.current.play();
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+        setUnlock(true);
       }
-      audioRefUnlock.current = null;
     }
     // mobile
     isMobile
-      ? document.body.addEventListener('touchstart', unlock, false)
+      ? document.body.addEventListener('touchstart', unlockFn, false)
       : // desktop
-        document.body.addEventListener('click', unlock, false);
+        document.body.addEventListener('click', unlockFn, false);
+    return () => {
+      isMobile
+        ? document.body.removeEventListener('touchstart', unlockFn, false)
+        : document.body.removeEventListener('click', unlockFn, false);
+    };
+  }, [unlock]);
+
+  useEffect(() => {
     return () => {
       clearTimeout(timer.current);
       cancelAnimationFrame(rAF.current);
-      isMobile
-        ? document.body.removeEventListener('touchstart', unlock, false)
-        : document.body.removeEventListener('click', unlock, false);
     };
   }, []);
 
@@ -201,7 +204,6 @@ const MainPlayer = ({ id }) => {
     <Redirect to={{ pathname: '/music' }} />
   ) : (
     <MainPlayerDiv className='main-player'>
-      <audio src={nothing} preload='auto' ref={audioRefUnlock} />
       <audio
         src={activeFileData.file}
         preload='auto'
@@ -213,9 +215,9 @@ const MainPlayer = ({ id }) => {
         onLoadedData={() =>
           state && state.redirect && state.playState && setIsPlaying(true)
         }
-        onTimeUpdate={() =>
-          (rAF.current = requestAnimationFrame(getCurrentTime))
-        }
+        onTimeUpdate={() => {
+          rAF.current = requestAnimationFrame(getCurrentTime);
+        }}
         onEnded={() => {
           if (!repeat) {
             timer.current = setTimeout(() => {
@@ -265,8 +267,10 @@ const MainPlayer = ({ id }) => {
           ref={repeatRef}
           className='icon-div'
           onClick={() => {
-            repeatRef.current.classList.toggle('active');
-            setRepeat((prev) => !prev);
+            (() => {
+              repeatRef.current.classList.toggle('active');
+              setRepeat((prev) => !prev);
+            })();
           }}
           sizes={{ desktopIcon, mobileIcon }}
         >

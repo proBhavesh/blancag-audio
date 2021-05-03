@@ -6,6 +6,7 @@ import useFxPlayer from '../../../../helpers/useFxPlayer';
 
 const LaserDiv = styled.div`
   position: absolute;
+  top: 0;
   pointer-events: none;
   z-index: 10000;
 

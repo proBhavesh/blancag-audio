@@ -1,20 +1,18 @@
-import { useState, useRef, useCallback } from 'react';
-import {  isMobile } from 'react-device-detect';
+import { useRef, useCallback } from 'react';
+import { isMobile } from 'react-device-detect';
 
 const useScrollLock = () => {
-  const [top, setTop] = useState(0);
+  const top = useRef(0);
   const prevStyles = useRef(`${window.innerHeight / 100}px`);
 
   const stopScroll = useCallback(() => {
-    prevStyles.current = document.documentElement.style.getPropertyValue(
-      '--vh'
-    );
+    prevStyles.current = `${window.innerHeight / 100}px`;
     document.documentElement.style.setProperty(
       '--vh',
       `${prevStyles.current};`
     );
 
-    setTop(document.documentElement.scrollTop);
+    top.current = document.documentElement.scrollTop;
 
     const paddingRight = +getComputedStyle(
       document.querySelector('.content-div')
@@ -24,30 +22,25 @@ const useScrollLock = () => {
       .slice(0, -2)
       .join('');
 
-    isMobile
-      ? document.documentElement.setAttribute('style', 'overflow-y:hidden')
-      : (() => {
-          document
-            .querySelector('.content-div')
-            .setAttribute(
-              'style',
-              `position:fixed; overflow-y:hidden; padding-right: ${
-                !isMobile ? paddingRight + 8 : paddingRight + 4
-              }px;`
-            );
-        })();
+    document
+      .querySelector('.content-div')
+      .setAttribute(
+        'style',
+        `position:fixed; overflow-y:hidden; padding-right: ${
+          isMobile ? paddingRight : paddingRight + 8
+        }px; top: -${top.current}px`
+      );
   }, []);
 
   const resumeScroll = useCallback(() => {
-    isMobile
-      ? document.documentElement.setAttribute('style', '')
-      : document.querySelector('.content-div').setAttribute('style', '');
+    document.querySelector('.content-div').setAttribute('style', '');
+    document.documentElement.scrollTo(0, top.current);
   }, []);
 
   return {
     stopScroll: stopScroll,
     resumeScroll: resumeScroll,
-    top: top,
+    top: top.current,
   };
 };
 

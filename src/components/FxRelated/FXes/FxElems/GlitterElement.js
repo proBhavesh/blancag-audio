@@ -10,6 +10,7 @@ const GlitterDiv = styled.div`
   --luminance: 50%;
 
   position: absolute;
+  top: 0;
   pointer-events: none;
   z-index: 10000;
   transform: translate(-50%, -50%);

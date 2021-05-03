@@ -18,10 +18,6 @@ const ColorBall = styled.button`
 
   overflow: hidden;
 
-  transition: filter 0.5s ease;
-  filter: ${(props) => props.blur && `blur(5px) opacity(0.75)`};
-  pointer-events: ${(props) => props.blur && `none`};
-
   width: ${(props) => props.sizes.desktop}px;
   height: ${(props) => props.sizes.desktop}px;
 

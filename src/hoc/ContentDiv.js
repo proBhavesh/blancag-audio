@@ -1,30 +1,27 @@
 import React from 'react';
-import { isIOS, isMobile } from 'react-device-detect';
+import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
-const ContentDiv = styled.div`
+import { pageVariant } from '../styles/motionVariants/pageVariant';
+
+const ContentDiv = styled(motion.div)`
   background: ${(props) => props.theme.bgBlack};
 
   padding: 2rem;
 
   position: relative;
+  width: 100vw;
+  height: calc(var(--vh, 1vh) * 100);
+
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   -webkit-overflow-scrolling: touch;
 
-  ${!isMobile &&
-  `
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: calc(var(--vh, 1vh) * 100);
-  `}
-
   @media (max-width: 768px) {
     padding: 2rem 1.25rem;
-    width: 100vw;
+    position: unset;
+    height: auto;
   }
 
   scrollbar-width: thin;
@@ -57,7 +54,15 @@ const ContentDiv = styled.div`
 
 const Content = ({ style, children }) => {
   return (
-    <ContentDiv className='content-div' safariMobile={isIOS} style={style}>
+    <ContentDiv
+      className='content-div'
+      style={style}
+      // motion:
+      variants={pageVariant}
+      initial='hidden'
+      animate='visible'
+      exit='hidden'
+    >
       {children}
     </ContentDiv>
   );
