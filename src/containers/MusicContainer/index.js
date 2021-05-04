@@ -87,7 +87,7 @@ const MobileNavDiv = styled.div`
   top: 0;
   left: 0;
 
-  padding: 1.25rem 25px 1.5rem 1.25rem;
+  padding: 2rem 1.25rem 1.5rem;
   `}
   z-index: 100000;
 `;
