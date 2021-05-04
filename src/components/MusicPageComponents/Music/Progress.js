@@ -160,7 +160,6 @@ const Progress = ({ currentTime, setCurrentTimeFn, duration }) => {
             max={`${duration}`}
             step='any'
             value={currentTime}
-            duration={duration}
             onChange={(e) => setCurrentTimeFn(+e.target.value)}
           />
         </div>

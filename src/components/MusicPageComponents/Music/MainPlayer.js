@@ -1,4 +1,10 @@
-import React, { useState, useContext, useEffect, useRef } from 'react';
+import React, {
+  useState,
+  useContext,
+  useEffect,
+  useRef,
+  useCallback,
+} from 'react';
 import { useHistory, useLocation, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import { isMobile } from 'react-device-detect';
@@ -163,9 +169,27 @@ const MainPlayer = ({ id }) => {
 
   const width = useDocDims();
 
+  const getCurrentTime = useCallback(function () {
+    console.log(audioRef.current.currentTime);
+    audioRef.current && setCurrentTime(audioRef.current.currentTime);
+    rAF.current = requestAnimationFrame(getCurrentTime);
+  }, []);
+
+  const playAudio = useCallback(
+    function () {
+      audioRef.current.play().catch((err) => {
+        setIsPlaying(false);
+        console.log(err);
+        cancelAnimationFrame(rAF.current);
+      });
+      rAF.current = requestAnimationFrame(getCurrentTime);
+    },
+    [getCurrentTime]
+  );
+
   useEffect(() => {
     isPlaying ? playAudio() : pauseAudio();
-  }, [isPlaying]);
+  }, [isPlaying, playAudio]);
 
   useEffect(() => {
     audioRef.current && (() => (audioRef.current.volume = volume))();
@@ -209,15 +233,13 @@ const MainPlayer = ({ id }) => {
         preload='auto'
         ref={audioRef}
         onDurationChange={(e) => {
+          setCurrentTime(0);
           setDuration(e.target.duration);
           setIsPlaying(false);
         }}
         onLoadedData={() =>
           state && state.redirect && state.playState && setIsPlaying(true)
         }
-        onTimeUpdate={() => {
-          rAF.current = requestAnimationFrame(getCurrentTime);
-        }}
         onEnded={() => {
           if (!repeat) {
             timer.current = setTimeout(() => {
@@ -293,21 +315,9 @@ const MainPlayer = ({ id }) => {
     </MainPlayerDiv>
   );
 
-  function playAudio() {
-    audioRef.current.play().catch((err) => {
-      setIsPlaying(false);
-      console.log(err);
-    });
-  }
-
   function pauseAudio() {
     audioRef.current.pause();
     cancelAnimationFrame(rAF.current);
-  }
-
-  function getCurrentTime() {
-    audioRef.current && setCurrentTime(audioRef.current.currentTime);
-    rAF.current = requestAnimationFrame(getCurrentTime);
   }
 
   function setCurrentTimeFn(time) {

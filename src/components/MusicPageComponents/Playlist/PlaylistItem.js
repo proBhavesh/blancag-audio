@@ -135,7 +135,7 @@ const PlaylistItem = ({
             showIconsItemIndex={showIconsItemIndex}
             setShowIconsItemIndex={setShowIconsItemIndex}
           />
-          <p>{secondsToMinute(Math.round(duration))}</p>
+          <p>{secondsToMinute(Math.floor(duration))}</p>
         </LinkStyled>
       </ListItem>
     </>
