@@ -3,7 +3,8 @@ import styled from 'styled-components';
 
 import { FxContext } from '../../../context/FxContext';
 
-import ColorBallIMG from '../../../assets/color-ball.gif';
+// import ColorBallIMG from '../../../assets/color-ball.gif';
+import fxButtonGif from '../../../assets/fxButtonGif.gif';
 
 const ColorBall = styled.button`
   position: fixed;
@@ -22,20 +23,6 @@ const ColorBall = styled.button`
   height: ${(props) => props.sizes.desktop}px;
 
   border-radius: 50%;
-
-  &:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 50%;
-    z-index: -1;
-    filter: blur(15px);
-  }
 
   @media (max-width: 768px) {
     width: ${(props) => props.sizes.mobile}px;
@@ -66,7 +53,7 @@ const ColorBallButton = ({ isOpen, setIsOpen }) => {
       sizes={{ desktop, mobile }}
       onClick={() => setIsOpen(true)}
     >
-      <img src={ColorBallIMG} alt='FxChooser' />
+      <img src={fxButtonGif} alt='open fxChooser' />
     </ColorBall>
   );
 };
