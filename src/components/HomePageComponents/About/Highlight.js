@@ -26,6 +26,10 @@ const HighlightDiv = styled.div`
       font-size: ${(props) => props.sizes.mobile * 1.1}px;
     }
   }
+
+  @media (max-width: 768px) and (orientation: landscape) {
+    transform: scale(1.1);
+  }
 `;
 
 const highlighted = (props) => {

@@ -1,16 +1,23 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { isIOS } from 'react-device-detect';
 
 import { interactiveElements } from '../components/FxRelated/FXes/InteractiveElementsList';
 
+import useDocDims from '../helpers/useDocDims';
+
 import * as FXes from '../FxConstants';
 
 const useFxPlayer = (ref, type) => {
+  const clickCount = useRef(0);
+  const width = useDocDims();
+
   const fxPlayer = useCallback(
     (e) => {
       let ret = false;
+
       interactiveElements.forEach((element) => {
         if ([...document.querySelectorAll(element)].includes(e.target)) {
+          // console.log(e.target);
           ret = true;
         }
       });
@@ -59,23 +66,32 @@ const useFxPlayer = (ref, type) => {
           (Math.random() * (9 - 5) + 5) * 10
         );
       } else if (type === FXes.SPELL) {
-        const es = getComputedStyle(ref.current);
-        const clickCount = Number(es.getPropertyValue('--count'));
         const svg = ref.current.children[1];
-        clickCount % 2 === 0
+        clickCount.current % 2 === 0
           ? (svg.style.animationName = 'brightEven')
           : (svg.style.animationName = 'brightOdd');
 
-        ref.current.style.setProperty('--count', clickCount + 1);
+        clickCount.current += 1;
       }
 
       const top = document.querySelector('.content-div').scrollTop;
 
-      ref.current.style.top = e.pageY + top + 'px';
+      ref.current.style.top =
+        width > 768
+          ? e.pageY + top + 'px'
+          : document.querySelector('.content-div').style.overflowY === 'hidden'
+          ? e.pageY +
+            +document
+              .querySelector('.content-div')
+              .style.top.split('')
+              .slice(1, -2)
+              .join('') +
+            'px'
+          : e.pageY + 'px';
       ref.current.style.left = e.pageX + 'px';
       ref.current.classList.add('play');
     },
-    [ref, type]
+    [ref, type, width]
   );
 
   useEffect(() => {

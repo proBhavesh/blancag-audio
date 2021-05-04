@@ -14,13 +14,13 @@ const useScrollLock = () => {
 
     top.current = document.documentElement.scrollTop;
 
-    const paddingRight = +getComputedStyle(
-      document.querySelector('.content-div')
-    )
-      .getPropertyValue('padding-right')
-      .split('')
-      .slice(0, -2)
-      .join('');
+    const paddingRight =
+      document.querySelector('.content-div') &&
+      +getComputedStyle(document.querySelector('.content-div'))
+        .getPropertyValue('padding-right')
+        .split('')
+        .slice(0, -2)
+        .join('');
 
     document
       .querySelector('.content-div')

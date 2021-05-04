@@ -105,6 +105,10 @@ const MenuDiv = styled(motion.div)`
   overflow-y: hidden;
 
   padding: 225px 0 calc(var(--vh, 1vh) * 20);
+
+  @media (max-width: 768px) and (orientation: landscape) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 `;
 
 const NavMobile = () => {
@@ -132,9 +136,19 @@ const NavMobile = () => {
         {openMenu && (
           <MenuDiv
             initial={{ y: '100%', opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: '100%', opacity: 0 }}
-            transition={{ duration: 0.5, ease: 'linear' }}
+            animate={{
+              y: 0,
+              opacity: 1,
+              transition: {
+                duration: 0.35,
+                ease: 'linear',
+              },
+            }}
+            exit={{
+              y: '100%',
+              opacity: 0,
+              transition: { duration: 0.5, ease: 'linear' },
+            }}
           >
             <NavLinks resumeScroll={resumeScroll} />
           </MenuDiv>
