@@ -31,8 +31,7 @@ const ColorBall = styled.button`
     width: ${(props) => props.sizes.mobile}px;
     height: ${(props) => props.sizes.mobile}px;
     bottom: 0.5rem;
-    left: 0.5rem;
-    right: unset;
+    right: 0.5rem;
   }
 
   @media (min-width: 769px) {
