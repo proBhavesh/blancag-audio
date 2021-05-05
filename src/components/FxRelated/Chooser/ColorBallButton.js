@@ -8,14 +8,17 @@ import fxButtonGif from '../../../assets/fxButtonGif.gif';
 
 const ColorBall = styled.button`
   position: fixed;
-  bottom: 1rem;
-  right: 1rem;
+  bottom: 1.25rem;
+  right: calc(1.25rem + 8px);
   z-index: 10;
 
   background-color: transparent;
   border: none;
   outline: none;
   cursor: pointer;
+
+  box-shadow: 0 1px 2px 0 ${(props) => props.theme.bgBlack},
+    0 1px 4px 0 ${(props) => props.theme.textGrey}bf;
 
   overflow: hidden;
 
@@ -30,6 +33,14 @@ const ColorBall = styled.button`
     bottom: 0.5rem;
     left: 0.5rem;
     right: unset;
+  }
+
+  @media (min-width: 769px) {
+    transition: all 0.25s;
+    &:hover {
+      transform: scale(1.2);
+      opacity: 0.8;
+    }
   }
 
   img {
