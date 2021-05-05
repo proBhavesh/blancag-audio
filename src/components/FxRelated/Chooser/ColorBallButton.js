@@ -8,8 +8,8 @@ import fxButtonGif from '../../../assets/fxButtonGif.gif';
 
 const ColorBall = styled.button`
   position: fixed;
-  top: 0.3rem;
-  left: 0.5rem;
+  bottom: 1rem;
+  right: 1rem;
   z-index: 10;
 
   background-color: transparent;
@@ -29,7 +29,7 @@ const ColorBall = styled.button`
     height: ${(props) => props.sizes.mobile}px;
     bottom: 0.5rem;
     left: 0.5rem;
-    top: unset;
+    right: unset;
   }
 
   img {
