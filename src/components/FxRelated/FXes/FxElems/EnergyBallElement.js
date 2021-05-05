@@ -9,7 +9,7 @@ const EnergyBallDiv = styled.div`
   top: 0;
   pointer-events: none;
   z-index: 10000;
-  --size: 50px;
+  --size: 40px;
 
   transform: translate(-50%, -50%);
 
