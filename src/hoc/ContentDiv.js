@@ -14,7 +14,7 @@ const ContentDiv = styled(motion.div)`
   height: calc(var(--vh, 1vh) * 100);
 
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: scroll;
 
   -webkit-overflow-scrolling: touch;
   backface-visibility: hidden;
