@@ -63,12 +63,16 @@ const Form = styled.form`
     color: ${(props) => props.theme.textGrey};
     opacity: 1;
     font-weight: bold;
+    transform: translate3d(0, 0, 0);
   }
 
   textarea {
     grid-area: b;
     @media (max-width: 768px) {
       min-height: 150px;
+      &::placeholder {
+        font-weight: bolder;
+      }
     }
   }
 `;
