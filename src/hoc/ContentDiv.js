@@ -17,6 +17,7 @@ const ContentDiv = styled(motion.div)`
   overflow-y: auto;
 
   -webkit-overflow-scrolling: touch;
+  -webkit-backface-visibility: hidden;
 
   @media (max-width: 768px) {
     padding: 2rem 1.25rem;
