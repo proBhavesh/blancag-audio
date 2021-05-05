@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
+import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 
@@ -167,6 +168,9 @@ const HomePage = () => {
 
   return (
     <>
+      <Helmet>
+        <title>blancagaudio</title>
+      </Helmet>
       {!location.redirected && animation === 'not-done' && (
         <SplashScreen setAnimation={setAnimation} />
       )}
