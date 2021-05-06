@@ -9,7 +9,7 @@ const EnergyBallBtn = ({ id }) => {
       onMouseDown={() => setActiveFx(id)}
     >
       <svg
-        style={{ width: '60%' }}
+        style={{ width: '55%' }}
         xmlns='http://www.w3.org/2000/svg'
         viewBox='0 0 466.48 474.58'
       >
