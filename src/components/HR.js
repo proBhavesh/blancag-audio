@@ -7,8 +7,8 @@ const HRStyled = styled.hr`
   border-width: 0;
   border-top-width: 2px;
 
-  width: calc(100vw - 16px);
-  transform: translateX(calc(-2rem + 8px));
+  width: 100vw;
+  transform: translateX(-2rem);
 
   @media (max-width: 768px) {
     width: 100vw;
