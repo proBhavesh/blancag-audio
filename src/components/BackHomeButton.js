@@ -23,7 +23,7 @@ const IconDiv = styled.div`
 
     width: 100%;
     height: auto;
-    padding: 2rem 1.25rem 1.5rem;
+    padding: 1.25rem;
 
     background-color: ${props.theme.bgBlack};
 

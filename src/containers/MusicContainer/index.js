@@ -87,7 +87,7 @@ const MobileNavDiv = styled.div`
   top: 0;
   left: 0;
 
-  padding: 2rem 1.25rem 1.5rem;
+  padding: 1.25rem;
   `}
   z-index: 100000;
 `;
@@ -243,10 +243,7 @@ const MusicPage = () => {
         )}
       </AnimatePresence>
       {!isLoading && showPage && (
-        <ContentDiv
-          hideScroll={true}
-          style={{ padding: '1.25rem', fontFamily: '"Open Sans",sans-serif' }}
-        >
+        <ContentDiv hideScroll={true}>
           {mainContentJSX}
           {width > 768 && (
             <>
