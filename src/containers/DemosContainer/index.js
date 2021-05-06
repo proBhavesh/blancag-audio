@@ -62,7 +62,7 @@ const ContainerDiv = styled.div`
   max-width: 800px;
   margin: 3rem auto;
   @media (max-width: 768px) {
-    margin: 3.5rem auto 0;
+    margin: 3rem auto 0;
     max-width: 500px;
   }
 
