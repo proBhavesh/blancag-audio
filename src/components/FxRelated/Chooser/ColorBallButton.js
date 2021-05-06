@@ -17,8 +17,7 @@ const ColorBall = styled.button`
   outline: none;
   cursor: pointer;
 
-  box-shadow: 0 1px 2px 0 ${(props) => props.theme.bgBlack},
-    0 1px 4px 0 ${(props) => props.theme.textGrey}bf;
+  box-shadow: 0 1px 2px 0 ${(props) => props.theme.bgBlack};
 
   overflow: hidden;
 
