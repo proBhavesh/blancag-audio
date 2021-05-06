@@ -20,6 +20,11 @@ import PlayControls from './PlayControls';
 import Volume from './Volume';
 import Progress from './Progress';
 
+const requestAnimationFrame =
+  window.requestAnimationFrame ||
+  window.mozRequestAnimationFrame ||
+  window.webkitRequestAnimationFrame;
+
 const MainPlayerDiv = styled.div`
   width: 100%;
 
@@ -169,23 +174,19 @@ const MainPlayer = ({ id }) => {
 
   const width = useDocDims();
 
-  const getCurrentTime = useCallback(function () {
-    console.log(audioRef.current.currentTime);
+  const getCurrentTime = useCallback(() => {
     audioRef.current && setCurrentTime(audioRef.current.currentTime);
     rAF.current = requestAnimationFrame(getCurrentTime);
   }, []);
 
-  const playAudio = useCallback(
-    function () {
-      audioRef.current.play().catch((err) => {
-        setIsPlaying(false);
-        console.log(err);
-        cancelAnimationFrame(rAF.current);
-      });
-      rAF.current = requestAnimationFrame(getCurrentTime);
-    },
-    [getCurrentTime]
-  );
+  const playAudio = useCallback(() => {
+    audioRef.current.play().catch((err) => {
+      setIsPlaying(false);
+      console.log(err);
+      cancelAnimationFrame(rAF.current);
+    });
+    rAF.current = requestAnimationFrame(getCurrentTime);
+  }, [getCurrentTime]);
 
   useEffect(() => {
     isPlaying ? playAudio() : pauseAudio();

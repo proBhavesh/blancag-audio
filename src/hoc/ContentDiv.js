@@ -22,7 +22,7 @@ const ContentDiv = styled(motion.div)`
 
   @media (max-width: 768px) {
     padding: 2rem 1.25rem;
-    /* position: unset; */
+    overflow-y: auto;
     height: auto;
   }
 
