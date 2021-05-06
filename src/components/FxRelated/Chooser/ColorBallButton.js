@@ -9,7 +9,7 @@ import fxButtonGif from '../../../assets/fxButtonGif.gif';
 const ColorBall = styled.button`
   position: fixed;
   bottom: 1.25rem;
-  right: calc(1.25rem + 8px);
+  right: 1.25rem;
   z-index: 10;
 
   background-color: transparent;
