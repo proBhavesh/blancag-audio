@@ -6,7 +6,7 @@ const EnergyBallBtn = ({ id }) => {
   return (
     <button
       className={(id === activeFx ? 'apply' : '') + ' fx-button'}
-      onMouseDown={() => setActiveFx(id)}
+      onPointerDown={() => setActiveFx(id)}
     >
       <svg
         style={{ width: '55%' }}

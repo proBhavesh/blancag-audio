@@ -23,6 +23,10 @@ const SkillImageDiv = styled.div`
   border-radius: 50%;
   overflow: hidden;
 
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  perspective: 1000px;
+
   width: ${(props) => props.sizes.desktop}%;
   height: ${(props) => (props.widthProp ? `${props.widthProp}px` : 'auto')};
 

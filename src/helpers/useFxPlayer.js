@@ -98,9 +98,9 @@ const useFxPlayer = (ref, type) => {
     const elem = isIOS
       ? document.documentElement
       : document.querySelector('.content-div');
-    elem.addEventListener('mouseup', fxPlayer);
+    elem.addEventListener('pointerup', fxPlayer);
     return () => {
-      elem.removeEventListener('mouseup', fxPlayer);
+      elem.removeEventListener('pointerup', fxPlayer);
     };
   }, [fxPlayer]);
 };
