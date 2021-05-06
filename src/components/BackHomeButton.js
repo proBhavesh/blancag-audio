@@ -11,7 +11,7 @@ const IconDiv = styled.div`
   svg {
     width: 100%;
     height: 100%;
-    fill: #fff;
+    fill: ${(props) => props.theme.textWhite};
   }
 
   ${(props) =>

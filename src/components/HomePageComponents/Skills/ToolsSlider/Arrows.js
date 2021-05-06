@@ -27,7 +27,7 @@ const Button = styled.button`
   svg {
     width: 100%;
 
-    fill: #a0a0a0;
+    fill: ${(props) => props.theme.textGrey};
   }
 `;
 

@@ -7,7 +7,7 @@ import { secondsToMinute } from '../../../helpers/SecondsToMinutes';
 
 const ThumbnailDiv = styled.div`
   position: relative;
-  color: #fff;
+  color: ${(props) => props.theme.textWhite};
   display: flex;
 
   button {
@@ -72,7 +72,7 @@ const IconDiv = styled.div`
 
   svg {
     width: 100%;
-    fill: #fff;
+    fill: ${(props) => props.theme.textWhite};
   }
 `;
 

@@ -7,7 +7,7 @@ import { DemosPageData } from '../../../containers/DemosContainer/index';
 import { secondsToMinute } from '../../../helpers/SecondsToMinutes';
 
 const VidPlayerDiv = styled.div`
-  color: #fff;
+  color: ${(props) => props.theme.textWhite};
   width: 100%;
   margin-bottom: 1rem;
 
@@ -68,7 +68,7 @@ const IconDiv = styled.div`
 
   svg {
     width: 100%;
-    fill: #fff;
+    fill: ${(props) => props.theme.textWhite};
   }
 `;
 

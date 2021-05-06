@@ -39,14 +39,14 @@ const PlayPauseBtn = styled(IconDiv)`
       height: ${(props) => props.sizes.mobileIcon * 3.75}px;
     }
 
-    background-color: #fff;
+    background-color: ${(props) => props.theme.textWhite};
     border-radius: 50%;
     display: grid;
     place-items: center;
 
     svg {
       height: ${(props) => props.sizes.desktopIcon}px;
-      fill: #000;
+      fill: ${(props) => props.theme.bgBlack};
 
       @media (max-width: 768px) {
         height: ${(props) => props.sizes.mobileIcon * 1.5}px;
@@ -55,10 +55,10 @@ const PlayPauseBtn = styled(IconDiv)`
 
     @media (min-width: 768px) {
       &:hover {
-        background-color: #bada55;
+        background-color: ${(props) => props.theme.mainGreen};
 
         svg {
-          fill: #000;
+          fill: ${(props) => props.theme.bgBlack};
         }
       }
     }

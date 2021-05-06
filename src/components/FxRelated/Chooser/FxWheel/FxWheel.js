@@ -52,24 +52,24 @@ const MainChooser = styled.div`
     transition: border-color 0.3s;
     svg {
       width: 50%;
-      fill: #fff;
+      fill: ${(props) => props.theme.textWhite};
       transition: fill 0.3s;
     }
 
     @media (min-width: 769px) {
       cursor: pointer;
       &:hover:not(.close) {
-        border-color: #bada55;
+        border-color: ${(props) => props.theme.mainGreen};
         svg {
-          fill: #bada55;
+          fill: ${(props) => props.theme.mainGreen};
         }
       }
     }
 
     &.apply {
-      border-color: #bada55;
+      border-color: ${(props) => props.theme.mainGreen};
       svg {
-        fill: #bada55;
+        fill: ${(props) => props.theme.mainGreen};
       }
     }
   }

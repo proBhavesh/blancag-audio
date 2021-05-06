@@ -39,7 +39,7 @@ const IconDiv = styled.div`
   }
 
   svg {
-    fill: #fff;
+    fill: ${(props) => props.theme.textWhite};
     height: 100%;
   }
 `;
@@ -89,7 +89,7 @@ const ShareIconDiv = styled(IconDiv)`
 
 const LinkIconDiv = styled(ShareIconDiv)`
   width: ${(props) => Math.round(props.sizes.desktopTitle * 1.5)}px;
-  background-color: #f5f5f5;
+  background-color: ${(props) => props.theme.textWhite};
   border-radius: 50%;
   padding: ${(props) => Math.round(props.sizes.desktopTitle * 0.35)}px 0;
   margin-right: 0;
@@ -103,7 +103,7 @@ const LinkIconDiv = styled(ShareIconDiv)`
   position: relative;
 
   svg {
-    fill: #000;
+    fill: ${(props) => props.theme.bgBlack};
   }
 `;
 

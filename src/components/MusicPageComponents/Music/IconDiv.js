@@ -7,7 +7,7 @@ export const IconDiv = styled.div`
 
   svg {
     height: 100%;
-    fill: #fff;
+    fill: ${(props) => props.theme.textWhite};
   }
 
   &:before {

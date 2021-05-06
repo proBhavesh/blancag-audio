@@ -43,7 +43,7 @@ const VolumeBar = styled.input`
   outline: none;
 
   margin-left: 0.5rem;
-  background-color: #a6a6a680;
+  background-color: ${(props) => props.theme.textGrey}80;
   z-index: 2;
 
   &::-webkit-slider-thumb {
@@ -55,13 +55,13 @@ const VolumeBar = styled.input`
     width: 0.75rem;
     height: 0.75rem;
     border-radius: 50%;
-    background-color: #a6a6a6;
+    background-color: ${(props) => props.theme.textGrey};
 
     z-index: 5;
     cursor: pointer;
 
     &:hover {
-      background-color: #fff;
+      background-color: ${(props) => props.theme.textWhite};
     }
   }
 
@@ -72,13 +72,13 @@ const VolumeBar = styled.input`
     width: 0.75rem;
     height: 0.75rem;
     border-radius: 50%;
-    background-color: #a6a6a6;
+    background-color: ${(props) => props.theme.textGrey};
 
     z-index: 5;
     cursor: pointer;
 
     &:hover {
-      background-color: #fff;
+      background-color: ${(props) => props.theme.textWhite};
     }
   }
 
@@ -93,7 +93,7 @@ const VolumeBar = styled.input`
 
     border-radius: 1rem;
 
-    background-color: #bada55;
+    background-color: ${(props) => props.theme.mainGreen};
     z-index: -1;
   }
 `;

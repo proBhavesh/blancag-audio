@@ -96,7 +96,7 @@ const GreenProgress = styled.div`
 
   height: 0.2rem;
 
-  background-color: #bada55;
+  background-color: ${(props) => props.theme.mainGreen};
   border-radius: 1rem;
 `;
 
@@ -104,7 +104,7 @@ const GreyProgress = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  background-color: #a6a6a680;
+  background-color: ${(props) => props.theme.textGrey}80;
   height: 0.2rem;
   border-radius: 0.2rem;
   width: 100%;
