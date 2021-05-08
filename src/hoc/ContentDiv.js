@@ -21,7 +21,7 @@ const ContentDiv = styled(motion.div)`
   -webkit-backface-visibility: hidden;
 
   @media (max-width: 768px) {
-    padding: 1.25rem;
+    padding: ${(props) => (props.morePadding ? '2rem' : '1.25rem')} 1.25rem;
     overflow-y: auto;
     height: auto;
   }
@@ -54,11 +54,12 @@ const ContentDiv = styled(motion.div)`
   }
 `;
 
-const Content = ({ style, children }) => {
+const Content = ({ style, morePadding, children }) => {
   return (
     <ContentDiv
       className='content-div'
       style={style}
+      morePadding={morePadding}
       // motion:
       variants={pageVariant}
       initial='hidden'

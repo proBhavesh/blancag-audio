@@ -192,13 +192,7 @@ const HomePage = () => {
         )}
       </AnimatePresence>
       {!isLoading && showPage && (
-        <ContentDiv
-          style={{
-            paddingTop: '2rem',
-            paddingBottom: '2rem',
-            fontFamily: "'DIN Next Light', sans-serif",
-          }}
-        >
+        <ContentDiv morePadding>
           <Navbar />
           <HomePageData.Provider value={data}>
             <Hero />
