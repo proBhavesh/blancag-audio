@@ -9,9 +9,7 @@ import NavMobile from './NavMobile';
 
 import useDocDims from '../../helpers/useDocDims';
 
-const Header = styled.header`
-  margin-bottom: 1rem;
-`;
+const Header = styled.header``;
 
 const NavBar = () => {
   const width = useDocDims();

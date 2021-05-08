@@ -15,7 +15,7 @@ const LogoDiv = styled.div`
 
   @media (max-width: 481px) {
     width: ${(props) => props.textLogoSizes.mobile}%;
-    margin: 0 auto 1rem;
+    margin: 0 auto;
   }
 
   img {

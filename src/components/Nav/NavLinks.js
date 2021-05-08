@@ -13,6 +13,8 @@ const NavLinkStyled = styled(NavLink)`
 
   @media (max-width: 768px) {
     font-size: ${(props) => props.size}px;
+    display: block;
+    padding: 1rem;
   }
 
   @media (min-width: 768px) {

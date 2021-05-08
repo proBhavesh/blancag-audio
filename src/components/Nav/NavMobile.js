@@ -6,6 +6,21 @@ import useScrollLock from '../../helpers/useScrollLock';
 
 import NavLinks from './NavLinks';
 
+const ClickAreaDiv = styled.div`
+  width: 4rem;
+  height: 4rem;
+
+  margin: 0 auto;
+
+  display: grid;
+  place-items: center;
+
+  cursor: pointer;
+  z-index: 1000;
+
+  position: relative;
+`;
+
 const MenuButton = styled.button`
   width: 2rem;
   height: 1.5rem;
@@ -17,9 +32,6 @@ const MenuButton = styled.button`
   background: transparent;
   cursor: pointer;
   z-index: 1000;
-
-  display: block;
-  margin: 0 auto;
 
   &:before,
   &:after {
@@ -100,7 +112,7 @@ const MenuDiv = styled(motion.div)`
   grid-auto-rows: max-content;
 
   place-items: center;
-  row-gap: 4rem;
+  row-gap: 2rem;
   font-size: 1.5rem;
   overflow-y: hidden;
 
@@ -123,15 +135,16 @@ const NavMobile = () => {
 
   return (
     <>
-      <MenuButton
-        onClick={() => {
-          setClicked((prev) => prev + 1);
-          setOpenMenu((prev) => !prev);
-        }}
-        className='icon-div'
-        showCloseButton={openMenu}
-        clicked={clicked}
-      />
+      <ClickAreaDiv className='icon-div'>
+        <MenuButton
+          onClick={() => {
+            setClicked((prev) => prev + 1);
+            setOpenMenu((prev) => !prev);
+          }}
+          showCloseButton={openMenu}
+          clicked={clicked}
+        />
+      </ClickAreaDiv>
       <AnimatePresence>
         {openMenu && (
           <MenuDiv
