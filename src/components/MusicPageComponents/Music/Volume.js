@@ -56,6 +56,7 @@ const VolumeBar = styled.input`
     height: 0.75rem;
     border-radius: 50%;
     background-color: ${(props) => props.theme.textGrey};
+    border: 1px solid #333;
 
     z-index: 5;
     cursor: pointer;
@@ -73,6 +74,7 @@ const VolumeBar = styled.input`
     height: 0.75rem;
     border-radius: 50%;
     background-color: ${(props) => props.theme.textGrey};
+    border: 1px solid #333;
 
     z-index: 5;
     cursor: pointer;

@@ -83,11 +83,10 @@ const DetailsDiv = styled.div`
       font-size: ${(props) => props.sizes.mobileByLine}px;
     }
     color: ${(props) => props.theme.textGrey};
-    letter-spacing: 0.15em;
 
     strong {
       color: ${(props) => props.theme.textWhite};
-      font-weight: bolder;
+      font-weight: 600;
 
       @media (max-width: 768px) {
         color: ${(props) => props.theme.textGrey};

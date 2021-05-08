@@ -78,6 +78,7 @@ const ProgressBar = styled.input`
 
     border-radius: 50%;
     background-color: ${(props) => props.theme.textWhite};
+    border: 1px solid #333;
 
     @media (min-width: 768px) {
       background-color: ${(props) => props.theme.textGrey};
