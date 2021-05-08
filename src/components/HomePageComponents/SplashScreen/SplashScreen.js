@@ -40,7 +40,7 @@ const GreenDiv = styled.div`
   }
 
   background: ${(props) => props.theme.mainGreen};
-  animation: green-anim 3s ease-out forwards;
+  animation: green-anim 2s ease-out forwards;
   clip-path: url(#wave);
 
   @keyframes green-anim {
@@ -72,7 +72,7 @@ const IMG = styled.img`
 
   opacity: 0;
 
-  animation: img-anim 3s ease forwards;
+  animation: img-anim 2s ease forwards;
 
   @keyframes img-anim {
     0% {

@@ -38,7 +38,7 @@ const App = () => {
     const timer = setTimeout(() => {
       document.querySelector('body').style.backgroundColor = '#000';
       setThemeColor('#000');
-    }, 4250);
+    }, 4000);
 
     return () => {
       clearTimeout(timer);
