@@ -131,8 +131,9 @@ const SpellElement = () => {
   return (
     <SpellDiv
       ref={effectDivRef}
-      onAnimationEnd={() => effectDivRef.current.classList.remove('play')}
-      className='spell-book-effect'
+      onAnimationEnd={(e) => {
+        e.elapsedTime !== 0 && effectDivRef.current.classList.remove('play');
+      }}
     >
       <div className='circle'></div>
       <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 449.37 449.37'>
