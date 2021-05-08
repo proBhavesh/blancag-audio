@@ -62,11 +62,30 @@ const ContainerDiv = styled.div`
   max-width: 800px;
   margin: 3rem auto;
   @media (max-width: 768px) {
-    margin: 3rem auto 0;
+    margin: 3.75rem auto 0;
     max-width: 500px;
   }
 
   font-family: 'Open Sans', sans-serif;
+`;
+
+const MobileNavDiv = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+
+  background-color: ${(props) => props.theme.bgBlack};
+  ${(props) =>
+    props.fixed &&
+    `
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  padding: 1.5rem 1.25rem;
+  `}
+  z-index: 100000;
 `;
 
 const DemosPage = () => {
@@ -175,7 +194,11 @@ const DemosPage = () => {
           hideScroll={true}
           style={{ fontFamily: '"Open Sans",sans-serif' }}
         >
-          {width < 769 && <BackHomeButton fixed={true} />}
+          {width < 769 && (
+            <MobileNavDiv fixed={true}>
+              <BackHomeButton />
+            </MobileNavDiv>
+          )}
           <DemosPageData.Provider
             value={{
               videos: data,

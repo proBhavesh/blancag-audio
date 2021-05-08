@@ -21,7 +21,7 @@ const ContentDiv = styled(motion.div)`
   -webkit-backface-visibility: hidden;
 
   @media (max-width: 768px) {
-    padding: ${(props) => (props.morePadding ? '2rem' : '1.25rem')} 1.25rem;
+    padding: ${(props) => (props.morePadding ? '2rem' : '1.5rem')} 1.25rem;
     overflow-y: auto;
     height: auto;
   }

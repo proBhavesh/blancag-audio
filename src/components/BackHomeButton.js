@@ -13,34 +13,11 @@ const IconDiv = styled.div`
     height: 100%;
     fill: ${(props) => props.theme.textWhite};
   }
-
-  ${(props) =>
-    props.fixed &&
-    `
-    position: fixed;
-    top: 0;
-    left: 0;
-
-    width: 100%;
-    height: auto;
-    padding: 1.25rem;
-
-    background-color: ${props.theme.bgBlack};
-
-    display: flex;
-
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
-
-    svg {
-      height: 1.65rem;
-      width: auto;
-    }
-  `}
 `;
 
-const BackHomeButton = ({ fixed }) => {
+const BackHomeButton = () => {
   return (
-    <IconDiv className='icon-div' fixed={fixed}>
+    <IconDiv className='icon-div'>
       <Link to={{ pathname: '/', redirected: true }}>
         <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 21 17'>
           <path d='M21,9.68a.51.51,0,0,1-.47.32H18v6.5a.5.5,0,0,1-.5.5h-5a.5.5,0,0,1-.5-.5V12H9v4.5a.5.5,0,0,1-.5.5h-5a.5.5,0,0,1-.5-.5V10H.5A.51.51,0,0,1,0,9.68a.49.49,0,0,1,.14-.55l10-9a.49.49,0,0,1,.66,0l10,9A.49.49,0,0,1,21,9.68Z' />
