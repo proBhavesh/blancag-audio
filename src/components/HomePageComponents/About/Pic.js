@@ -9,10 +9,6 @@ const PicDiv = styled.div`
   margin: 2.25rem auto;
   width: ${(props) => props.width.desktop}%;
 
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  perspective: 1000px;
-
   @media (max-width: 768px) {
     width: ${(props) => props.width.mobile}%;
     max-width: 500px;
